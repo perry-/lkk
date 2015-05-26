@@ -100,6 +100,7 @@ define( 'SPACIOUS_ADMIN_IMAGES_URL', SPACIOUS_ADMIN_URL . '/images' );
 define( 'SPACIOUS_ADMIN_CSS_URL', SPACIOUS_ADMIN_URL . '/css' );
 
 /** Load functions */
+require_once( SPACIOUS_INCLUDES_DIR . '/lkk-functions.php');
 require_once( SPACIOUS_INCLUDES_DIR . '/custom-header.php' );
 require_once( SPACIOUS_INCLUDES_DIR . '/functions.php' );
 require_once( SPACIOUS_INCLUDES_DIR . '/header-functions.php' );
