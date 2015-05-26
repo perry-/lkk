@@ -4,7 +4,7 @@
  *
  * This file contains all the functions and it's defination that particularly can't be
  * in other files.
- *
+ * 
  * @package ThemeGrill
  * @subpackage Spacious
  * @since Spacious 1.0
@@ -26,9 +26,6 @@ function spacious_scripts_styles_method() {
 		wp_enqueue_style( 'spacious_dark_style', SPACIOUS_CSS_URL. '/dark.css' );
 	}
 
-   // Add Genericons, used in the main stylesheet.
-   wp_enqueue_style( 'spacious-genericons', get_template_directory_uri() . '/genericons/genericons.css', array(), '3.3' );
-
 	/**
 	 * Adds JavaScript to pages with the comment form to support
 	 * sites with threaded comments (when in use).
@@ -41,10 +38,10 @@ function spacious_scripts_styles_method() {
 	 */
 	wp_register_script( 'jquery_cycle', SPACIOUS_JS_URL . '/jquery.cycle.all.min.js', array( 'jquery' ), '2.9999.5', true );
 
-   wp_register_style( 'google_fonts', '//fonts.googleapis.com/css?family=Lato' );
-
+   wp_register_style( 'google_fonts', '//fonts.googleapis.com/css?family=Lato' ); 
+	
 	/**
-	 * Enqueue Slider setup js file.
+	 * Enqueue Slider setup js file.	 
 	 */
 	if ( is_home() || is_front_page() && of_get_option( 'spacious_activate_slider', '0' ) == '1' ) {
 		wp_enqueue_script( 'spacious_slider', SPACIOUS_JS_URL . '/spacious-slider-setting.js', array( 'jquery_cycle' ), false, true );
@@ -70,18 +67,6 @@ add_action( 'admin_print_styles-appearance_page_options-framework', 'spacious_ad
  */
 function spacious_admin_styles() {
 	wp_enqueue_style( 'spacious_admin_style', SPACIOUS_ADMIN_CSS_URL. '/admin.css' );
-}
-
-/****************************************************************************************/
-
-add_filter('the_content', 'spacious_add_mod_hatom_data');
-// Adding the support for the entry-title tag for Google Rich Snippets
-function spacious_add_mod_hatom_data($content) {
-   $title = get_the_title();
-   if ( is_single() ) {
-      $content .= '<div class="extra-hatom-entry-title"><span class="entry-title">' . $title . '</span></div>';
-   }
-   return $content;
 }
 
 /****************************************************************************************/
@@ -122,9 +107,9 @@ function spacious_gallery_atts( $out, $pairs, $atts ) {
 	), $atts );
 
 	$out['size'] = $atts['size'];
-
+	 
 	return $out;
-
+ 
 }
 add_filter( 'shortcode_atts_gallery', 'spacious_gallery_atts', 10, 3 );
 
@@ -143,7 +128,7 @@ function spacious_body_class( $classes ) {
 
 	if( is_home() ) {
 		$queried_id = get_option( 'page_for_posts' );
-		$layout_meta = get_post_meta( $queried_id, 'spacious_page_layout', true );
+		$layout_meta = get_post_meta( $queried_id, 'spacious_page_layout', true ); 
 	}
 
 	if( empty( $layout_meta ) || is_archive() || is_search() ) { $layout_meta = 'default_layout'; }
@@ -217,7 +202,7 @@ function spacious_sidebar_select() {
 
 	if( is_home() ) {
 		$queried_id = get_option( 'page_for_posts' );
-		$layout_meta = get_post_meta( $queried_id, 'spacious_page_layout', true );
+		$layout_meta = get_post_meta( $queried_id, 'spacious_page_layout', true ); 
 	}
 
 	if( empty( $layout_meta ) || is_archive() || is_search() ) { $layout_meta = 'default_layout'; }
@@ -267,7 +252,7 @@ add_action('wp_head', 'spacious_custom_css');
 /**
  * Hooks the Custom Internal CSS to head section
  */
-function spacious_custom_css() {
+function spacious_custom_css() {	
 	$primary_color = of_get_option( 'spacious_primary_color', '#0FBE7C' );
 	$spacious_internal_css = '';
 	if( $primary_color != '#0FBE7C' ) {
@@ -426,7 +411,7 @@ function spacious_comment( $comment, $args, $depth ) {
 				<?php comment_text(); ?>
 				<?php comment_reply_link( array_merge( $args, array( 'reply_text' => __( 'Reply', 'spacious' ), 'after' => '', 'depth' => $depth, 'max_depth' => $args['max_depth'] ) ) ); ?>
 			</section><!-- .comment-content -->
-
+			
 		</article><!-- #comment-## -->
 	<?php
 		break;
@@ -461,7 +446,7 @@ if ( ! function_exists( 'spacious_posts_listing_display_type_select' ) ) :
 /**
  * Function to select the posts listing display type
  */
-function spacious_posts_listing_display_type_select() {
+function spacious_posts_listing_display_type_select() {			
 	if ( of_get_option( 'spacious_archive_display_type', 'blog_large' ) == 'blog_large' ) {
 		$format = 'blog-image-large';
 	}
@@ -483,25 +468,4 @@ function spacious_posts_listing_display_type_select() {
 endif;
 
 /****************************************************************************************/
-
-add_action('admin_init','spacious_textarea_sanitization_change', 100);
-/**
- * Override the default textarea sanitization.
- */
-function spacious_textarea_sanitization_change() {
-   remove_filter( 'of_sanitize_textarea', 'of_sanitize_textarea' );
-   add_filter( 'of_sanitize_textarea', 'spacious_sanitize_textarea_custom',10,2 );
-}
-
-/**
- * sanitize the input for custom css
- */
-function spacious_sanitize_textarea_custom( $input,$option ) {
-   if( $option['id'] == "spacious_custom_css" ) {
-      $output = wp_filter_nohtml_kses( $input );
-   } else {
-      $output = $input;
-   }
-   return $output;
-}
 ?>

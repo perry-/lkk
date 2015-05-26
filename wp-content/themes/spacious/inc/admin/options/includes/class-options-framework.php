@@ -15,7 +15,7 @@ class Options_Framework {
 	 * @since 1.7.0
 	 * @type string
 	 */
-	const VERSION = '1.9.1';
+	const VERSION = '1.9.0';
 
 	/**
 	 * Gets option name
@@ -37,7 +37,7 @@ class Options_Framework {
 			$name = preg_replace( "/\W/", "_", strtolower( $name ) );
 		}
 
-		return apply_filters( 'options_framework_option_name', $name );
+		return $name;
 
 	}
 
@@ -78,7 +78,7 @@ class Options_Framework {
 	        // Load options from options.php file (if it exists)
 	        $location = apply_filters( 'options_framework_location', array( 'options.php' ) );
 	        if ( $optionsfile = locate_template( $location ) ) {
-	            $maybe_options = load_template( $optionsfile );
+	            $maybe_options = require_once $optionsfile;
 	            if ( is_array( $maybe_options ) ) {
 					$options = $maybe_options;
 	            } else if ( function_exists( 'optionsframework_options' ) ) {

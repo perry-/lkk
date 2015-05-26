@@ -1,15 +1,15 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Spacious\n"
-"POT-Creation-Date: 2015-03-31 19:48+0545\n"
-"PO-Revision-Date: 2015-03-31 19:48+0545\n"
-"Last-Translator: ThemeGrill <themegrill@gmail.com>\n"
+"POT-Creation-Date: 2014-12-10 11:15+0545\n"
+"PO-Revision-Date: 2014-12-10 11:16+0545\n"
+"Last-Translator: \n"
 "Language-Team: ThemeGrill <themegrill@gmail.com>\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.7\n"
+"X-Generator: Poedit 1.6.4\n"
 "X-Poedit-Basepath: ../\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SourceCharset: UTF-8\n"
@@ -78,8 +78,8 @@ msgid "Edit"
 msgstr ""
 
 #: content-blog-image-large.php:55 content-blog-image-medium.php:57
-#: content.php:63 inc/header-functions.php:106 inc/widgets/widgets.php:258
-#: inc/widgets/widgets.php:355 options.php:264
+#: content.php:63 inc/header-functions.php:87 inc/widgets/widgets.php:258
+#: inc/widgets/widgets.php:357 options.php:264
 msgid "Read more"
 msgstr ""
 
@@ -87,15 +87,7 @@ msgstr ""
 msgid "Tagged on: "
 msgstr ""
 
-#: functions.php:47
-msgid "Primary Menu"
-msgstr ""
-
-#: functions.php:48
-msgid "Footer Menu"
-msgstr ""
-
-#: header.php:84
+#: header.php:92
 msgid "Menu"
 msgstr ""
 
@@ -128,23 +120,23 @@ msgstr ""
 msgid "Theme Options"
 msgstr ""
 
-#: inc/admin/options/includes/class-options-framework-admin.php:203
+#: inc/admin/options/includes/class-options-framework-admin.php:198
 msgid "Save Options"
 msgstr ""
 
-#: inc/admin/options/includes/class-options-framework-admin.php:204
+#: inc/admin/options/includes/class-options-framework-admin.php:199
 msgid "Restore Defaults"
 msgstr ""
 
-#: inc/admin/options/includes/class-options-framework-admin.php:204
+#: inc/admin/options/includes/class-options-framework-admin.php:199
 msgid "Click OK to reset. Any theme settings will be lost!"
 msgstr ""
 
-#: inc/admin/options/includes/class-options-framework-admin.php:235
+#: inc/admin/options/includes/class-options-framework-admin.php:230
 msgid "Default options restored."
 msgstr ""
 
-#: inc/admin/options/includes/class-options-framework-admin.php:289
+#: inc/admin/options/includes/class-options-framework-admin.php:284
 msgid "Options saved."
 msgstr ""
 
@@ -246,139 +238,139 @@ msgstr ""
 msgid "Bold Italic"
 msgstr ""
 
-#: inc/functions.php:353
+#: inc/functions.php:341
 msgid "Post navigation"
 msgstr ""
 
-#: inc/functions.php:357 navigation.php:42
+#: inc/functions.php:345 navigation.php:42
 msgctxt "Previous post link"
 msgid "&larr;"
 msgstr ""
 
-#: inc/functions.php:358 navigation.php:43
+#: inc/functions.php:346 navigation.php:43
 msgctxt "Next post link"
 msgid "&rarr;"
 msgstr ""
 
-#: inc/functions.php:363
+#: inc/functions.php:351
 msgid "<span class=\"meta-nav\">&larr;</span> Older posts"
 msgstr ""
 
-#: inc/functions.php:367
+#: inc/functions.php:355
 msgid "Newer posts <span class=\"meta-nav\">&rarr;</span>"
 msgstr ""
 
-#: inc/functions.php:393
+#: inc/functions.php:381
 msgid "Pingback:"
 msgstr ""
 
-#: inc/functions.php:393
+#: inc/functions.php:381
 msgid "(Edit)"
 msgstr ""
 
-#: inc/functions.php:408
+#: inc/functions.php:396
 msgid "Post author"
 msgstr ""
 
-#: inc/functions.php:411
+#: inc/functions.php:399
 #, php-format
 msgid "%1$s at %2$s"
 msgstr ""
 
-#: inc/functions.php:413
+#: inc/functions.php:401
 #, php-format
 msgid "<a class=\"comment-permalink\" href=\"%1$s\">Permalink</a>"
 msgstr ""
 
-#: inc/functions.php:419
+#: inc/functions.php:407
 msgid "Your comment is awaiting moderation."
 msgstr ""
 
-#: inc/functions.php:424
+#: inc/functions.php:412
 msgid "Reply"
 msgstr ""
 
-#: inc/functions.php:444
+#: inc/functions.php:432
 msgid "WordPress"
 msgstr ""
 
-#: inc/functions.php:446
+#: inc/functions.php:434
 msgid "ThemeGrill"
 msgstr ""
 
-#: inc/functions.php:448
+#: inc/functions.php:436
 #, php-format
 msgid "Copyright &copy; %1$s %2$s."
 msgstr ""
 
-#: inc/functions.php:448
+#: inc/functions.php:436
 #, php-format
 msgid "Powered by %s."
 msgstr ""
 
-#: inc/functions.php:448
+#: inc/functions.php:436
 #, php-format
 msgid "Theme: %1$s by %2$s."
 msgstr ""
 
-#: inc/header-functions.php:64
+#: inc/header-functions.php:47
 #, php-format
 msgid "Page %s"
 msgstr ""
 
-#: inc/header-functions.php:167
+#: inc/header-functions.php:148
 #, php-format
 msgid "Author: %s"
 msgstr ""
 
-#: inc/header-functions.php:175
+#: inc/header-functions.php:156
 #, php-format
 msgid "Day: %s"
 msgstr ""
 
-#: inc/header-functions.php:178
+#: inc/header-functions.php:159
 #, php-format
 msgid "Month: %s"
 msgstr ""
 
-#: inc/header-functions.php:181
+#: inc/header-functions.php:162
 #, php-format
 msgid "Year: %s"
 msgstr ""
 
-#: inc/header-functions.php:184
+#: inc/header-functions.php:165
 msgid "Asides"
 msgstr ""
 
-#: inc/header-functions.php:187
+#: inc/header-functions.php:168
 msgid "Images"
 msgstr ""
 
-#: inc/header-functions.php:190
+#: inc/header-functions.php:171
 msgid "Videos"
 msgstr ""
 
-#: inc/header-functions.php:193
+#: inc/header-functions.php:174
 msgid "Quotes"
 msgstr ""
 
-#: inc/header-functions.php:196
+#: inc/header-functions.php:177
 msgid "Links"
 msgstr ""
 
-#: inc/header-functions.php:199 sidebar-left.php:29 sidebar.php:29
+#: inc/header-functions.php:180 sidebar-left.php:29 sidebar.php:29
 msgid "Archives"
 msgstr ""
 
-#: inc/header-functions.php:204
+#: inc/header-functions.php:185
 msgid "Page NOT Found"
 msgstr ""
 
-#: inc/header-functions.php:207
+#: inc/header-functions.php:188
 msgid "Search Results"
 msgstr ""
 
-#: inc/header-functions.php:240
+#: inc/header-functions.php:221
 msgid "You are here:"
 msgstr ""
 
@@ -496,8 +488,8 @@ msgid ""
 "Suitable for Home Top Sidebar, Home Bottom Left Sidebar and Side Sidbar."
 msgstr ""
 
-#: inc/widgets/widgets.php:190 inc/widgets/widgets.php:520
-#: inc/widgets/widgets.php:565
+#: inc/widgets/widgets.php:190 inc/widgets/widgets.php:522
+#: inc/widgets/widgets.php:567
 msgid "Title:"
 msgstr ""
 
@@ -506,7 +498,7 @@ msgid "Displays the title of the Page if title input is empty."
 msgstr ""
 
 #: inc/widgets/widgets.php:196 inc/widgets/widgets.php:294
-#: inc/widgets/widgets.php:574
+#: inc/widgets/widgets.php:576
 msgid "Page"
 msgstr ""
 
@@ -531,60 +523,60 @@ msgstr ""
 msgid "TG: Services"
 msgstr ""
 
-#: inc/widgets/widgets.php:375
+#: inc/widgets/widgets.php:377
 msgid "Use this widget to show the call to action section."
 msgstr ""
 
-#: inc/widgets/widgets.php:377
+#: inc/widgets/widgets.php:379
 msgid "TG: Call To Action Widget"
 msgstr ""
 
-#: inc/widgets/widgets.php:393
+#: inc/widgets/widgets.php:395
 msgid "Call to Action Main Text"
 msgstr ""
 
-#: inc/widgets/widgets.php:395
+#: inc/widgets/widgets.php:397
 msgid "Call to Action Additional Text"
 msgstr ""
 
-#: inc/widgets/widgets.php:398
+#: inc/widgets/widgets.php:400
 msgid "Button Text:"
 msgstr ""
 
-#: inc/widgets/widgets.php:402
+#: inc/widgets/widgets.php:404
 msgid "Button Redirect Link:"
 msgstr ""
 
-#: inc/widgets/widgets.php:475
+#: inc/widgets/widgets.php:477
 msgid "Display Testimonial"
 msgstr ""
 
-#: inc/widgets/widgets.php:477
+#: inc/widgets/widgets.php:479
 msgid "TG: Testimonial"
 msgstr ""
 
-#: inc/widgets/widgets.php:522
+#: inc/widgets/widgets.php:524
 msgid "Testimonial Description"
 msgstr ""
 
-#: inc/widgets/widgets.php:525
+#: inc/widgets/widgets.php:527
 msgid "Name:"
 msgstr ""
 
-#: inc/widgets/widgets.php:528
+#: inc/widgets/widgets.php:530
 msgid "Byline:"
 msgstr ""
 
-#: inc/widgets/widgets.php:542
+#: inc/widgets/widgets.php:544
 msgid ""
 "Show your some pages as recent work. Best for Business Top or Bottom sidebar."
 msgstr ""
 
-#: inc/widgets/widgets.php:544
+#: inc/widgets/widgets.php:546
 msgid "TG: Featured Widget"
 msgstr ""
 
-#: inc/widgets/widgets.php:568
+#: inc/widgets/widgets.php:570
 msgid "Description"
 msgstr ""
 

@@ -3,8 +3,8 @@ Theme Name: Spacious
 Theme URI: http://themegrill.com/themes/spacious
 Author: ThemeGrill
 Author URI: http://themegrill.com
-Description: Spacious is an incredibly spacious multipurpose responsive theme coded & designed with a lot of care and love. You can use it for your business, portfolio, blogging or any type of site. It has 4 page layouts, 2 page templates, 4 blog display types, 13 widgets areas, 5 custom widgets focusing on business template, awesome slider, primary color option to match your logo & website, boxed & wide layout, light & dark color skin, translation ready and many more. You can get free support in http://themegrill.com/support-forum/ and check the demo at http://demo.themegrill.com/spacious/. Available Translations: Russian, Norsk (Bokmål), Czech, French, Spanish, Lithuanian, Dutch, Traditional Chinese (Taiwan), Slovak, Catalan, Hungarian, German, Polish, Brazilian Portuguese and Greek.
-Version: 1.2.6
+Description: Spacious is an incredibly spacious multipurpose responsive theme coded & designed with a lot of care and love. You can use it for your business, portfolio, blogging or any type of site. It has 4 page layouts, 2 page templates, 4 blog display types, 13 widgets areas, 5 custom widgets focusing on business template, awesome slider, primary color option to match your logo & website, boxed & wide layout, light & dark color skin, translation ready and many more. You can get free support in http://themegrill.com/support-forum/ and check the demo at http://demo.themegrill.com/spacious/. Available Translations: Russian, Norsk (Bokmål), Czech, French, Spanish, Lithuanian, Dutch, Traditional Chinese (Taiwan), Slovak, Catalan, Hungarian, German Polish and Brazilian Portuguese.
+Version: 1.2.3
 License: GNU General Public License v2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Tags: light, white, dark, two-columns, right-sidebar, left-sidebar, fluid-layout, responsive-layout, custom-header, custom-background, custom-menu, custom-colors, sticky-post, threaded-comments, translation-ready, featured-images, theme-options
@@ -102,6 +102,19 @@ button::-moz-focus-inner {
 	border: 0;
 	padding: 0;
 	margin: 0;
+}
+
+/* =GENERICONS
+----------------------------------------------- */
+@font-face {
+	font-family: 'Genericons';
+	src: url('font/genericons-regular-webfont.eot');
+	src: url('font/genericons-regular-webfont.eot?#iefix') format('embedded-opentype'),
+		url('font/genericons-regular-webfont.woff') format('woff'),
+		url('font/genericons-regular-webfont.ttf') format('truetype'),
+		url('font/genericons-regular-webfont.svg#genericonsregular') format('svg');
+	font-weight: normal;
+	font-style: normal;
 }
 
 /* =GLOBAL
@@ -487,10 +500,11 @@ body {
 }
 #header-meta {
 	background-color: #F8F8F8;
-	border-bottom: 1px solid #EAEAEA;
+	border-bottom: 1px solid #F2F2F2;
 }
 #header-text-nav-container {
-	border-bottom: 1px solid #EAEAEA;
+	border-bottom: 1px solid #F2F2F2;
+	background-color: #F2F2F2;
 }
 #header-text-nav-wrap {
 	padding-top: 15px;
@@ -498,7 +512,7 @@ body {
 }
 #header-left-section {
 	float: left;
-	margin-right: 25px;
+	margin-right: 10px;
 }
 #header-logo-image {
 	float: left;
@@ -530,6 +544,7 @@ h1#site-title {
 }
 #header-right-section {
 	float: right;
+	margin-top: 80px;
 }
 #header-right-sidebar {
 	overflow: hidden;
@@ -563,7 +578,6 @@ h1#site-title {
 .search-icon:before {
 	display: inline-block;
 	-webkit-font-smoothing: antialiased;
-   -moz-osx-font-smoothing: grayscale;
 	font: normal 18px/1 'Genericons';
 	content: '\f400';
 	vertical-align: middle;
@@ -589,7 +603,7 @@ nav li > ol {
 	font-family: 'Lato', sans-serif;
 }
 .main-navigation ul li a {
-	font-size: 16px;
+	font-size: 18px;
 }
 .main-navigation li.default-menu,
 li.default-menu {
@@ -609,6 +623,7 @@ li.default-menu {
 .main-navigation ul li.current_page_item a,
 .main-navigation ul li:hover > a {
 	color: #0FBE7C;
+	font-weight: bolder;
 }
 
 /* =DROP DOWN
@@ -634,7 +649,7 @@ li.default-menu {
 	border-top: 1px solid #0FBE7C;
 	top: 45px;
 	left: 25px;
-	width: 150px;
+	width: 200px;
 }
 .main-navigation ul li ul li {
 	float: none;
@@ -649,7 +664,7 @@ li.default-menu {
 .main-navigation ul li.current_page_item ul li a {
 	float: none;
 	line-height: 21px;
-	font-size: 13px;
+	font-size: 16px;
 	font-weight: normal;
 	height: 100%;
 	padding: 6px 10px;
@@ -757,7 +772,7 @@ li.default-menu {
 /* =FEATURED SLIDER
 ----------------------------------------------- */
 #featured-slider {
-	border-bottom: 1px solid #EAEAEA;
+	border-bottom: 1px solid #F2F2F2;
 }
 #featured-slider,
 #featured-slider .slider-cycle {
@@ -906,9 +921,6 @@ li.default-menu {
 /* =CONTENT
 ----------------------------------------------- */
 .sticky {
-}
-.extra-hatom-entry-title {
-   display: none;
 }
 #main {
 	padding: 40px 0 10px 0;
@@ -1131,7 +1143,6 @@ li.default-menu {
 .widget_testimonial .testimonial-icon:before {
 	display: inline-block;
 	-webkit-font-smoothing: antialiased;
-   -moz-osx-font-smoothing: grayscale;
 	font: normal 22px/1 'Genericons';
 	vertical-align: top;
 	content: '\f106';
@@ -1335,7 +1346,6 @@ li.default-menu {
 .comments-area article header .comment-date-time:before {
 	display: inline-block;
 	-webkit-font-smoothing: antialiased;
-   -moz-osx-font-smoothing: grayscale;
 	font: normal 22px/1 'Genericons';
 	vertical-align: top;
 }
@@ -1368,7 +1378,6 @@ li.default-menu {
 	content: '\f412';
 	display: inline-block;
 	-webkit-font-smoothing: antialiased;
-   -moz-osx-font-smoothing: grayscale;
 	font: normal 22px/1 'Genericons';
 	vertical-align: top;
 }
@@ -1608,7 +1617,6 @@ a#scroll-up {
 	right: 20px;
 	display: none;
 	-webkit-font-smoothing: antialiased;
-   -moz-osx-font-smoothing: grayscale;
 	font: normal 26px/1 'Genericons';
 	vertical-align: top;
 	color: #FFFFFF;
@@ -1775,7 +1783,6 @@ a#scroll-up:hover {
 .post .entry-meta .edit-link:before {
 	display: inline-block;
 	-webkit-font-smoothing: antialiased;
-   -moz-osx-font-smoothing: grayscale;
 	font: normal 18px/1 'Genericons';
 	vertical-align: top;
 }
@@ -1869,12 +1876,6 @@ a#scroll-up:hover {
 		float: left;
 		width: 46.7684729%;
 	}
-   .widget_service_block .tg-one-third {
-      float: left;
-      margin: 0 2.46305%;
-      padding: 0 0 30px;
-      width: 28.4072%;
-   }
 	.tg-one-half-last, .tg-one-fourth-last {
 		float: right;
 	}
@@ -1953,11 +1954,6 @@ a#scroll-up:hover {
 		width: 100%;
 		margin: 0;
 	}
-   .widget_service_block .tg-one-third {
-      float: none;
-      width: 100%;
-      margin: 0;
-   }
 	.tg-column-1, .tg-column-2, .tg-column-3, .tg-column-4 {
 		float: none;
 	}
@@ -1987,3 +1983,51 @@ a#scroll-up:hover {
    }
 	#featured-slider .entry-content, #featured-slider .slider-read-more-button { display: none; }
 }
+
+/*  Plugins options */
+
+div.crafty-social-buttons-caption-block .crafty-social-caption {
+	display: block;
+	padding-right: 0;
+	margin-bottom: 15px;
+}
+
+.widget_sp_image {
+	width: 29%;
+	float: left;
+	text-align: center;
+	margin: 45px 0;
+	padding: 0 2%;
+}
+
+.widget_sp_image img{
+	opacity: 1;
+}
+
+
+
+
+.widget_sp_image h1{
+	font-size: 25px;
+}
+
+.footer-socket-area{
+	color: #AAAAAA;
+}
+
+@media screen and (max-width: 767px) {
+	.widget_sp_image {
+		width: 98%;
+	}
+	.widget_sp_image img{
+		width: 70%;
+	}
+}
+
+@media screen and (max-width: 420px) {
+	.widget_sp_image {
+		width: 98%;
+	}
+}
+
+

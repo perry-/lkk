@@ -22,7 +22,7 @@ function spacious_widgets_init() {
 		'after_widget'  	=> '</aside>',
 		'before_title'  	=> '<h3 class="widget-title"><span>',
 		'after_title'   	=> '</span></h3>'
-	) );
+	) );	
 
 	// Registering main left sidebar
 	register_sidebar( array(
@@ -44,7 +44,7 @@ function spacious_widgets_init() {
 		'after_widget'  	=> '</aside>',
 		'before_title'  	=> '<h3 class="widget-title">',
 		'after_title'   	=> '</h3>'
-	) );
+	) );	
 
 	// Registering Business Page template top section sidebar
 	register_sidebar( array(
@@ -53,8 +53,8 @@ function spacious_widgets_init() {
 		'description'   	=> __( 'Shows widgets on Business Page Template Top Section.', 'spacious' ).' '.__( 'Suitable widget: TG: Services, TG: Call To Action Widget, TG: Featured Widget', 'spacious' ),
 		'before_widget' 	=> '<section id="%1$s" class="widget %2$s clearfix">',
 		'after_widget'  	=> '</section>',
-		'before_title'  	=> '<h3 class="widget-title">',
-		'after_title'   	=> '</h3>'
+		'before_title'  	=> '<h1 class="widget-title">',
+		'after_title'   	=> '</h1>'
 	) );
 
 	// Registering Business Page template middle section left half sidebar
@@ -64,8 +64,8 @@ function spacious_widgets_init() {
 		'description'   	=> __( 'Shows widgets on Business Page Template Middle Section Left Half.', 'spacious' ).' '.__( 'Suitable widget: TG: Testimonial, TG: Featured Single Page', 'spacious' ),
 		'before_widget' 	=> '<section id="%1$s" class="widget %2$s clearfix">',
 		'after_widget'  	=> '</section>',
-		'before_title'  	=> '<h3 class="widget-title">',
-		'after_title'   	=> '</h3>'
+		'before_title'  	=> '<h1 class="widget-title">',
+		'after_title'   	=> '</h1>'
 	) );
 
 	// Registering Business Page template middle section right half sidebar
@@ -75,8 +75,8 @@ function spacious_widgets_init() {
 		'description'   	=> __( 'Shows widgets on Business Page Template Middle Section Right Half.', 'spacious' ).' '.__( 'Suitable widget: TG: Testimonial, TG: Featured Single Page', 'spacious' ),
 		'before_widget' 	=> '<section id="%1$s" class="widget %2$s clearfix">',
 		'after_widget'  	=> '</section>',
-		'before_title'  	=> '<h3 class="widget-title">',
-		'after_title'   	=> '</h3>'
+		'before_title'  	=> '<h1 class="widget-title">',
+		'after_title'   	=> '</h1>'
 	) );
 
 
@@ -87,8 +87,8 @@ function spacious_widgets_init() {
 		'description'   	=> __( 'Shows widgets on Business Page Template Bottom Section.', 'spacious' ).' '.__( 'Suitable widget: TG: Services, TG: Call To Action Widget, TG: Featured Widget', 'spacious' ),
 		'before_widget' 	=> '<section id="%1$s" class="widget %2$s clearfix">',
 		'after_widget'  	=> '</section>',
-		'before_title'  	=> '<h3 class="widget-title">',
-		'after_title'   	=> '</h3>'
+		'before_title'  	=> '<h1 class="widget-title">',
+		'after_title'   	=> '</h1>'
 	) );
 
 	// Registering contact Page sidebar
@@ -162,7 +162,7 @@ function spacious_widgets_init() {
 	register_widget( "spacious_service_widget" );
 	register_widget( "spacious_call_to_action_widget" );
 	register_widget( "spacious_testimonial_widget" );
-	register_widget( "spacious_recent_work_widget" );
+	register_widget( "spacious_recent_work_widget" );	
 }
 
 /****************************************************************************************/
@@ -187,7 +187,7 @@ function spacious_widgets_init() {
 		_e( 'Suitable for Home Top Sidebar, Home Bottom Left Sidebar and Side Sidbar.', 'spacious' );
 	?>
 		<p>
-			<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e( 'Title:', 'spacious' ); ?></label>
+			<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e( 'Title:', 'spacious' ); ?></label> 
 			<input id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" />
 		</p>
 		<p><?php _e( 'Displays the title of the Page if title input is empty.', 'spacious' ); ?></p>
@@ -200,17 +200,17 @@ function spacious_widgets_init() {
 			<input class="checkbox" type="checkbox" <?php echo $disable_feature_image; ?> id="<?php echo $this->get_field_id('disable_feature_image'); ?>" name="<?php echo $this->get_field_name('disable_feature_image'); ?>" /> <label for="<?php echo $this->get_field_id('disable_feature_image'); ?>"><?php _e( 'Remove Featured image', 'spacious' ); ?></label>
 		</p>
 
-	    <?php if( $image_position == 'above' ) { ?>
-		<p>
-		    <input type="radio" id="<?php echo $this->get_field_id( 'image_position' ); ?>" name="<?php echo $this->get_field_name( 'image_position' ); ?>" value="above" style="" checked /><?php _e( 'Show Image Before Title', 'spacious' );?><br />
-		    <input type="radio" id="<?php echo $this->get_field_id( 'image_position' ); ?>" name="<?php echo $this->get_field_name( 'image_position' ); ?>" value="below" style="" /><?php _e( 'Show Image After Title', 'spacious' );?><br />
-		</p>
-		<?php } else { ?>
-		<p>
-		    <input type="radio" id="<?php echo $this->get_field_id( 'image_position' ); ?>" name="<?php echo $this->get_field_name( 'image_position' ); ?>" value="above" style="" /><?php _e( 'Show Image Before Title', 'spacious' );?><br />
-		    <input type="radio" id="<?php echo $this->get_field_id( 'image_position' ); ?>" name="<?php echo $this->get_field_name( 'image_position' ); ?>" value="below" style="" checked /><?php _e( 'Show Image After Title', 'spacious' );?><br />
-		</p>
-		<?php } ?>
+	    <?php if( $image_position == 'above' ) { ?>  
+		<p> 
+		    <input type="radio" id="<?php echo $this->get_field_id( 'image_position' ); ?>" name="<?php echo $this->get_field_name( 'image_position' ); ?>" value="above" style="" checked /><?php _e( 'Show Image Before Title', 'spacious' );?><br />  
+		    <input type="radio" id="<?php echo $this->get_field_id( 'image_position' ); ?>" name="<?php echo $this->get_field_name( 'image_position' ); ?>" value="below" style="" /><?php _e( 'Show Image After Title', 'spacious' );?><br />              
+		</p>  
+		<?php } else { ?> 
+		<p>   
+		    <input type="radio" id="<?php echo $this->get_field_id( 'image_position' ); ?>" name="<?php echo $this->get_field_name( 'image_position' ); ?>" value="above" style="" /><?php _e( 'Show Image Before Title', 'spacious' );?><br />  
+		    <input type="radio" id="<?php echo $this->get_field_id( 'image_position' ); ?>" name="<?php echo $this->get_field_name( 'image_position' ); ?>" value="below" style="" checked /><?php _e( 'Show Image After Title', 'spacious' );?><br />              
+		</p>  
+		<?php } ?> 
 
 	<?php
 	}
@@ -238,7 +238,7 @@ function spacious_widgets_init() {
  			$the_query = new WP_Query( 'page_id='.$page_id );
  			while( $the_query->have_posts() ):$the_query->the_post();
  				$page_name = get_the_title();
-
+ 			
 	 		$output = $before_widget;
 	 		if( $image_position == "below" ) {
 	 			if( $title ): $output .= $before_title.'<a href="' . get_permalink() . '" title="'.$title.'">'. $title .'</a>'.$after_title;
@@ -254,7 +254,7 @@ function spacious_widgets_init() {
 	 			else: $output .= $before_title.'<a href="' . get_permalink() . '" title="'.$page_name.'">'. $page_name .'</a>'.$after_title;
 	 			endif;
 		 	}
-			$output .= '<p>'.get_the_excerpt().'...'.'</p>';
+			$output .= '<p>'.get_the_excerpt().'...'.'</p>'; 
 			$output .= '<a class="read-more" href="'. get_permalink() .'">'.__( 'Read more', 'spacious' ).'</a>';
 	 		$output .= $after_widget;
 	 		endwhile;
@@ -262,7 +262,7 @@ function spacious_widgets_init() {
 	 		wp_reset_postdata();
 	 		echo $output;
  		}
-
+ 		
  	}
 }
 
@@ -274,7 +274,7 @@ function spacious_widgets_init() {
 class spacious_service_widget extends WP_Widget {
  	function spacious_service_widget() {
  		$widget_ops = array( 'classname' => 'widget_service_block', 'description' => __( 'Display some pages as services. Best for Business Top or Bottom sidebar.', 'spacious' ) );
-		$control_ops = array( 'width' => 200, 'height' =>250 );
+		$control_ops = array( 'width' => 200, 'height' =>250 ); 
 		parent::WP_Widget( false, $name = __( 'TG: Services', 'spacious' ), $widget_ops, $control_ops);
  	}
 
@@ -318,7 +318,7 @@ class spacious_service_widget extends WP_Widget {
  		for( $i=0; $i<6; $i++ ) {
  			$var = 'page_id'.$i;
  			$page_id = isset( $instance[ $var ] ) ? $instance[ $var ] : '';
-
+ 			
  			if( !empty( $page_id ) )
  				array_push( $page_array, $page_id );// Push the page id in the array
  		}
@@ -327,24 +327,26 @@ class spacious_service_widget extends WP_Widget {
 			'post_type'					=>  array( 'page' ),
 			'post__in'		 			=> $page_array,
 			'orderby' 		 			=> 'post__in'
-		) );
+		) ); 
 		echo $before_widget; ?>
-			<?php
+			<?php 
 			$j = 1;
  			while( $get_featured_pages->have_posts() ):$get_featured_pages->the_post();
 				$page_title = get_the_title();
 				if( $j % 2 == 1 && $j > 1 ) {
-					$service_class = "tg-one-third";
+					$service_class = "tg-one-third tg-after-two-blocks-clearfix";
 				}
 				elseif ( $j % 3 == 1 && $j > 1 ) {
 					$service_class = "tg-one-third tg-after-three-blocks-clearfix";
-				}
+				}	
 				else {
 					$service_class = "tg-one-third";
-				}
+				}	
+				if( $j % 2 == 0 ) { $service_class = $service_class.' tg-service-right'; }	
+				else { $service_class = $service_class.' tg-service-left'; }	
 				?>
 				<div class="<?php echo $service_class; ?>">
-					<?php
+					<?php 
 					if ( has_post_thumbnail() ) {
 						echo'<div class="service-image">'.get_the_post_thumbnail( $post->ID, 'featured' ).'</div>';
 					}
@@ -352,15 +354,15 @@ class spacious_service_widget extends WP_Widget {
 					<?php echo $before_title; ?><a title="<?php the_title_attribute(); ?>" href="<?php the_permalink(); ?>"><?php echo $page_title; ?></a><?php echo $after_title; ?>
 					<?php the_excerpt(); ?>
 					<div class="more-link-wrap">
-						<a class="more-link" title="<?php the_title_attribute(); ?>" href="<?php the_permalink(); ?>"><?php _e( 'Read more','spacious' ); ?></a>
-					</div>
+						<a class="more-link" title="<?php the_title_attribute(); ?>" href="<?php the_permalink(); ?>"><?php _e( 'Read more','spacious' ); ?></a>	
+					</div>					
 				</div>
-				<?php $j++; ?>
+				<?php $j++; ?>					
 			<?php endwhile;
 	 		// Reset Post Data
- 			wp_reset_query();
+ 			wp_reset_query(); 
  			?>
-		<?php
+		<?php 
 		echo $after_widget;
  	}
  }
@@ -373,7 +375,7 @@ class spacious_service_widget extends WP_Widget {
 class spacious_call_to_action_widget extends WP_Widget {
  	function spacious_call_to_action_widget() {
  		$widget_ops = array( 'classname' => 'widget_call_to_action', 'description' => __( 'Use this widget to show the call to action section.', 'spacious' ) );
-		$control_ops = array( 'width' => 200, 'height' =>250 );
+		$control_ops = array( 'width' => 200, 'height' =>250 ); 
 		parent::WP_Widget( false, $name = __( 'TG: Call To Action Widget', 'spacious' ), $widget_ops, $control_ops);
  	}
 
@@ -388,18 +390,18 @@ class spacious_call_to_action_widget extends WP_Widget {
 		$button_text = esc_attr( $instance[ 'button_text' ] );
 		$button_url = esc_url( $instance[ 'button_url' ] );
 		?>
-
-
+	
+		
 		<?php _e( 'Call to Action Main Text','spacious' ); ?>
 		<textarea class="widefat" rows="3" cols="20" id="<?php echo $this->get_field_id('text_main'); ?>" name="<?php echo $this->get_field_name('text_main'); ?>"><?php echo $text_main; ?></textarea>
 		<?php _e( 'Call to Action Additional Text','spacious' ); ?>
 		<textarea class="widefat" rows="3" cols="20" id="<?php echo $this->get_field_id('text_additional'); ?>" name="<?php echo $this->get_field_name('text_additional'); ?>"><?php echo $text_additional; ?></textarea>
 		<p>
-			<label for="<?php echo $this->get_field_id('button_text'); ?>"><?php _e( 'Button Text:', 'spacious' ); ?></label>
+			<label for="<?php echo $this->get_field_id('button_text'); ?>"><?php _e( 'Button Text:', 'spacious' ); ?></label> 
 			<input id="<?php echo $this->get_field_id('button_text'); ?>" name="<?php echo $this->get_field_name('button_text'); ?>" type="text" value="<?php echo $button_text; ?>" />
 		</p>
 		<p>
-			<label for="<?php echo $this->get_field_id('button_url'); ?>"><?php _e( 'Button Redirect Link:', 'spacious' ); ?></label>
+			<label for="<?php echo $this->get_field_id('button_url'); ?>"><?php _e( 'Button Redirect Link:', 'spacious' ); ?></label> 
 			<input id="<?php echo $this->get_field_id('button_url'); ?>" name="<?php echo $this->get_field_name('button_url'); ?>" type="text" value="<?php echo $button_url; ?>" />
 		</p>
 		<?php
@@ -407,7 +409,7 @@ class spacious_call_to_action_widget extends WP_Widget {
 
 	function update( $new_instance, $old_instance ) {
 		$instance = $old_instance;
-
+		
 		if ( current_user_can('unfiltered_html') )
 			$instance['text_main'] =  $new_instance['text_main'];
 		else
@@ -431,14 +433,14 @@ class spacious_call_to_action_widget extends WP_Widget {
  		global $post;
  		$text_main = empty( $instance['text_main'] ) ? '' : $instance['text_main'];
  		$text_additional = empty( $instance['text_additional'] ) ? '' : $instance['text_additional'];
- 		$button_text = isset( $instance[ 'button_text' ] ) ? $instance[ 'button_text' ] : '';
+ 		$button_text = isset( $instance[ 'button_text' ] ) ? $instance[ 'button_text' ] : ''; 		
  		$button_url = isset( $instance[ 'button_url' ] ) ? $instance[ 'button_url' ] : '#';
 
 		echo $before_widget;
 		?>
 			<div class="call-to-action-content-wrapper clearfix">
 				<div class="call-to-action-content">
-					<?php
+					<?php 
 					if( !empty( $text_main ) ) {
 					?>
 					<h3><?php echo esc_html( $text_main ); ?></h3>
@@ -449,17 +451,17 @@ class spacious_call_to_action_widget extends WP_Widget {
 					<p><?php echo esc_html( $text_additional ); ?></p>
 					<?php
 					}
-					?>
+					?>						
 				</div>
-				<?php
+				<?php 
 				if( !empty( $button_text ) ) {
-				?>
+				?>					
 					<a class="call-to-action-button" href="<?php echo $button_url; ?>" title="<?php echo esc_attr( $button_text ); ?>"><?php echo esc_html( $button_text ); ?></a>
 				<?php
 				}
 				?>
 			</div>
-		<?php
+		<?php 
 		echo $after_widget;
  	}
  }
@@ -473,7 +475,7 @@ class spacious_testimonial_widget extends WP_Widget {
 
 	function spacious_testimonial_widget() {
  		$widget_ops = array( 'classname' => 'widget_testimonial', 'description' => __( 'Display Testimonial', 'spacious' ) );
-		$control_ops = array( 'width' => 200, 'height' =>250 );
+		$control_ops = array( 'width' => 200, 'height' =>250 ); 
 		parent::WP_Widget( false, $name = __( 'TG: Testimonial', 'spacious' ), $widget_ops, $control_ops);
  	}
 
@@ -540,7 +542,7 @@ class spacious_testimonial_widget extends WP_Widget {
  class spacious_recent_work_widget extends WP_Widget {
  	function spacious_recent_work_widget() {
  		$widget_ops = array( 'classname' => 'widget_recent_work', 'description' => __( 'Show your some pages as recent work. Best for Business Top or Bottom sidebar.', 'spacious' ) );
-		$control_ops = array( 'width' => 200, 'height' =>250 );
+		$control_ops = array( 'width' => 200, 'height' =>250 ); 
 		parent::WP_Widget( false, $name = __( 'TG: Featured Widget', 'spacious' ), $widget_ops, $control_ops);
  	}
 
@@ -560,15 +562,15 @@ class spacious_testimonial_widget extends WP_Widget {
 		$title = esc_attr( $instance[ 'title' ] );
 		$text = esc_textarea($instance['text']);
 		?>
-
+	
 		<p>
-			<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e( 'Title:', 'spacious' ); ?></label>
+			<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e( 'Title:', 'spacious' ); ?></label> 
 			<input id="<?php echo $this->get_field_id('title'); ?>" name="<?php echo $this->get_field_name('title'); ?>" type="text" value="<?php echo $title; ?>" />
 		</p>
 		<?php _e( 'Description','spacious' ); ?>
 		<textarea class="widefat" rows="10" cols="20" id="<?php echo $this->get_field_id('text'); ?>" name="<?php echo $this->get_field_name('text'); ?>"><?php echo $text; ?></textarea>
 		<?php
-		for( $i=0; $i<3; $i++) {
+		for( $i=0; $i<3; $i++) { 
 			?>
 			<p>
 				<label for="<?php echo $this->get_field_id( key($defaults) ); ?>"><?php _e( 'Page', 'spacious' ); ?>:</label>
@@ -606,7 +608,7 @@ class spacious_testimonial_widget extends WP_Widget {
  		for( $i=0; $i<3; $i++ ) {
  			$var = 'page_id'.$i;
  			$page_id = isset( $instance[ $var ] ) ? $instance[ $var ] : '';
-
+ 			
  			if( !empty( $page_id ) )
  				array_push( $page_array, $page_id );// Push the page id in the array
  		}
@@ -630,19 +632,19 @@ class spacious_testimonial_widget extends WP_Widget {
 	 				elseif( $i % 3 == 0 ) { $class= 'tg-one-fourth tg-after-two-blocks-clearfix'.' tg-column-'.$i; }
 	 				else { $class = 'tg-one-fourth'.' tg-column-'.$i; }
 					$page_title = get_the_title();
-					?>
+					?>	
 					<div class="<?php echo $class; ?>">
-						<?php
+						<?php 
 						if ( has_post_thumbnail( ) ) {
-							echo '<div class="service-image"><a title="'.get_the_title().'" href="'.get_permalink().'">'.get_the_post_thumbnail( $post->ID,'featured-blog-medium').'</a></div>';
+							echo '<div class="service-image"><a title="'.get_the_title().'" href="'.get_permalink().'">'.get_the_post_thumbnail( $post->ID,'featured-blog-medium').'</a></div>';				
 						}
 						?>
-					</div>
-				<?php
+					</div>			
+				<?php 
 					$i++;
 				endwhile;
 		 		// Reset Post Data
-	 			wp_reset_query();
+	 			wp_reset_query(); 
 	 			?>
 		<?php echo $after_widget;
  		}

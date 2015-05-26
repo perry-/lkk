@@ -30,6 +30,7 @@
  */
 wp_head();
 ?>
+	<link rel="stylesheet" id="spacious_style-css" href="http://www.kidsakoder.no/wp-content/themes/spacious/style.css?ver=5.0" type="text/css" media="all">
 </head>
 
 <body <?php body_class(); ?>>
@@ -132,6 +133,7 @@ wp_head();
 			}
 	   	}
 		?>
+
 	</header>
 	<?php do_action( 'spacious_after_header' ); ?>
 	<?php do_action( 'spacious_before_main' ); ?>
