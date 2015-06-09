@@ -12,16 +12,20 @@
 
 	<?php do_action( 'spacious_before_body_content' ); ?>
 
-	<div id="primary">
+	<div id="post-list">
 		<div id="content" class="clearfix">
 
 			<?php if ( have_posts() ) : ?>
 
 				<?php while ( have_posts() ) : the_post(); ?>
 
-					<?php	$format = spacious_posts_listing_display_type_select(); ?>
+					<div class="post-item">
 
-					<?php get_template_part( 'content', $format ); ?>
+						<?php	$format = spacious_posts_listing_display_type_select(); ?>
+
+						<?php get_template_part( 'content', $format ); ?>
+
+					</div>
 
 				<?php endwhile; ?>
 
@@ -36,7 +40,6 @@
 		</div><!-- #content -->
 	</div><!-- #primary -->
 	
-	<?php spacious_sidebar_select(); ?>
 	
 	<?php do_action( 'spacious_after_body_content' ); ?>
 

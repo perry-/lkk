@@ -2033,3 +2033,18 @@ div.crafty-social-buttons-caption-block .crafty-social-caption {
 
 /* Post page */
 
+.post-item{
+	width: 28%;
+	float: left;
+	margin: 2%;
+}
+
+@media screen and (max-width: 1100px) {
+	.post-item{
+	width: 46%;
+}
+
+@media screen and (max-width: 700px) {
+	.post-item{
+	width: 100%;
+}
