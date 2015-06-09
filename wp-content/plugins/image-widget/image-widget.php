@@ -286,10 +286,10 @@ class Tribe_Image_Widget extends WP_Widget {
 		} else {
 			$attr['class'] = 'attachment-'.$size;
 		}
-		$attr['style'] = '';
-		if (!empty($instance['maxwidth'])) {
-			$attr['style'] .= "max-width: {$instance['maxwidth']};";
-		}
+//		$attr['style'] = '';
+//		if (!empty($instance['maxwidth'])) {
+//			$attr['style'] .= "max-width: {$instance['maxwidth']};";
+//		}
 		if (!empty($instance['maxheight'])) {
 			$attr['style'] .= "max-height: {$instance['maxheight']};";
 		}

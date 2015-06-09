@@ -2002,9 +2002,29 @@ div.crafty-social-buttons-caption-block .crafty-social-caption {
 
 .widget_sp_image img{
 	opacity: 1;
+	max-width: none;
 }
 
+.widget_sp_image > .widget_sp_image_wrapper{
+	height: 15rem;
+	width: 100%;
+	position: relative;
+	margin-bottom: 1rem;
+	overflow: hidden;
+	text-align: center;
+}
 
+.widget_sp_image > .widget_sp_image_wrapper.widget_sp_image_landscape img{
+	height: 15rem;
+	width: auto;
+	max-width: none;
+}
+
+.widget_sp_image > .widget_sp_image_wrapper.widget_sp_image_portrait img{
+	height: 15rem;
+	width: auto;
+	display: inline-block;
+}
 
 
 .widget_sp_image h1{
