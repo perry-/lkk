@@ -10,7 +10,9 @@ if ( !defined('ABSPATH') )
 
 echo $before_widget;
 
+echo '<div class="widget_sp_image_wrapper ',($instance.width > $instance.height ? 'widget_sp_image_landscape' : 'widget_sp_image_portrait'),'">';
 echo $this->get_image_html( $instance, true );
+echo '</div>';
 
 if ( !empty( $title ) ) { echo $before_title . $title . $after_title; }
 
