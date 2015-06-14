@@ -2010,8 +2010,15 @@ div.crafty-social-buttons-caption-block .crafty-social-caption {
 	width: 100%;
 	position: relative;
 	margin-bottom: 1rem;
-	overflow: hidden;
 	text-align: center;
+}
+
+.widget_sp_image > .widget_sp_image_wrapper.widget_sp_image_landscape {
+	overflow-x: hidden;
+}
+
+.widget_sp_image > .widget_sp_image_wrapper.widget_sp_image_portrait {
+	overflow-y: hidden;
 }
 
 .widget_sp_image > .widget_sp_image_wrapper.widget_sp_image_landscape img{
@@ -2021,9 +2028,8 @@ div.crafty-social-buttons-caption-block .crafty-social-caption {
 }
 
 .widget_sp_image > .widget_sp_image_wrapper.widget_sp_image_portrait img{
-	height: 15rem;
 	width: auto;
-	display: inline-block;
+	display: inline-block; /* For centering */
 }
 
 

@@ -10,7 +10,9 @@ if ( !defined('ABSPATH') )
 
 echo $before_widget;
 
-echo '<div class="widget_sp_image_wrapper ',($instance.width > $instance.height ? 'widget_sp_image_landscape' : 'widget_sp_image_portrait'),'">';
+$aspectratio = round(abs( $instance['width'] ) / abs( $instance['height'] ), 2);
+
+echo '<div class="widget_sp_image_wrapper ',($aspectratio > 1 ? 'widget_sp_image_landscape' : 'widget_sp_image_portrait'),'">';
 echo $this->get_image_html( $instance, true );
 echo '</div>';
 
