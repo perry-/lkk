@@ -29,8 +29,9 @@
 		$image .= '<a href="' . get_permalink() . '" title="'.the_title( '', '', false ).'">';
 		if(has_post_thumbnail() ){
 			$image .= get_the_post_thumbnail( $post->ID, $featured, array( 'title' => esc_attr( $title_attribute ), 'alt' => esc_attr( $title_attribute ) ) );
+			set_post_thumbnail_size( 500, 350, array( 'left', 'top' ));
 		}else{
-			$image .= '<img width="750" height="350" src="http://localhost/LKK/wp-content/uploads/2015/02/background_new.png" class="attachment-featured-blog-large wp-post-image"';
+			$image .= '<img width="500" height="350" src="http://www.kidsakoder.no/wp-content/uploads/2015/06/place_kids.png" class="attachment-featured-blog-large wp-post-image"';
 			$image .=  'alt="' . esc_attr( $title_attribute ) . ' " title="' . esc_attr( $title_attribute ) . ' ">';
 		}
 		$image .= '</a></figure>';
