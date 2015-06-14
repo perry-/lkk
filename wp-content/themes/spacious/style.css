@@ -2011,14 +2011,7 @@ div.crafty-social-buttons-caption-block .crafty-social-caption {
 	position: relative;
 	margin-bottom: 1rem;
 	text-align: center;
-}
-
-.widget_sp_image > .widget_sp_image_wrapper.widget_sp_image_landscape {
-	overflow-x: hidden;
-}
-
-.widget_sp_image > .widget_sp_image_wrapper.widget_sp_image_portrait {
-	overflow-y: hidden;
+	overflow: hidden;
 }
 
 .widget_sp_image > .widget_sp_image_wrapper.widget_sp_image_landscape img{
