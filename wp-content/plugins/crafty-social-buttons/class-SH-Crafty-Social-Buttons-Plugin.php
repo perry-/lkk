@@ -328,7 +328,7 @@ class SH_Crafty_Social_Buttons_Plugin
 
          'share_image_set' => 'simple',
          'share_image_size' => 48,
-         'share_caption' => 'Share this:',
+         'share_caption' => 'Del:',
          'share_services' => 'Facebook,Google,Twitter',
          'show_on_posts' => true,
          'show_on_pages' => false,
@@ -347,10 +347,10 @@ class SH_Crafty_Social_Buttons_Plugin
 
          'link_image_set' => 'simple',
          'link_image_size' => 48,
-         'link_caption' => 'Find me on:',
+         'link_caption' => 'Følg oss:',
          'link_caption_position' => 'inline-block',
          'link_alignment' => 'left',
-         'link_services' => 'Facebook,Google,Twitter,Ravelry,Etsy,SpecificFeeds',
+         'link_services' => 'Facebook,Google,Twitter,SpecificFeeds',
          'new_window' => true,
 
          'show_count' => false,
