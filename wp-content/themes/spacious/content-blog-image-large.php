@@ -47,9 +47,11 @@
 
 	<footer class="entry-meta-bar clearfix">	        			
 		<div class="entry-meta clearfix">
-			<span class="by-author author vcard"><a class="url fn n" href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>"><?php the_author(); ?></a></span>
-
-       	<?php edit_post_link( __( 'Rediger', 'spacious' ), '<span class="edit-link">', '</span>' ); ?>
+			<div style="width: 80%">
+				<span class="by-author author vcard"><a class="url fn n" href="<?php echo get_author_posts_url( get_the_author_meta( 'ID' ) ); ?>"><?php the_author(); ?></a></span>
+				<span class="date updated"><a href="<?php the_permalink(); ?>" title="<?php echo esc_attr( get_the_time() ); ?>"><?php date_i18n(the_time('j. M')); ?></a></span>
+		       	<?php edit_post_link( __( 'Rediger', 'spacious' ), '<span class="edit-link">', '</span>' ); ?>
+			</div>
 			<span class="read-more-link"><a class="read-more" href="<?php the_permalink(); ?>"><?php _e( 'Les mer', 'spacious' ); ?></a></span>
 		</div>
 	</footer>
