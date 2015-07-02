@@ -31,7 +31,7 @@
 			$image .= get_the_post_thumbnail( $post->ID, $featured, array( 'title' => esc_attr( $title_attribute ), 'alt' => esc_attr( $title_attribute ) ) );
 			set_post_thumbnail_size( 500, 350, array( 'left', 'top' ));
 		}else{
-			$image .= '<img width="500" height="350" src="http://www.kidsakoder.no/wp-content/uploads/2015/06/place_kids.png" class="attachment-featured-blog-large wp-post-image"';
+			$image .= '<img width="500" height="350" src="http://www.kidsakoder.no/wp-content/uploads/2015/07/default.png" class="attachment-featured-blog-large wp-post-image"';
 			$image .=  'alt="' . esc_attr( $title_attribute ) . ' " title="' . esc_attr( $title_attribute ) . ' ">';
 		}
 		$image .= '</a></figure>';
