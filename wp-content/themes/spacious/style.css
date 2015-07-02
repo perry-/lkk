@@ -1746,6 +1746,7 @@ a#scroll-up:hover {
 .post .entry-meta .edit-link {
 	padding: 5px 10px;
 }
+
 .post .entry-meta .read-more-link {
 	padding: 5px 10px;
 	background-color: #0FBE7C;
@@ -2089,4 +2090,9 @@ div.crafty-social-buttons-caption-block .crafty-social-caption {
 	.post-item{
 		width: 100%;
 	}
+}
+
+.post .custom-author-tag{
+	display: block;
+	margin-bottom: 15px;
 }
