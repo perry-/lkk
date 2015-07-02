@@ -29,7 +29,7 @@ function create_kodeklubb() {
 			'description'   => 'Her lagres kodeklubber med info',
 			'public'        => true,
 			'menu_position' => 5,
-			'supports'      => array( 'title', 'editor'),
+			'supports'      => array( 'title', 'editor', 'thumbnail'),
 			'has_archive'   => false
 	);
 
@@ -61,11 +61,18 @@ function kodeklubb_position_box_content( $post ) {
 	 * from the database and use the value for the form.
 	 */
 	$value = get_post_meta( $post->ID, '_kodeklubb_position_value_key', true );
+	$value_lat = get_post_meta( $post->ID, '_kodeklubb_position_lat_key', true );
+	$value_long = get_post_meta( $post->ID, '_kodeklubb_position_long_key', true );
 
 	echo '<label for="kodeklubb_position_field">';
 	_e( 'Kodeklubbens posisjon', 'kodeklubb_position' );
 	echo '</label> ';
-	echo '<input type="text" id="kodeklubb_position_field" name="kodeklubb_position_field" value="' . esc_attr( $value ) . '" size="25" />';
+	echo '<input type="text" id="position_field" name="position_field" value="' . esc_attr( $value ) . '" size="25" />';
+	echo '<label> lat: </label> <input type="text" id="field_lat" name="field_lat" value="' . esc_attr( $value_lat ) . '" size="10" />';
+	echo '<label> long: </label> <input type="text" id="field_long" name="field_long" value="' . esc_attr( $value_long ) . '" size="10" />';
+
+	require_once( SPACIOUS_INCLUDES_DIR . '/GMaps.php');
+
 }
 
 add_action( 'save_post', 'kodeklubb_position_save_meta_box_data' );
@@ -104,15 +111,17 @@ function kodeklubb_position_save_meta_box_data( $post_id ) {
 	/* OK, it's safe for us to save the data now. */
 	
 	// Make sure that it is set.
-	if ( ! isset( $_POST['kodeklubb_position_field'] ) ) {
+	if ( ! isset( $_POST['position_field'] ) ) {
 		return;
 	}
 
 	// Sanitize user input.
-	$my_data = sanitize_text_field( $_POST['kodeklubb_position_field'] );
+	$my_data = sanitize_text_field( $_POST['position_field'] );
 
 	// Update the meta field in the database.
 	update_post_meta( $post_id, '_kodeklubb_position_value_key', $my_data );
+	update_post_meta( $post_id, '_kodeklubb_position_lat_key', sanitize_text_field( $_POST['field_lat'] ) );
+	update_post_meta( $post_id, '_kodeklubb_position_long_key', sanitize_text_field( $_POST['field_long'] ) );
 }
 
 
@@ -141,11 +150,16 @@ function kodeklubb_link_box_content( $post ) {
 	 * from the database and use the value for the form.
 	 */
 	$value = get_post_meta( $post->ID, '_kodeklubb_link_value_key', true );
+	$hasLink = get_post_meta( $post->ID, '_kodeklubb_has_link_key', true );
 
-	echo '<label for="kodeklubb_link_field">';
-	_e( 'Kodeklubbens posisjon', 'kodeklubb_link' );
-	echo '</label> ';
-	echo '<input type="text" id="kodeklubb_link_field" name="kodeklubb_link_field" value="' . esc_attr( $value ) . '" size="25" />';
+	echo '<label><input type="checkbox"' . (!empty($hasLink) ? ' checked="checked" ' : null) . 'value="1" name="has_link" /> Har egen nettsde</label>';
+	echo '<br>';
+	if(!empty($hasLink)){
+		echo '<label for="kodeklubb_link_field">';
+		_e( 'Kodeklubbens link', 'kodeklubb_link' );
+		echo '</label> ';
+		echo '<input type="text" id="kodeklubb_link_field" name="kodeklubb_link_field" value="' . esc_attr( $value ) . '" size="25" />';
+	}
 }
 
 add_action( 'save_post', 'kodeklubb_link_save_meta_box_data' );
@@ -193,6 +207,7 @@ function kodeklubb_link_save_meta_box_data( $post_id ) {
 
 	// Update the meta field in the database.
 	update_post_meta( $post_id, '_kodeklubb_link_value_key', $my_data );
+//	update_post_meta( $post_id, '_kodeklubb_has_link_key', $my_data );
 }
 
 // Contact metabox
