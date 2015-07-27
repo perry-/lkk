@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Spacious functions related to defining constants, adding files and WordPress core functionality.
  *
@@ -118,5 +119,4 @@ if ( !function_exists( 'optionsframework_init' ) ) {
 	require_once( SPACIOUS_ADMIN_DIR . '/options/options-framework.php' );
 	require_once( SPACIOUS_PARENT_DIR . '/options.php' );
 }
-
 ?>
