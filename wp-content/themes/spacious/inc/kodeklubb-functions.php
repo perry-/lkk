@@ -152,7 +152,7 @@ function kodeklubb_link_box_content( $post ) {
 	$value = get_post_meta( $post->ID, '_kodeklubb_link_value_key', true );
 	$hasLink = get_post_meta( $post->ID, '_kodeklubb_has_link_key', true );
 
-	echo '<label><input type="checkbox"' . (!empty($hasLink) ? ' checked="checked" ' : null) . 'value="1" name="has_link"/> Har egen nettsde</label>';
+	echo '<label><input type="checkbox"' . (!empty($hasLink) ? ' checked="checked" ' : null) . 'value="1" name="has_link"/> Har egen nettside</label>';
 	echo '<br>';
 
 	echo '<label id="kodeklubb_link_label" style="display:none" for="kodeklubb_link_field">';
