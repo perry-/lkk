@@ -152,7 +152,7 @@ function kodeklubb_link_box_content( $post ) {
 	$value = get_post_meta( $post->ID, '_kodeklubb_link_value_key', true );
 	$hasLink = get_post_meta( $post->ID, '_kodeklubb_has_link_key', true );
 
-	echo '<label><input type="checkbox"' . (!empty($hasLink) ? ' checked="checked" ' : null) . 'value="1" name="has_link" /> Har egen nettsde</label>';
+	echo '<label><input type="checkbox"' . checked( $options['_kodeklubb_has_link_key'], 1 ) . 'value="1" name="has_link" /> Har egen nettsde</label>';
 	echo '<br>';
 	if(!empty($hasLink)){
 		echo '<label for="kodeklubb_link_field">';
@@ -204,10 +204,11 @@ function kodeklubb_link_save_meta_box_data( $post_id ) {
 
 	// Sanitize user input.
 	$my_data = sanitize_text_field( $_POST['kodeklubb_link_field'] );
+	$my_data2 =  $_POST['has_link'] ;
 
 	// Update the meta field in the database.
 	update_post_meta( $post_id, '_kodeklubb_link_value_key', $my_data );
-//	update_post_meta( $post_id, '_kodeklubb_has_link_key', $my_data );
+	update_post_meta( $post_id, '_kodeklubb_has_link_key', $my_data2 );
 }
 
 // Contact metabox

@@ -2050,6 +2050,30 @@ div.crafty-social-buttons-caption-block .crafty-social-caption {
 	}
 }
 
+/* Kodeklubb listing page */
+
+li.kodeklubb-item {
+	width: 25%;
+	float: left;
+}
+
+@media screen and (max-width: 950px) {
+	li.kodeklubb-item {
+		width: 33%;
+	}
+}
+
+@media screen and (max-width: 750px) {
+	li.kodeklubb-item {
+		width: 50%;
+	}
+}
+
+@media screen and (max-width: 450px) {
+	li.kodeklubb-item {
+		width: 100%;
+	}
+}
 
 /* Post page */
 
