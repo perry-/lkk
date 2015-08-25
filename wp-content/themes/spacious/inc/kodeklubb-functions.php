@@ -151,10 +151,10 @@ function kodeklubb_link_box_content( $post ) {
 	$hasLink = get_post_meta( $post->ID, '_kodeklubb_has_link_key', true );
 	echo '<label><input type="checkbox"' . (!empty($hasLink) ? ' checked="checked" ' : null) . 'value="1" name="has_link"/> Har egen nettside</label>';
 	echo '<br>';
-	echo '<label id="kodeklubb_link_label" style="display:none" for="kodeklubb_link_field">';
+	echo '<label id="kodeklubb_link_label" style="'. (empty($hasLink) ? 'display:none' : null) .'" for="kodeklubb_link_field">';
 	_e( 'Kodeklubbens link', 'kodeklubb_link' );
 	echo '</label> ';
-	echo '<input style="display:none" type="text" id="kodeklubb_link_field" name="kodeklubb_link_field" value="' . esc_attr( $value ) . '" size="25" />';
+	echo '<input style="'. (empty($hasLink) ? 'display:none' : null) .'" type="text" id="kodeklubb_link_field" name="kodeklubb_link_field" value="' . esc_attr( $value ) . '" size="25" />';
 }
 
 
