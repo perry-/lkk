@@ -150,17 +150,16 @@ function kodeklubb_link_box_content( $post ) {
 	 * from the database and use the value for the form.
 	 */
 	$value = get_post_meta( $post->ID, '_kodeklubb_link_value_key', true );
-	$hasLink = get_post_meta( $post->ID, '_kodeklubb_has_link_key', true );
 
 	echo '<label><input type="checkbox"' . checked( $options['_kodeklubb_has_link_key'], 1 ) . 'value="1" name="has_link" /> Har egen nettsde</label>';
 	echo '<br>';
-	if(!empty($hasLink)){
-		echo '<label for="kodeklubb_link_field">';
-		_e( 'Kodeklubbens link', 'kodeklubb_link' );
-		echo '</label> ';
-		echo '<input type="text" id="kodeklubb_link_field" name="kodeklubb_link_field" value="' . esc_attr( $value ) . '" size="25" />';
-	}
+
+	echo '<label id="kodeklubb_link_label" style="display:none" for="kodeklubb_link_field">';
+	_e( 'Kodeklubbens link', 'kodeklubb_link' );
+	echo '</label> ';
+	echo '<input style="display:none" type="text" id="kodeklubb_link_field" name="kodeklubb_link_field" value="' . esc_attr( $value ) . '" size="25" />';
 }
+
 
 add_action( 'save_post', 'kodeklubb_link_save_meta_box_data' );
 
