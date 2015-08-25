@@ -141,19 +141,16 @@ function kodeklubb_link_box() {
 }
 
 function kodeklubb_link_box_content( $post ) {
-
 	// Add a nonce field so we can check for it later.
 	wp_nonce_field( 'kodeklubb_link_box', 'kodeklubb_link_box_nonce' );
-
 	/*
 	 * Use get_post_meta() to retrieve an existing value
 	 * from the database and use the value for the form.
 	 */
 	$value = get_post_meta( $post->ID, '_kodeklubb_link_value_key', true );
-
-	echo '<label><input type="checkbox"' . checked( $options['_kodeklubb_has_link_key'], 1 ) . 'value="1" name="has_link" /> Har egen nettsde</label>';
+	$hasLink = get_post_meta( $post->ID, '_kodeklubb_has_link_key', true );
+	echo '<label><input type="checkbox"' . (!empty($hasLink) ? ' checked="checked" ' : null) . 'value="1" name="has_link"/> Har egen nettside</label>';
 	echo '<br>';
-
 	echo '<label id="kodeklubb_link_label" style="display:none" for="kodeklubb_link_field">';
 	_e( 'Kodeklubbens link', 'kodeklubb_link' );
 	echo '</label> ';
