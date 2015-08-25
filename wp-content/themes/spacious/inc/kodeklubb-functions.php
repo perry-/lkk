@@ -157,18 +157,101 @@ function kodeklubb_link_box_content( $post ) {
 	echo '<input style="'. (empty($hasLink) ? 'display:none' : null) .'" type="text" id="kodeklubb_link_field" name="kodeklubb_link_field" value="' . esc_attr( $value ) . '" size="25" />';
 }
 
-
 add_action( 'save_post', 'kodeklubb_link_save_meta_box_data' );
 
 function kodeklubb_link_save_meta_box_data( $post_id ) {
 
+    // Check if our nonce is set.
+    if ( ! isset( $_POST['kodeklubb_link_box_nonce'] ) ) {
+        return;
+    }
+
+    // Verify that the nonce is valid.
+    if ( ! wp_verify_nonce( $_POST['kodeklubb_link_box_nonce'], 'kodeklubb_link_box' ) ) {
+        return;
+    }
+
+    // If this is an autosave, our form has not been submitted, so we don't want to do anything.
+    if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+        return;
+    }
+
+    // Check the user's permissions.
+    if ( isset( $_POST['post_type'] ) && 'page' == $_POST['post_type'] ) {
+
+        if ( ! current_user_can( 'edit_page', $post_id ) ) {
+            return;
+        }
+
+    } else {
+
+        if ( ! current_user_can( 'edit_post', $post_id ) ) {
+            return;
+        }
+    }
+
+    /* OK, it's safe for us to save the data now. */
+
+    // Make sure that it is set.
+    if ( ! isset( $_POST['kodeklubb_link_field'] ) ) {
+        return;
+    }
+
+    // Sanitize user input.
+    $my_data = sanitize_text_field( $_POST['kodeklubb_link_field'] );
+    $my_data2 =  $_POST['has_link'] ;
+
+    // Update the meta field in the database.
+    update_post_meta( $post_id, '_kodeklubb_link_value_key', $my_data );
+    update_post_meta( $post_id, '_kodeklubb_has_link_key', $my_data2 );
+}
+
+
+// Facebook link metabox
+
+add_action( 'add_meta_boxes', 'kodeklubb_facebook_link_box' );
+
+function kodeklubb_facebook_link_box() {
+	add_meta_box(
+		'kodeklubb_facebook_link_box',
+		__( 'Kodeklubbens Facebook-side', 'kodeklubb_facebook_link' ),
+		'kodeklubb_facebook_link_box_content',
+		'kodeklubb',
+		'side',
+		'default'
+	);
+}
+
+function kodeklubb_facebook_link_box_content( $post ) {
+	// Add a nonce field so we can check for it later.
+	wp_nonce_field( 'kodeklubb_facebook_link_box', 'kodeklubb_facebook_link_box_nonce' );
+	/*
+	 * Use get_post_meta() to retrieve an existing value
+	 * from the database and use the value for the form.
+	 */
+	$value = get_post_meta( $post->ID, '_kodeklubb_facebook_link_value_key', true );
+	$hasLink = get_post_meta( $post->ID, '_kodeklubb_has_facebook_link_key', true );
+	echo '<label><input type="checkbox"' . (!empty($hasLink) ? ' checked="checked" ' : null) . 'value="1" name="has_facebook_link"/> Har Facebook-side</label>';
+	echo '<br>';
+	echo '<label id="kodeklubb_facebook_link_label" style="'. (empty($hasLink) ? 'display:none' : null) .'" for="kodeklubb_facebook_link_field">';
+	_e( 'Kodeklubbens Facebook-side', 'kodeklubb_facebook_link' );
+	echo '</label> ';
+	echo '<input style="'. (empty($hasLink) ? 'display:none' : null) .'" type="text" id="kodeklubb_facebook_link_field" name="kodeklubb_facebook_link_field" value="' . esc_attr( $value ) . '" size="25" />';
+}
+
+
+
+add_action( 'save_post', 'kodeklubb_facebook_link_save_meta_box_data' );
+
+function kodeklubb_facebook_link_save_meta_box_data( $post_id ) {
+
 	// Check if our nonce is set.
-	if ( ! isset( $_POST['kodeklubb_link_box_nonce'] ) ) {
+	if ( ! isset( $_POST['kodeklubb_facebook_link_box_nonce'] ) ) {
 		return;
 	}
 
 	// Verify that the nonce is valid.
-	if ( ! wp_verify_nonce( $_POST['kodeklubb_link_box_nonce'], 'kodeklubb_link_box' ) ) {
+	if ( ! wp_verify_nonce( $_POST['kodeklubb_facebook_link_box_nonce'], 'kodeklubb_facebook_link_box' ) ) {
 		return;
 	}
 
@@ -192,19 +275,19 @@ function kodeklubb_link_save_meta_box_data( $post_id ) {
 	}
 
 	/* OK, it's safe for us to save the data now. */
-	
+
 	// Make sure that it is set.
-	if ( ! isset( $_POST['kodeklubb_link_field'] ) ) {
+	if ( ! isset( $_POST['kodeklubb_facebook_link_field'] ) ) {
 		return;
 	}
 
 	// Sanitize user input.
-	$my_data = sanitize_text_field( $_POST['kodeklubb_link_field'] );
+	$my_data = sanitize_text_field( $_POST['kodeklubb_facebook_link_field'] );
 	$my_data2 =  $_POST['has_link'] ;
 
 	// Update the meta field in the database.
-	update_post_meta( $post_id, '_kodeklubb_link_value_key', $my_data );
-	update_post_meta( $post_id, '_kodeklubb_has_link_key', $my_data2 );
+	update_post_meta( $post_id, '_kodeklubb_facebook_link_value_key', $my_data );
+	update_post_meta( $post_id, '_kodeklubb_has_facebook_link_key', $my_data2 );
 }
 
 // Contact metabox
