@@ -297,7 +297,7 @@ add_action( 'add_meta_boxes', 'kodeklubb_contact_box' );
 function kodeklubb_contact_box() {
 	add_meta_box( 
 		'kodeklubb_contact_box',
-		__( 'Kodeklubbens kontaktperson', 'kodeklubb_contact' ),
+		__( 'Kodeklubbens kontaktperson(er)', 'kodeklubb_contact' ),
 		'kodeklubb_contact_box_content',
 		'kodeklubb',
 		'side',
@@ -306,7 +306,13 @@ function kodeklubb_contact_box() {
 }
 
 
-
+function print_contact($contact){
+	echo "<strong>Navn:  </strong> <span>". $contact['name'] ."</span><br/>";
+	echo "<strong>E-post:  </strong> <span>". $contact['email'] ."</span><br/>"; 
+	echo "<strong>Telefon:  </strong> <span>". $contact['phone'] ."</span><br/>";
+	echo "<strong>Rolle:  </strong> <span>". $contact['role'] ."</span><br/>";
+	echo "<br/>";
+}
 
 
 function kodeklubb_contact_box_content( $post ) {
@@ -318,29 +324,51 @@ function kodeklubb_contact_box_content( $post ) {
 	 * Use get_post_meta() to retrieve an existing value
 	 * from the database and use the value for the form.
 	 */
-	$value = get_post_meta( $post->ID, '_kodeklubb_contact_value_key', true );
+	$contacts = get_post_meta( $post->ID, '_kodeklubb_contact_value_key', true );
 
-	echo '<label for="kodeklubb_contact_field">';
-	_e( 'Kodeklubbens kontaktperson', 'kodeklubb_contact' );
+
+			array_map("print_contact", $contacts);
+
+    //Required: email, name | optional: role, phone
+
+    echo '<input type="text" style="display:none" id="kodeklubb_contact_field" name="kodeklubb_contact_field[]" size="25" />';
+
+	echo '</br><label for="kodeklubb_contact_name_field">';
+	_e( 'Navn', 'kodeklubb_contact_name' );
 	echo '</label> ';
-	echo '<input type="text" id="kodeklubb_contact_field" name="kodeklubb_contact_field" value="' . esc_attr( $value ) . '" size="25" />';
+    echo '<br>';
+    echo '<input type="text" id="kodeklubb_contact_name_field" name="kodeklubb_contact_name_field" size="25" required />';
+
+    echo '</br><label for="kodeklubb_contact_email_field">';
+	_e( 'E-post', 'kodeklubb_contact_email' );
+	echo '</label> ';
+    echo '<br>';
+	echo '<input type="email" id="kodeklubb_contact_email_field" name="kodeklubb_contact_email_field" size="25" required />';
+
+	echo '</br><label for="kodeklubb_contact_phone_field">';
+	_e( 'Telefon', 'kodeklubb_contact_phone' );
+	echo '</label> ';
+    echo '<br>';
+	echo '<input type="tel" id="kodeklubb_contact_phone_field" name="kodeklubb_contact_phone_field" size="25" />';
+
+	echo '</br><label for="kodeklubb_contact_role_field">';
+	_e( 'Rolle', 'kodeklubb_contact_role' );
+	echo '</label> ';
+    echo '<br>';
+	echo '<input type="text" id="kodeklubb_contact_role_field" name="kodeklubb_contact_role_field" size="25" />';
+
+    echo '<br><button name="append_contact" type="submit">Legg til</button>';
 }
 
-add_action( 'save_post', 'kodeklubb_contact_save_meta_box_data' );
+
+//add_action('wp_ajax_save_contact', 'kodeklubb_contact_save_meta_box_data');
+add_action('save_post', 'kodeklubb_contact_save_meta_box_data');
 
 function kodeklubb_contact_save_meta_box_data( $post_id ) {
 
-	if ( ! isset( $_POST['kodeklubb_contact_box_nonce'] ) ) {
-		return;
-	}
-
-	// Verify that the nonce is valid.
-	if ( ! wp_verify_nonce( $_POST['kodeklubb_contact_box_nonce'], 'kodeklubb_contact_box' ) ) {
-		return;
-	}
-
 	// If this is an autosave, our form has not been submitted, so we don't want to do anything.
 	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		echo "autosave";
 		return;
 	}
 
@@ -358,18 +386,24 @@ function kodeklubb_contact_save_meta_box_data( $post_id ) {
 		}
 	}
 
-	/* OK, it's safe for us to save the data now. */
-	
-	// Make sure that it is set.
-	if ( ! isset( $_POST['kodeklubb_contact_field'] ) ) {
+	if( ! isset( $_POST['kodeklubb_contact_name_field'] ) || ! isset( $_POST['kodeklubb_contact_email_field'] )){
 		return;
 	}
 
-	// Sanitize user input.
-	$my_data = sanitize_text_field( $_POST['kodeklubb_contact_field'] );
+    $contact = array(
+			'name' => sanitize_text_field( $_POST['kodeklubb_contact_name_field'] ),
+			'phone' => sanitize_text_field( $_POST['kodeklubb_contact_phone_field'] ),
+			'email' => sanitize_text_field( $_POST['kodeklubb_contact_email_field'] ),
+			'role' => sanitize_text_field( $_POST['kodeklubb_contact_role_field'] )
+		);
 
-	// Update the meta field in the database.
-	update_post_meta( $post_id, '_kodeklubb_contact_value_key', $my_data );
+    $contacts = get_post_meta($post_id, '_kodeklubb_contact_value_key', true);
+	
+	$contacts[] = $contact;
+
+    update_post_meta( $post_id, '_kodeklubb_contact_value_key', $contacts );
+
+	 //update_post_meta( $post_id, '_kodeklubb_contact_value_key', $contact );
 }
 add_filter('manage_kodeklubb_posts_columns', 'kodeklubb_table_head');
 
