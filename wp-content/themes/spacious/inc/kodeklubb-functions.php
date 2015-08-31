@@ -282,7 +282,7 @@ function kodeklubb_facebook_link_save_meta_box_data( $post_id ) {
 
 	// Sanitize user input.
 	$my_data = sanitize_text_field( $_POST['kodeklubb_facebook_link_field'] );
-	$my_data2 =  $_POST['has_link'] ;
+	$my_data2 =  $_POST['has_facebook_link'] ;
 
 	// Update the meta field in the database.
 	update_post_meta( $post_id, '_kodeklubb_facebook_link_value_key', $my_data );
