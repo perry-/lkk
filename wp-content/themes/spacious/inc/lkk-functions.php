@@ -13,6 +13,8 @@ function add_scripts() {
       SPACIOUS_JS_URL . '/checkbox.js', // this is the location of your script file
       array('jquery') // this array lists the scripts upon which your script depends
   );
+      wp_localize_script( 'ajax-script', 'ajax_object',
+            array( 'ajax_url' => admin_url( 'admin-ajax.php' ), 'we_value' => $email_nonce ) );
 }
 add_action('wp_enqueue_scripts', 'add_scripts');
 
