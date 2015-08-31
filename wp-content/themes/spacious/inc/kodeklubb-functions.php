@@ -3,7 +3,6 @@
 /**
 * Everything that has to do with kodeklubbpost
 */
-
 add_action( 'init', 'create_kodeklubb' );
 
 function create_kodeklubb() {
@@ -307,11 +306,44 @@ function kodeklubb_contact_box() {
 
 
 function print_contact($contact){
-	echo "<strong>Navn:  </strong> <span>". $contact['name'] ."</span><br/>";
-	echo "<strong>E-post:  </strong> <span>". $contact['email'] ."</span><br/>"; 
-	echo "<strong>Telefon:  </strong> <span>". $contact['phone'] ."</span><br/>";
-	echo "<strong>Rolle:  </strong> <span>". $contact['role'] ."</span><br/>";
-	echo "<br/>";
+	echo "<div>";
+		//echo "<a class='kodeklubb-delete-contact' href=''>Slett</a>";
+		echo "<strong>Navn:  </strong> <span>". $contact['name'] ."</span><br/>";
+		echo "<strong>E-post:  </strong> <span>". $contact['email'] ."</span><br/>"; 
+
+		if(isset($contact['phone'])){
+			echo "<strong>Telefon:  </strong> <span>". $contact['phone'] ."</span><br/>";
+		}
+
+		if(isset($contact['role'])){
+			echo "<strong>Rolle:  </strong> <span>". $contact['role'] ."</span><br/>";
+		}
+	echo "</div>";
+	echo "<hr/>";
+}
+
+function kodeklubb_contact_delete_meta_box_data( $post_id ){
+
+	// If this is an autosave, our form has not been submitted, so we don't want to do anything.
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		echo "autosave";
+		return;
+	}
+
+	// Check the user's permissions.
+	if ( isset( $_POST['post_type'] ) && 'page' == $_POST['post_type'] ) {
+
+		if ( ! current_user_can( 'edit_page', $post_id ) ) {
+			return;
+		}
+
+	} else {
+
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return;
+		}
+	}
+
 }
 
 
@@ -326,24 +358,22 @@ function kodeklubb_contact_box_content( $post ) {
 	 */
 	$contacts = get_post_meta( $post->ID, '_kodeklubb_contact_value_key', true );
 
-
-			array_map("print_contact", $contacts);
-
-    //Required: email, name | optional: role, phone
+	array_map("print_contact", $contacts);
 
     echo '<input type="text" style="display:none" id="kodeklubb_contact_field" name="kodeklubb_contact_field[]" size="25" />';
 
+    echo "</br><strong>Legg til ny</strong><br/>";
 	echo '</br><label for="kodeklubb_contact_name_field">';
 	_e( 'Navn', 'kodeklubb_contact_name' );
 	echo '</label> ';
     echo '<br>';
-    echo '<input type="text" id="kodeklubb_contact_name_field" name="kodeklubb_contact_name_field" size="25" required />';
+    echo '<input type="text" id="kodeklubb_contact_name_field" name="kodeklubb_contact_name_field" size="25" />';
 
     echo '</br><label for="kodeklubb_contact_email_field">';
 	_e( 'E-post', 'kodeklubb_contact_email' );
 	echo '</label> ';
     echo '<br>';
-	echo '<input type="email" id="kodeklubb_contact_email_field" name="kodeklubb_contact_email_field" size="25" required />';
+	echo '<input type="email" id="kodeklubb_contact_email_field" name="kodeklubb_contact_email_field" size="25" />';
 
 	echo '</br><label for="kodeklubb_contact_phone_field">';
 	_e( 'Telefon', 'kodeklubb_contact_phone' );
@@ -357,7 +387,7 @@ function kodeklubb_contact_box_content( $post ) {
     echo '<br>';
 	echo '<input type="text" id="kodeklubb_contact_role_field" name="kodeklubb_contact_role_field" size="25" />';
 
-    echo '<br><button name="append_contact" type="submit">Legg til</button>';
+    echo '<button class="button button-primary button-large" style="margin-top: 10px" name="append_contact" type="submit">Legg til</button>';
 }
 
 
@@ -386,7 +416,11 @@ function kodeklubb_contact_save_meta_box_data( $post_id ) {
 		}
 	}
 
-	if( ! isset( $_POST['kodeklubb_contact_name_field'] ) || ! isset( $_POST['kodeklubb_contact_email_field'] )){
+	if( !isset( $_POST['kodeklubb_contact_name_field'] ) || empty($_POST['kodeklubb_contact_name_field'] )){
+		return;
+	}
+
+	if( !isset( $_POST['kodeklubb_contact_email_field'] ) || empty($_POST['kodeklubb_contact_email_field'] )){
 		return;
 	}
 
@@ -402,9 +436,8 @@ function kodeklubb_contact_save_meta_box_data( $post_id ) {
 	$contacts[] = $contact;
 
     update_post_meta( $post_id, '_kodeklubb_contact_value_key', $contacts );
-
-	 //update_post_meta( $post_id, '_kodeklubb_contact_value_key', $contact );
 }
+
 add_filter('manage_kodeklubb_posts_columns', 'kodeklubb_table_head');
 
 //add_filter('manage_event_posts_columns', 'kodeklubb_table_head');

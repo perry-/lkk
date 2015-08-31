@@ -2120,3 +2120,7 @@ li.kodeklubb-item {
 	display: block;
 	margin-bottom: 15px;
 }
+
+.kodeklubb-delete-contact:hover{
+	color: red;
+}
