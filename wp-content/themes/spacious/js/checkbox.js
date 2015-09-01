@@ -9,6 +9,27 @@ jQuery(document).ready(function($) {
         $("#kodeklubb_facebook_link_field").toggle();
     });
 
+    $("a.kodeklubb-delete-contact").on('click', function(event){
+    	handle_delete(event);
+    });
+
+    function handle_delete(event){    	
+    	var post_id = $("input[name='post_id']").val();
+    	var contact_id = event.target.id;
+    	
+    	var data = {
+			'action': 'delete_contact',
+			'id': post_id,
+			'contact_id': contact_id
+		};
+
+		$.post(ajaxurl, data, function(response) {
+			if(response === "deleted"){
+				$("a#"+contact_id).parent().remove();
+			}
+		});
+    }
+
     $("button[name='append_contact']").click(function(){
     	var contact = {
     		name: $("input[name='kodeklubb_contact_name_field']").val(),
@@ -38,6 +59,8 @@ jQuery(document).ready(function($) {
 			}
 
 			var contactHTML = 
+				"<div>" +
+				"<a id='"+contact_response.id+"' class='kodeklubb-delete-contact' href='javascript:void(0);'>Slett</a>" +
 				"<strong>Navn:  </strong> <span>" + contact_response.name + "</span><br/>" +
 				"<strong>E-post:  </strong> <span>" + contact_response.email + "</span><br/>";
 
@@ -49,7 +72,7 @@ jQuery(document).ready(function($) {
 				contactHTML += "<strong>Rolle:  </strong> <span>" + contact_response.role + "</span><br/>";
 			}
 
-			contactHTML += "<hr/>";
+			contactHTML += "<hr/></div>";
 
 			$('#contact_list').append(
 				contactHTML
@@ -58,9 +81,12 @@ jQuery(document).ready(function($) {
 			$("input[name='kodeklubb_contact_name_field']").val("");
 			$("input[name='kodeklubb_contact_phone_field']").val("");
 			$("input[name='kodeklubb_contact_email_field']").val("");
-			$("input[name='kodeklubb_contact_role_field']").val("");			
-				//echo "<a class='kodeklubb-delete-contact' href=''>Slett</a>";
+			$("input[name='kodeklubb_contact_role_field']").val("");	
 			
+
+		    $("a.kodeklubb-delete-contact").on('click', function(event){
+		    	handle_delete(event);
+		    });
 		});
     });
 });

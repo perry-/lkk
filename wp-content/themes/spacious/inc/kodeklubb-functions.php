@@ -307,7 +307,7 @@ function kodeklubb_contact_box() {
 
 function print_contact($contact){
 	echo "<div>";
-		//echo "<a class='kodeklubb-delete-contact' href=''>Slett</a>";
+		echo "<a id=".$contact['id']." class='kodeklubb-delete-contact' href='javascript:void(0);'>Slett</a>";
 		echo "<strong>Navn:  </strong> <span>". $contact['name'] ."</span><br/>";
 		echo "<strong>E-post:  </strong> <span>". $contact['email'] ."</span><br/>"; 
 
@@ -318,8 +318,8 @@ function print_contact($contact){
 		if(!empty($contact['role'])){
 			echo "<strong>Rolle:  </strong> <span>". $contact['role'] ."</span><br/>";
 		}
+		echo "<hr/>";
 	echo "</div>";
-	echo "<hr/>";
 }
 
 function kodeklubb_contact_delete_meta_box_data( $post_id ){
@@ -428,6 +428,8 @@ function kodeklubb_contact_save_meta_box_data( ) {
 		return;
 	}
 
+	$contact['id'] = uniqid();
+
     $contacts = get_post_meta($post_id, '_kodeklubb_contact_value_key', true);
 	
 	$contacts[] = $contact;
@@ -438,6 +440,56 @@ function kodeklubb_contact_save_meta_box_data( ) {
 
     wp_die(); // this is required to terminate immediately and return a proper response
 }
+
+
+add_action('wp_ajax_delete_contact', 'kodeklubb_contact_delete');
+
+function kodeklubb_contact_delete( ) {
+	$post_id = $_POST['id'];
+
+	// If this is an autosave, our form has not been submitted, so we don't want to do anything.
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		return;
+	}
+
+	// Check the user's permissions.
+	if ( isset( $_POST['post_type'] ) && 'page' == $_POST['post_type'] ) {
+
+		if ( ! current_user_can( 'edit_page', $post_id ) ) {
+			return;
+		}
+
+	} else {
+
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return;
+		}
+	}
+
+    $contacts = get_post_meta($post_id, '_kodeklubb_contact_value_key', true);
+
+    $removethis = null;
+
+	foreach ($contacts as $current_contact) {
+		if($_POST['contact_id'] === $current_contact['id']){
+			$removethis = $current_contact;
+		}
+	}
+
+	if(is_null($removethis)){
+		return;
+	}
+
+	if(($key = array_search($removethis, $contacts, false)) !== FALSE) {
+        unset($contacts[$key]);
+    }
+
+    update_post_meta( $post_id, '_kodeklubb_contact_value_key', $contacts);	
+    echo "deleted";
+
+    wp_die(); // this is required to terminate immediately and return a proper response
+}
+
 
 add_filter('manage_kodeklubb_posts_columns', 'kodeklubb_table_head');
 
