@@ -449,7 +449,7 @@ function kodeklubb_table_head( $columns ) {
 			'cb' => '<input type="checkbox" />',
 			'title' => __( 'Kodeklubb' ),
 			'kodeklubb_position_column' => __( 'Posisjon' ),
-			'kodeklubb_contact_column' => __( 'Kontaktperson' ),
+			'kodeklubb_contact_column' => __( 'Kontaktperson(er)' ),
 			'date' => __( 'Lagt til' )
 		);
 
@@ -459,8 +459,20 @@ add_action( 'manage_kodeklubb_posts_custom_column', 'kodeklubb_table_content', 1
 
 function kodeklubb_table_content( $column_name, $post_id ) {
 	if( $column_name == 'kodeklubb_contact_column' ) {
-		$kodeklubb_contact = get_post_meta( $post_id, '_kodeklubb_contact_value_key', true );
-		echo $kodeklubb_contact;
+		$kodeklubb_contacts = get_post_meta( $post_id, '_kodeklubb_contact_value_key', true );
+		
+		foreach ($kodeklubb_contacts as $kodeklubb_contact) {
+
+			if( !empty($kodeklubb_contact['name'])){
+				echo $kodeklubb_contact['name'];
+			}
+
+			if (!empty($kodeklubb_contact['name']) && 
+				$kodeklubb_contact !== end($kodeklubb_contacts) &&
+				count($kodeklubb_contacts) > 1){
+				echo ', ';
+			}
+		}
 	}
 	if( $column_name == 'kodeklubb_position_column' ) {
 		$kodeklubb_position = get_post_meta( $post_id, '_kodeklubb_position_value_key', true );
