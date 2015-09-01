@@ -311,11 +311,11 @@ function print_contact($contact){
 		echo "<strong>Navn:  </strong> <span>". $contact['name'] ."</span><br/>";
 		echo "<strong>E-post:  </strong> <span>". $contact['email'] ."</span><br/>"; 
 
-		if(isset($contact['phone'])){
+		if(!empty($contact['phone'])){
 			echo "<strong>Telefon:  </strong> <span>". $contact['phone'] ."</span><br/>";
 		}
 
-		if(isset($contact['role'])){
+		if(!empty($contact['role'])){
 			echo "<strong>Rolle:  </strong> <span>". $contact['role'] ."</span><br/>";
 		}
 	echo "</div>";
@@ -365,8 +365,7 @@ function kodeklubb_contact_box_content( $post ) {
     echo '<input type="text" style="display:none" id="kodeklubb_contact_field" name="kodeklubb_contact_field[]" size="25" />';
     echo '<input type="text" style="display:none" name="post_id" value="'. $post->ID .'"></input>';
 
-    echo "</br><strong>Legg til ny</strong><br/>";
-	echo '</br><label for="kodeklubb_contact_name_field">';
+	echo '<label for="kodeklubb_contact_name_field">';
 	_e( 'Navn', 'kodeklubb_contact_name' );
 	echo '</label> ';
     echo '<br>';
@@ -390,6 +389,7 @@ function kodeklubb_contact_box_content( $post ) {
     echo '<br>';
 	echo '<input type="text" id="kodeklubb_contact_role_field" name="kodeklubb_contact_role_field" size="25" />';
 
+	echo '<div class="error-message"></div>';
     echo '<button class="button button-primary button-large" style="margin-top: 10px" name="append_contact" type="button">Legg til</button>';
 }
 
@@ -417,17 +417,16 @@ function kodeklubb_contact_save_meta_box_data( ) {
 			return;
 		}
 	}
-/*
-	if( !isset( $_POST['kodeklubb_contact_name_field'] ) || empty($_POST['kodeklubb_contact_name_field'] )){
-		return;
-	}
-
-	if( !isset( $_POST['kodeklubb_contact_email_field'] ) || empty($_POST['kodeklubb_contact_email_field'] )){
-		return;
-	}
-*/
 
 	$contact = $_POST['contact'];
+
+	if( !isset( $contact['name'] ) || empty($contact['name'] )){
+		return;
+	}
+
+	if( !isset( $contact['email'] ) || empty($contact['email'] )){
+		return;
+	}
 
     $contacts = get_post_meta($post_id, '_kodeklubb_contact_value_key', true);
 	

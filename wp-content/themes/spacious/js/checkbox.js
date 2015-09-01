@@ -17,6 +17,8 @@ jQuery(document).ready(function($) {
     		role: $("input[name='kodeklubb_contact_role_field']").val()
     	};
 
+		$('.error-message').empty();
+
     	var post_id = $("input[name='post_id']").val();
 
 	    var data = {
@@ -28,7 +30,13 @@ jQuery(document).ready(function($) {
 		$.post(ajaxurl, data, function(response) {
 			var contact_response = $.parseJSON(response);
 
-			console.log(contact_response);
+			if(!contact_response.name && !contact_response.email){
+				$('.error-message').append(
+					"Navn og e-post er obligatorisk"
+				);
+				return;
+			}
+
 			var contactHTML = 
 				"<strong>Navn:  </strong> <span>" + contact_response.name + "</span><br/>" +
 				"<strong>E-post:  </strong> <span>" + contact_response.email + "</span><br/>";
