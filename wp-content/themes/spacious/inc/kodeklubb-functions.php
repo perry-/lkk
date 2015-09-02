@@ -304,20 +304,21 @@ function kodeklubb_contact_box() {
 	);
 }
 
-
 function print_contact($contact){
 	echo "<div>";
 		echo "<a id=".$contact['id']." class='kodeklubb-delete-contact' href='javascript:void(0);'>Slett</a>";
-		echo "<strong>Navn:  </strong> <span>". $contact['name'] ."</span><br/>";
-		echo "<strong>E-post:  </strong> <span>". $contact['email'] ."</span><br/>"; 
+		echo "<div class='kodeklubb-contact-inner'>";
+			echo "<strong>Navn:  </strong> <span>". $contact['name'] ."</span><br/>";
+			echo "<strong>E-post:  </strong> <span>". $contact['email'] ."</span><br/>"; 
 
-		if(!empty($contact['phone'])){
-			echo "<strong>Telefon:  </strong> <span>". $contact['phone'] ."</span><br/>";
-		}
+			if(!empty($contact['phone'])){
+				echo "<strong>Telefon:  </strong> <span>". $contact['phone'] ."</span><br/>";
+			}
 
-		if(!empty($contact['role'])){
-			echo "<strong>Rolle:  </strong> <span>". $contact['role'] ."</span><br/>";
-		}
+			if(!empty($contact['role'])){
+				echo "<strong>Rolle:  </strong> <span>". $contact['role'] ."</span><br/>";
+			}
+		echo "</div>";
 		echo "<hr/>";
 	echo "</div>";
 }

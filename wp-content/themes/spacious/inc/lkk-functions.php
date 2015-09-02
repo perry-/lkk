@@ -12,9 +12,7 @@ function add_scripts() {
       'lkk-checkbox', // name your script so that you can attach other scripts and de-register, etc.
       SPACIOUS_JS_URL . '/checkbox.js', // this is the location of your script file
       array('jquery') // this array lists the scripts upon which your script depends
-  );
-      wp_localize_script( 'ajax-script', 'ajax_object',
-            array( 'ajax_url' => admin_url( 'admin-ajax.php' ), 'we_value' => $email_nonce ) );
+  );  
 }
 add_action('wp_enqueue_scripts', 'add_scripts');
 
@@ -24,8 +22,20 @@ function add_admin_scripts() {
       SPACIOUS_JS_URL . '/checkbox.js', // this is the location of your script file
       array('jquery') // this array lists the scripts upon which your script depends
   );
+  wp_enqueue_script(
+      'lkk-kodeklubb', // name your script so that you can attach other scripts and de-register, etc.
+      SPACIOUS_JS_URL . '/kodeklubb_contact.js', // this is the location of your script file
+      array('jquery') // this array lists the scripts upon which your script depends
+  );
 }
 add_action('admin_enqueue_scripts', 'add_admin_scripts');
+
+function add_admin_styles() {
+      wp_register_style( 'custom_wp_admin_css', SPACIOUS_CSS_URL . '/admin-style.css', false, '1.0.0' );
+      wp_enqueue_style( 'custom_wp_admin_css' );
+}
+
+add_action( 'admin_enqueue_scripts', 'add_admin_styles' );
 
 
 require_once( SPACIOUS_INCLUDES_DIR . '/kodeklubb-functions.php');
