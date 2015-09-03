@@ -39,6 +39,13 @@ jQuery(document).ready(function($) {
 		};
 
 		$.post(ajaxurl, data, function(response) {
+			if(response.indexOf("invalid_email") !== -1){
+				$('.error-message').append(
+					"Ugyldig e-post"
+				);
+				return;
+			}
+
 			var contact_response = $.parseJSON(response);
 
 			if(!contact_response.name && !contact_response.email){

@@ -429,6 +429,11 @@ function kodeklubb_contact_save_meta_box_data( ) {
 		return;
 	}
 
+	if( ! is_email( $contact['email'] )){
+		echo "invalid_email";
+		return;
+	}
+
 	$contact['id'] = uniqid();
 
     $contacts = get_post_meta($post_id, '_kodeklubb_contact_value_key', true);
