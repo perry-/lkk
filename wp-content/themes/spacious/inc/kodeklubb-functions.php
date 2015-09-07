@@ -3,7 +3,6 @@
 /**
 * Everything that has to do with kodeklubbpost
 */
-
 add_action( 'init', 'create_kodeklubb' );
 
 function create_kodeklubb() {
@@ -283,7 +282,7 @@ function kodeklubb_facebook_link_save_meta_box_data( $post_id ) {
 
 	// Sanitize user input.
 	$my_data = sanitize_text_field( $_POST['kodeklubb_facebook_link_field'] );
-	$my_data2 =  $_POST['has_link'] ;
+	$my_data2 =  $_POST['has_facebook_link'] ;
 
 	// Update the meta field in the database.
 	update_post_meta( $post_id, '_kodeklubb_facebook_link_value_key', $my_data );
@@ -297,7 +296,7 @@ add_action( 'add_meta_boxes', 'kodeklubb_contact_box' );
 function kodeklubb_contact_box() {
 	add_meta_box( 
 		'kodeklubb_contact_box',
-		__( 'Kodeklubbens kontaktperson', 'kodeklubb_contact' ),
+		__( 'Kodeklubbens kontaktperson(er)', 'kodeklubb_contact' ),
 		'kodeklubb_contact_box_content',
 		'kodeklubb',
 		'side',
@@ -305,8 +304,48 @@ function kodeklubb_contact_box() {
 	);
 }
 
+function print_contact($contact){
+	echo "<div>";
+		echo "<a id=".$contact['id']." class='kodeklubb-delete-contact' href='javascript:void(0);'>Slett</a>";
+		echo "<div class='kodeklubb-contact-inner'>";
+			echo "<strong>Navn:  </strong> <span>". $contact['name'] ."</span><br/>";
+			echo "<strong>E-post:  </strong> <span>". $contact['email'] ."</span><br/>"; 
 
+			if(!empty($contact['phone'])){
+				echo "<strong>Telefon:  </strong> <span>". $contact['phone'] ."</span><br/>";
+			}
 
+			if(!empty($contact['role'])){
+				echo "<strong>Rolle:  </strong> <span>". $contact['role'] ."</span><br/>";
+			}
+		echo "</div>";
+		echo "<hr/>";
+	echo "</div>";
+}
+
+function kodeklubb_contact_delete_meta_box_data( $post_id ){
+
+	// If this is an autosave, our form has not been submitted, so we don't want to do anything.
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		echo "autosave";
+		return;
+	}
+
+	// Check the user's permissions.
+	if ( isset( $_POST['post_type'] ) && 'page' == $_POST['post_type'] ) {
+
+		if ( ! current_user_can( 'edit_page', $post_id ) ) {
+			return;
+		}
+
+	} else {
+
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return;
+		}
+	}
+
+}
 
 
 function kodeklubb_contact_box_content( $post ) {
@@ -318,26 +357,48 @@ function kodeklubb_contact_box_content( $post ) {
 	 * Use get_post_meta() to retrieve an existing value
 	 * from the database and use the value for the form.
 	 */
-	$value = get_post_meta( $post->ID, '_kodeklubb_contact_value_key', true );
+	$contacts = get_post_meta( $post->ID, '_kodeklubb_contact_value_key', true );
 
-	echo '<label for="kodeklubb_contact_field">';
-	_e( 'Kodeklubbens kontaktperson', 'kodeklubb_contact' );
+	echo "<div id='contact_list'>";
+	array_map("print_contact", $contacts);
+	echo "</div>";
+
+    echo '<input type="text" style="display:none" id="kodeklubb_contact_field" name="kodeklubb_contact_field[]" size="25" />';
+    echo '<input type="text" style="display:none" name="post_id" value="'. $post->ID .'"></input>';
+
+	echo '<label for="kodeklubb_contact_name_field">';
+	_e( 'Navn', 'kodeklubb_contact_name' );
 	echo '</label> ';
-	echo '<input type="text" id="kodeklubb_contact_field" name="kodeklubb_contact_field" value="' . esc_attr( $value ) . '" size="25" />';
+    echo '<br>';
+    echo '<input type="text" id="kodeklubb_contact_name_field" name="kodeklubb_contact_name_field" size="25" />';
+
+    echo '</br><label for="kodeklubb_contact_email_field">';
+	_e( 'E-post', 'kodeklubb_contact_email' );
+	echo '</label> ';
+    echo '<br>';
+	echo '<input type="email" id="kodeklubb_contact_email_field" name="kodeklubb_contact_email_field" size="25" />';
+
+	echo '</br><label for="kodeklubb_contact_phone_field">';
+	_e( 'Telefon', 'kodeklubb_contact_phone' );
+	echo '</label> ';
+    echo '<br>';
+	echo '<input type="tel" id="kodeklubb_contact_phone_field" name="kodeklubb_contact_phone_field" size="25" />';
+
+	echo '</br><label for="kodeklubb_contact_role_field">';
+	_e( 'Rolle', 'kodeklubb_contact_role' );
+	echo '</label> ';
+    echo '<br>';
+	echo '<input type="text" id="kodeklubb_contact_role_field" name="kodeklubb_contact_role_field" size="25" />';
+
+	echo '<div class="error-message"></div>';
+    echo '<button class="button button-primary button-large" style="margin-top: 10px" name="append_contact" type="button">Legg til</button>';
 }
 
-add_action( 'save_post', 'kodeklubb_contact_save_meta_box_data' );
 
-function kodeklubb_contact_save_meta_box_data( $post_id ) {
+add_action('wp_ajax_save_contact', 'kodeklubb_contact_save_meta_box_data');
 
-	if ( ! isset( $_POST['kodeklubb_contact_box_nonce'] ) ) {
-		return;
-	}
-
-	// Verify that the nonce is valid.
-	if ( ! wp_verify_nonce( $_POST['kodeklubb_contact_box_nonce'], 'kodeklubb_contact_box' ) ) {
-		return;
-	}
+function kodeklubb_contact_save_meta_box_data( ) {
+	$post_id = $_POST['id'];
 
 	// If this is an autosave, our form has not been submitted, so we don't want to do anything.
 	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
@@ -358,19 +419,84 @@ function kodeklubb_contact_save_meta_box_data( $post_id ) {
 		}
 	}
 
-	/* OK, it's safe for us to save the data now. */
-	
-	// Make sure that it is set.
-	if ( ! isset( $_POST['kodeklubb_contact_field'] ) ) {
+	$contact = $_POST['contact'];
+
+	if( !isset( $contact['name'] ) || empty($contact['name'] )){
 		return;
 	}
 
-	// Sanitize user input.
-	$my_data = sanitize_text_field( $_POST['kodeklubb_contact_field'] );
+	if( !isset( $contact['email'] ) || empty($contact['email'] )){
+		return;
+	}
 
-	// Update the meta field in the database.
-	update_post_meta( $post_id, '_kodeklubb_contact_value_key', $my_data );
+	if( ! is_email( $contact['email'] )){
+		echo "invalid_email";
+		return;
+	}
+
+	$contact['id'] = uniqid();
+
+    $contacts = get_post_meta($post_id, '_kodeklubb_contact_value_key', true);
+	
+	$contacts[] = $contact;
+
+    update_post_meta( $post_id, '_kodeklubb_contact_value_key', $contacts );	
+	
+	echo(json_encode($contact));
+
+    wp_die(); // this is required to terminate immediately and return a proper response
 }
+
+
+add_action('wp_ajax_delete_contact', 'kodeklubb_contact_delete');
+
+function kodeklubb_contact_delete( ) {
+	$post_id = $_POST['id'];
+
+	// If this is an autosave, our form has not been submitted, so we don't want to do anything.
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		return;
+	}
+
+	// Check the user's permissions.
+	if ( isset( $_POST['post_type'] ) && 'page' == $_POST['post_type'] ) {
+
+		if ( ! current_user_can( 'edit_page', $post_id ) ) {
+			return;
+		}
+
+	} else {
+
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return;
+		}
+	}
+
+    $contacts = get_post_meta($post_id, '_kodeklubb_contact_value_key', true);
+
+    $removethis = null;
+
+	foreach ($contacts as $current_contact) {
+		if($_POST['contact_id'] === $current_contact['id']){
+			$removethis = $current_contact;
+		}
+	}
+
+	if(is_null($removethis)){
+		return;
+	}
+
+	if(($key = array_search($removethis, $contacts, false)) !== FALSE) {
+        unset($contacts[$key]);
+    }
+
+    update_post_meta( $post_id, '_kodeklubb_contact_value_key', $contacts);	
+    echo "deleted";
+
+    wp_die(); // this is required to terminate immediately and return a proper response
+}
+
+
 add_filter('manage_kodeklubb_posts_columns', 'kodeklubb_table_head');
 
 //add_filter('manage_event_posts_columns', 'kodeklubb_table_head');
@@ -380,7 +506,7 @@ function kodeklubb_table_head( $columns ) {
 			'cb' => '<input type="checkbox" />',
 			'title' => __( 'Kodeklubb' ),
 			'kodeklubb_position_column' => __( 'Posisjon' ),
-			'kodeklubb_contact_column' => __( 'Kontaktperson' ),
+			'kodeklubb_contact_column' => __( 'Kontaktperson(er)' ),
 			'date' => __( 'Lagt til' )
 		);
 
@@ -390,8 +516,20 @@ add_action( 'manage_kodeklubb_posts_custom_column', 'kodeklubb_table_content', 1
 
 function kodeklubb_table_content( $column_name, $post_id ) {
 	if( $column_name == 'kodeklubb_contact_column' ) {
-		$kodeklubb_contact = get_post_meta( $post_id, '_kodeklubb_contact_value_key', true );
-		echo $kodeklubb_contact;
+		$kodeklubb_contacts = get_post_meta( $post_id, '_kodeklubb_contact_value_key', true );
+		
+		foreach ($kodeklubb_contacts as $kodeklubb_contact) {
+
+			if( !empty($kodeklubb_contact['name'])){
+				echo $kodeklubb_contact['name'];
+			}
+
+			if (!empty($kodeklubb_contact['name']) && 
+				$kodeklubb_contact !== end($kodeklubb_contacts) &&
+				count($kodeklubb_contacts) > 1){
+				echo ', ';
+			}
+		}
 	}
 	if( $column_name == 'kodeklubb_position_column' ) {
 		$kodeklubb_position = get_post_meta( $post_id, '_kodeklubb_position_value_key', true );

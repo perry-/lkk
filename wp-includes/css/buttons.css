@@ -358,3 +358,14 @@ TABLE OF CONTENTS:
 	}
 
 }
+
+.kodeklubb-delete-contact{
+    display: none;
+}
+
+.kodeklubb-delete-contact:hover{
+    position: absolute;
+    right: 1rem;
+    color: #a00;
+    display: block;
+}
