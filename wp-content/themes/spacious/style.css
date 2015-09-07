@@ -2067,6 +2067,12 @@ img.kodeklubb-image {
 	margin: 4% 0;
 }
 
+li.update {
+	margin: 0% 0% 3% 0;
+	border: solid 1px #eee;
+	padding: 2%;
+}
+
 button.homepage-link {
 	width: 50%;
 	padding: 2%;

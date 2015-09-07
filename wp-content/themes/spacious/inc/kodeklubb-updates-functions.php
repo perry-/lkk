@@ -68,26 +68,24 @@ function infomelding_kodeklubb_box_content( $post ) {
 		<br />  
 				<?php
 
-				$query = new WP_Query( array( 
-					'post_type' => 'kodeklubb' ,
-					'orderby' => 'name',
-					'order' => 'ASC',
-					'posts_per_page' => -1
-					) );
-
+			$query = new WP_Query( array( 
+				'post_type' => 'kodeklubb' ,
+				'orderby' => 'name',
+				'order' => 'ASC',
+				'posts_per_page' => -1
+				) );
+			?>
+			<select name="infomelding_kodeklubb">
+				<?php
 				while ( $query->have_posts() ) : $query->the_post();
 					?>
-					<input type="radio" name="infomelding_kodeklubb" value="<?php the_id();?>" <?php checked( $value, the_id() ); ?> ><?php the_title();?><br>
+					<option value="<?php the_id();?>" <?php if ( $value == get_the_id() ) echo 'selected="selected"'; ?>><?php the_title();?><br></option>
 					<?php
 				endwhile;
-
 				?>
-	<?php
+			</select>
+			<?php
 
-	echo '<label for="infomelding_kodeklubb_field">';
-	_e( 'Infomeldingens kodeklubb', 'infomelding_kodeklubb' );
-	echo '</label> ';
-	echo '<input type="text" id="infomelding_kodeklubb_field" name="infomelding_kodeklubb_field" value="' . esc_attr( $value ) . '" size="25" />';
 }
 
 add_action( 'save_post', 'infomelding_kodeklubb_save_meta_box_data' );
@@ -122,15 +120,10 @@ function infomelding_kodeklubb_save_meta_box_data( $post_id ) {
 		}
 	}
 
-	/* OK, it's safe for us to save the data now. */
-	
-	// Make sure that it is set.
-	if ( ! isset( $_POST['infomelding_kodeklubb_field'] ) ) {
-		return;
-	}
+
 
 	// Sanitize user input.
-	$my_data = ( isset( $_POST['infomelding_kodeklubb'] ) ? sanitize_html_class( $_POST['infomelding_kodeklubb'] ) : '' );
+	$my_data = $_POST['infomelding_kodeklubb'];
 
 	// Update the meta field in the database.
 	update_post_meta( $post_id, '_infomelding_kodeklubb_value_key', $my_data );
@@ -154,7 +147,8 @@ add_action( 'manage_infomelding_posts_custom_column', 'infomelding_table_content
 function infomelding_table_content( $column_name, $post_id ) {
 	if( $column_name == 'infomelding_kodeklubb_column' ) {
 		$infomelding_kodeklubb = get_post_meta( $post_id, '_infomelding_kodeklubb_value_key', true );
-		echo $infomelding_kodeklubb;
+		echo get_post($infomelding_kodeklubb)->post_title;
+		
 	}
 }
 

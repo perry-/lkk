@@ -33,7 +33,28 @@
 						<a href="<?php echo $link[0]; ?>" target="_blank"><button class="homepage-link" type="button">Gå til egen nettside</button></a>
 					</div>
 				<?php else : ?>
-					Den har ikke kodeklubblink!
+					<?php $post_id_key = get_the_ID(); ?>
+					<?php $query = new WP_Query( array( 
+						'post_type' => 'infomelding' ,
+						'orderby' => 'name',
+						'order' => 'ASC',
+						'posts_per_page' => -1,
+						'meta_key' => '_infomelding_kodeklubb_value_key',
+						'meta_value' => $post_id_key
+						) );
+					?>
+					<ul>
+						<?php
+						while ( $query->have_posts() ) : $query->the_post();
+							?>
+							<li class="update">
+							<h2><?php the_title(); ?></h2>
+							<?php echo get_the_content(); ?>
+							</li>
+							<?php
+						endwhile;
+						?>
+					</ul>
 				<?php endif ?>
 
 				<?php
