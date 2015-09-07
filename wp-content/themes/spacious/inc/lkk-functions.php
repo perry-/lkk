@@ -27,5 +27,6 @@ add_action('admin_enqueue_scripts', 'add_admin_scripts');
 
 
 require_once( SPACIOUS_INCLUDES_DIR . '/kodeklubb-functions.php');
+require_once( SPACIOUS_INCLUDES_DIR . '/kodeklubb-updates-functions.php');
 
 ?>

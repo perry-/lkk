@@ -23,6 +23,10 @@ class KlubbPos {
 	<div id="primary">
 		<div id="content" class="clearfix">
 			<?php while ( have_posts() ) : the_post(); ?>
+
+				<div class="the-content">
+					<h2><?php echo get_the_content(); ?></h2>
+				</div>
 				<?php
 
 				$query = new WP_Query( array( 
@@ -44,7 +48,7 @@ class KlubbPos {
 				
 				require_once( SPACIOUS_INCLUDES_DIR . '/GMapsOverview.php');
 
-				echo "<ul>";
+				echo "<ul class=\"kodeklubb-list clearfix\">";
 				while ( $query->have_posts() ) : $query->the_post();
 					echo '<li class="kodeklubb-item"><a href="';
 					the_permalink();
