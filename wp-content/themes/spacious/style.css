@@ -2163,3 +2163,7 @@ ul.kodeklubb-list {
 .subscription-toggle{
 	float: right;
 }
+
+.kodeklubb-contact-inner > strong{
+	margin-right: 0.5rem;
+}

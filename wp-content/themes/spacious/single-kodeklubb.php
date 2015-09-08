@@ -71,7 +71,22 @@
 		</div><!-- #content -->
 	</div><!-- #primary -->
 	
-	<?php spacious_sidebar_select(); ?>
+	<div id="secondary">
+		<?php $contacts = get_post_meta( $post->ID, '_kodeklubb_contact_value_key', true); ?>
+		<?php $facebook_link = get_post_meta( $post->ID, '_kodeklubb_facebook_link_value_key', true) ?>
+
+		<?php if(is_array($contacts) && count($contacts) > 0): ?>
+			<h2>Kontaktpersoner</h2>
+			<?php array_map("print_contact", $contacts); ?>
+		<?php endif ?>
+		
+		<?php if ($facebook_link):?>
+			<p>Lik oss på Facebook</p>
+			<a href="<?php echo $facebook_link; ?>" class="crafty-social-button csb-facebook" title="Facebook" target="_blank">
+				<img class="crafty-social-button-image" alt="Facebook" width="45" height="45" src="<?php get_site_url(); ?>/wp-content/plugins/crafty-social-buttons/buttons/simple/facebook.png" scale="0">
+			</a>
+		<?php endif ?>
+	</div>
 	
 	<?php do_action( 'spacious_after_body_content' ); ?>
 
