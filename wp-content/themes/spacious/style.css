@@ -2160,6 +2160,6 @@ ul.kodeklubb-list {
 	margin-bottom: 15px;
 }
 
-.kodeklubb-delete-contact:hover{
-	color: red;
+.subscription-toggle{
+	float: right;
 }
