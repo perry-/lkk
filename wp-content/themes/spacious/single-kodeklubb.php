@@ -33,6 +33,7 @@
 						<a href="<?php echo $link[0]; ?>" target="_blank"><button class="homepage-link" type="button">Gå til egen nettside</button></a>
 					</div>
 				<?php else : ?>
+					<h2> Oppdateringer: </h2>
 					<?php $post_id_key = get_the_ID(); ?>
 					<?php $query = new WP_Query( array( 
 						'post_type' => 'infomelding' ,
@@ -48,7 +49,7 @@
 						while ( $query->have_posts() ) : $query->the_post();
 							?>
 							<li class="update">
-							<h2><?php the_title(); ?></h2>
+							<h4><?php the_title(); ?></h4>
 							<?php echo get_the_content(); ?>
 							</li>
 							<?php

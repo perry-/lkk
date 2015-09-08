@@ -76,6 +76,7 @@ function infomelding_kodeklubb_box_content( $post ) {
 				) );
 			?>
 			<select name="infomelding_kodeklubb">
+				<option value="" <?php if ( $value == "" ) echo 'selected="selected"'; ?>>--Velg kodeklubb--<br></option>
 				<?php
 				while ( $query->have_posts() ) : $query->the_post();
 					?>
@@ -147,7 +148,11 @@ add_action( 'manage_infomelding_posts_custom_column', 'infomelding_table_content
 function infomelding_table_content( $column_name, $post_id ) {
 	if( $column_name == 'infomelding_kodeklubb_column' ) {
 		$infomelding_kodeklubb = get_post_meta( $post_id, '_infomelding_kodeklubb_value_key', true );
-		echo get_post($infomelding_kodeklubb)->post_title;
+		if($infomelding_kodeklubb == ""){
+			echo "-- Ingen valgt --";
+		}else{
+			echo get_post($infomelding_kodeklubb)->post_title;
+		}
 		
 	}
 }
