@@ -82,7 +82,7 @@
 		<?php endif ?>
 		
 		<?php if ($facebook_link):?>
-			<p>Lik oss på Facebook</p>
+			<p>Følg oss på Facebook</p>
 			<a href="<?php echo $facebook_link; ?>" class="crafty-social-button csb-facebook" title="Facebook" target="_blank">
 				<img class="crafty-social-button-image" alt="Facebook" width="45" height="45" src="<?php get_site_url(); ?>/wp-content/plugins/crafty-social-buttons/buttons/simple/facebook.png" scale="0">
 			</a>
