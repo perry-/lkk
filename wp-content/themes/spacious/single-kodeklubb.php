@@ -33,13 +33,13 @@
 						<a href="<?php echo $link[0]; ?>" target="_blank"><button class="homepage-link" type="button">Gå til egen nettside</button></a>
 					</div>
 				<?php else : ?>
-					<h2> Oppdateringer: </h2>
+					<h2> Siste nytt fra kodeklubben: </h2>
 					<?php $post_id_key = get_the_ID(); ?>
 					<?php $query = new WP_Query( array( 
 						'post_type' => 'infomelding' ,
 						'orderby' => 'name',
-						'order' => 'ASC',
-						'posts_per_page' => -1,
+						'order' => 'DESC',
+						'posts_per_page' => 6,
 						'meta_key' => '_infomelding_kodeklubb_value_key',
 						'meta_value' => $post_id_key
 						) );
@@ -54,6 +54,9 @@
 							</li>
 							<?php
 						endwhile;
+						if(!$query->have_posts()){
+							echo "Det er ingen nyheter her enda...";
+						}
 						wp_reset_query();
 						?>
 					</ul>

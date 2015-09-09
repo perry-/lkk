@@ -25,7 +25,7 @@ class KlubbPos {
 			<?php while ( have_posts() ) : the_post(); ?>
 
 				<div class="the-content">
-					<h2><?php echo get_the_content(); ?></h2>
+					<strong><?php echo get_the_content(); ?></strong><br><br>
 				</div>
 				<?php
 
