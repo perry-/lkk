@@ -75,17 +75,33 @@
 	<div id="secondary">
 		<?php $contacts = get_post_meta( $post->ID, '_kodeklubb_contact_value_key', true); ?>
 		<?php $facebook_link = get_post_meta( $post->ID, '_kodeklubb_facebook_link_value_key', true) ?>
+		<?php $meetup_link = get_post_meta( $post->ID, '_kodeklubb_meetup_link_value_key', true) ?>
 
 		<?php if(is_array($contacts) && count($contacts) > 0): ?>
 			<h2>Kontaktpersoner</h2>
 			<?php array_map("print_contact", $contacts); ?>
 		<?php endif ?>
 		
-		<?php if ($facebook_link):?>
-			<p>Følg oss på Facebook</p>
-			<a href="<?php echo $facebook_link; ?>" class="crafty-social-button csb-facebook" title="Facebook" target="_blank">
-				<img class="crafty-social-button-image" alt="Facebook" width="45" height="45" src="<?php get_site_url(); ?>/wp-content/plugins/crafty-social-buttons/buttons/simple/facebook.png" scale="0">
-			</a>
+		<?php if ($facebook_link || $meetup_link):?>
+			<p>Finn oss her</p>
+			<div class="crafty-social-buttons">
+				<ul class="crafty-social-buttons-list">
+					<?php if($facebook_link):?>
+						<li>
+							<a href="<?php echo $facebook_link; ?>" class="crafty-social-button csb-facebook" title="Facebook" target="_blank">
+								<img class="crafty-social-button-image" alt="Facebook" width="45" height="45" src="<?php get_site_url(); ?>/wp-content/plugins/crafty-social-buttons/buttons/simple/facebook.png" scale="0">
+							</a>
+						</li>
+					<?php endif ?>
+					<?php if($meetup_link):?>
+						<li>
+							<a href="<?php echo $meetup_link; ?>" class="crafty-social-button" title="Meetup.com" target="_blank">
+								<img class="crafty-social-button-image" alt="Meetup.com" width="45" height="45" src="<?php get_site_url(); ?>/wp-content/themes/spacious/inc/img/meetup_logo.png" scale="0">
+							</a>
+						</li>
+					<?php endif ?>
+				</ul>
+			</div>
 		<?php endif ?>
 	</div>
 	
