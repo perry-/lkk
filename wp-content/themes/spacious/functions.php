@@ -119,4 +119,10 @@ if ( !function_exists( 'optionsframework_init' ) ) {
 	require_once( SPACIOUS_ADMIN_DIR . '/options/options-framework.php' );
 	require_once( SPACIOUS_PARENT_DIR . '/options.php' );
 }
+
+function get_the_content_with_formatting ($content) {
+	$content = apply_filters('the_content', $content);
+	$content = str_replace(']]>', ']]&gt;', $content);
+	return $content;
+}
 ?>

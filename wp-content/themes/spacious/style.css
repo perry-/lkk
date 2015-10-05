@@ -2087,6 +2087,11 @@ button.homepage-link {
 
 /* Kodeklubb listing page */
 
+#map-canvas{
+	height: 700px;
+}
+
+
 li.kodeklubb-item {
 	width: 25%;
 	float: left;
@@ -2100,17 +2105,26 @@ ul.kodeklubb-list {
 	li.kodeklubb-item {
 		width: 33%;
 	}
+	#map-canvas{
+		height: 600px;
+	}
 }
 
 @media screen and (max-width: 900px) {
 	li.kodeklubb-item {
 		width: 50%;
 	}
+	#map-canvas{
+		height: 500px;
+	}
 }
 
 @media screen and (max-width: 600px) {
 	li.kodeklubb-item {
 		width: 100%;
+	}
+	#map-canvas{
+		height: 400px;
 	}
 }
 

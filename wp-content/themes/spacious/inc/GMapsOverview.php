@@ -2,7 +2,6 @@
 
     <style>
       html, body, #map-canvas {
-        height: 800px;
         margin: 0px;
         padding: 0px
       }

@@ -23,7 +23,7 @@
 					<?php endif; ?>
 
 					<div class="kodeklubb-content">
-						<?php echo get_the_content(); ?>
+						<?php echo get_the_content_with_formatting(get_the_content()); ?>
 					</div>
 				</div>
 				<?php $has_link = get_post_custom_values('_kodeklubb_has_link_key'); ?>
@@ -50,7 +50,7 @@
 							?>
 							<li class="update">
 							<h4><?php the_title(); ?></h4>
-							<?php echo get_the_content(); ?>
+							<?php the_content(); ?>
 							</li>
 							<?php
 						endwhile;
