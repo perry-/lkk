@@ -1,6 +1,6 @@
 <?php
 /**
- * Template Name: Kodeklubboversikt 
+ * Template Name: Kodeklubboversikt
  *
  * For presenting kodeklubber in a map and a list udner that map
  *
@@ -20,6 +20,32 @@ class KlubbPos {
 ?>
 
 	<?php do_action( 'spacious_before_body_content' ); ?>
+	<!--[if lt IE 10]>
+	<style>
+	li.kodeklubb-item {
+		width: 25%;
+		float: left;
+	}
+
+	@media screen and (max-width: 950px) {
+		li.kodeklubb-item {
+			width: 33%;
+		}
+	}
+
+	@media screen and (max-width: 750px) {
+		li.kodeklubb-item {
+			width: 50%;
+		}
+	}
+
+	@media screen and (max-width: 450px) {
+		li.kodeklubb-item {
+			width: 100%;
+		}
+	}
+	</style>
+	<![endif]-->
 	<div id="primary">
 		<div id="content" class="clearfix">
 			<?php while ( have_posts() ) : the_post(); ?>
@@ -29,7 +55,7 @@ class KlubbPos {
 				</div>
 				<?php
 
-				$query = new WP_Query( array( 
+				$query = new WP_Query( array(
 					'post_type' => 'kodeklubb' ,
 					'orderby' => 'name',
 					'order' => 'ASC',
@@ -45,7 +71,7 @@ class KlubbPos {
 					$obj->name = get_the_title();
 					$kodePlaces[] = $obj;
 				endwhile;
-				
+
 				require_once( SPACIOUS_INCLUDES_DIR . '/GMapsOverview.php');
 
 				echo "<ul class=\"kodeklubb-list clearfix\">";
@@ -67,7 +93,7 @@ class KlubbPos {
 					do_action( 'spacious_before_comments_template' );
 					// If comments are open or we have at least one comment, load up the comment template
 					if ( comments_open() || '0' != get_comments_number() )
-						comments_template();					
+						comments_template();
 	      		do_action ( 'spacious_after_comments_template' );
 				?>
 
@@ -75,9 +101,9 @@ class KlubbPos {
 
 		</div><!-- #content -->
 	</div><!-- #primary -->
-	
+
 	<?php //spacious_sidebar_select(); ?>
-	
+
 	<?php do_action( 'spacious_after_body_content' ); ?>
 
 <?php get_footer(); ?>

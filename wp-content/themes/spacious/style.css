@@ -2091,38 +2091,29 @@ button.homepage-link {
 	height: 700px;
 }
 
-
-li.kodeklubb-item {
-	width: 25%;
-	float: left;
-}
-
 ul.kodeklubb-list {
 	padding: 2% 1% 3% 1%;
+	-moz-column-count: 4;
+	-moz-column-gap: 20px;
+	-webkit-column-count: 4;
+	-webkit-column-gap: 20px;
+	column-count: 4;
+	column-gap: 20px;
 }
 
 @media screen and (max-width: 1150px) {
-	li.kodeklubb-item {
-		width: 33%;
-	}
 	#map-canvas{
 		height: 600px;
 	}
 }
 
 @media screen and (max-width: 900px) {
-	li.kodeklubb-item {
-		width: 50%;
-	}
 	#map-canvas{
 		height: 500px;
 	}
 }
 
 @media screen and (max-width: 600px) {
-	li.kodeklubb-item {
-		width: 100%;
-	}
 	#map-canvas{
 		height: 400px;
 	}
