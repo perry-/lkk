@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
 * Everything that has to do with kodeklubbpost
@@ -18,7 +18,7 @@ function create_kodeklubb() {
 		'view_item'          => __( 'Vis kodeklubb' ),
 		'search_items'       => __( 'Søk i kodeklubber' ),
 		'not_found'          => __( 'Ingen kodeklubb funnet' ),
-		'not_found_in_trash' => __( 'Ingen kodeklubb funnet i papirkurv' ), 
+		'not_found_in_trash' => __( 'Ingen kodeklubb funnet i papirkurv' ),
 		'parent_item_colon'  => '',
 		'menu_name'          => 'Kodeklubber'
 		);
@@ -40,7 +40,7 @@ function create_kodeklubb() {
 add_action( 'add_meta_boxes', 'kodeklubb_position_box' );
 
 function kodeklubb_position_box() {
-	add_meta_box( 
+	add_meta_box(
 		'kodeklubb_position_box',
 		__( 'Kodeklubbens plassering', 'kodeklubb_position' ),
 		'kodeklubb_position_box_content',
@@ -108,7 +108,7 @@ function kodeklubb_position_save_meta_box_data( $post_id ) {
 	}
 
 	/* OK, it's safe for us to save the data now. */
-	
+
 	// Make sure that it is set.
 	if ( ! isset( $_POST['position_field'] ) ) {
 		return;
@@ -129,7 +129,7 @@ function kodeklubb_position_save_meta_box_data( $post_id ) {
 add_action( 'add_meta_boxes', 'kodeklubb_link_box' );
 
 function kodeklubb_link_box() {
-	add_meta_box( 
+	add_meta_box(
 		'kodeklubb_link_box',
 		__( 'Kodeklubbens link', 'kodeklubb_link' ),
 		'kodeklubb_link_box_content',
@@ -377,7 +377,7 @@ function kodeklubb_meetup_link_save_meta_box_data( $post_id ) {
 add_action( 'add_meta_boxes', 'kodeklubb_contact_box' );
 
 function kodeklubb_contact_box() {
-	add_meta_box( 
+	add_meta_box(
 		'kodeklubb_contact_box',
 		__( 'Kodeklubbens kontaktperson(er)', 'kodeklubb_contact' ),
 		'kodeklubb_contact_box_content',
@@ -389,12 +389,13 @@ function kodeklubb_contact_box() {
 
 function print_contact($contact){
 	echo "<div>";
+
 		if(is_admin()){
 			echo "<a id=".$contact['id']." class='kodeklubb-delete-contact' href='javascript:void(0);'>Slett</a>";
 		}
 		echo "<div class='kodeklubb-contact-inner'>";
 			echo "<strong>Navn:  </strong> <span>". $contact['name'] ."</span><br/>";
-			echo "<strong>E-post:  </strong> <a href='mailto:". $contact['email'] ."'>". $contact['email'] ."</a><br/>"; 
+			echo "<strong>E-post:  </strong> <a href='mailto:". $contact['email'] ."'>". $contact['email'] ."</a><br/>";
 
 			if(!empty($contact['phone'])){
 				echo "<strong>Telefon:  </strong> <span>". $contact['phone'] ."</span><br/>";
@@ -445,6 +446,9 @@ function kodeklubb_contact_box_content( $post ) {
 	$contacts = get_post_meta( $post->ID, '_kodeklubb_contact_value_key', true );
 
 	echo "<div id='contact_list'>";
+	if(!is_array($contacts)){
+		$contacts = array();
+	}
 	array_map("print_contact", $contacts);
 	echo "</div>";
 
@@ -522,11 +526,11 @@ function kodeklubb_contact_save_meta_box_data( ) {
 	$contact['id'] = uniqid();
 
     $contacts = get_post_meta($post_id, '_kodeklubb_contact_value_key', true);
-	
+
 	$contacts[] = $contact;
 
-    update_post_meta( $post_id, '_kodeklubb_contact_value_key', $contacts );	
-	
+    update_post_meta( $post_id, '_kodeklubb_contact_value_key', $contacts );
+
 	echo(json_encode($contact));
 
     wp_die(); // this is required to terminate immediately and return a proper response
@@ -575,7 +579,7 @@ function kodeklubb_contact_delete( ) {
         unset($contacts[$key]);
     }
 
-    update_post_meta( $post_id, '_kodeklubb_contact_value_key', $contacts);	
+    update_post_meta( $post_id, '_kodeklubb_contact_value_key', $contacts);
     echo "deleted";
 
     wp_die(); // this is required to terminate immediately and return a proper response
@@ -602,14 +606,18 @@ add_action( 'manage_kodeklubb_posts_custom_column', 'kodeklubb_table_content', 1
 function kodeklubb_table_content( $column_name, $post_id ) {
 	if( $column_name == 'kodeklubb_contact_column' ) {
 		$kodeklubb_contacts = get_post_meta( $post_id, '_kodeklubb_contact_value_key', true );
-		
+
+		if(!is_array($kodeklubb_contacts)){
+			$kodeklubb_contacts = array();
+		}
+
 		foreach ($kodeklubb_contacts as $kodeklubb_contact) {
 
 			if( !empty($kodeklubb_contact['name'])){
 				echo $kodeklubb_contact['name'];
 			}
 
-			if (!empty($kodeklubb_contact['name']) && 
+			if (!empty($kodeklubb_contact['name']) &&
 				$kodeklubb_contact !== end($kodeklubb_contacts) &&
 				count($kodeklubb_contacts) > 1){
 				echo ', ';
