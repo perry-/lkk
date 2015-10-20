@@ -2194,3 +2194,35 @@ ul.kodeklubb-list {
 .kodeklubb-contact-inner > strong{
 	margin-right: 0.5rem;
 }
+
+.qa-faq-anchor{
+	font-size: 20px;
+	text-decoration: none;
+	color: #444;
+}
+
+.qa-faq-anchor:hover, .qa-faq-anchor:focus, .qa-faq-anchor:active{
+	color: #0FBE7C;
+	text-decoration: underline;
+}
+.qa-faq-anchor:before{
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	line-height: 1;
+	font-family: 'Genericons';
+	text-decoration: inherit;
+	font-weight: normal;
+	font-style: normal;
+	vertical-align: top;
+
+	content: '\f431';
+	font-size: 40px;
+	text-decoration: none;
+}
+.qa-faq-anchor.active:before {
+	content: '\f432';
+	text-decoration: none;
+}
