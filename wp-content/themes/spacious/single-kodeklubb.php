@@ -37,7 +37,7 @@
 					<?php $post_id_key = get_the_ID(); ?>
 					<?php $query = new WP_Query( array( 
 						'post_type' => 'infomelding' ,
-						'orderby' => 'name',
+						'orderby' => 'date',
 						'order' => 'DESC',
 						'posts_per_page' => 6,
 						'meta_key' => '_infomelding_kodeklubb_value_key',

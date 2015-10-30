@@ -75,14 +75,19 @@ function initialize() {
         var arrayLength = myVariable.length;
         var bounds = new google.maps.LatLngBounds();
     for (index = 0; index < arrayLength; ++index) {
-
-      var pos = new google.maps.LatLng(myVariable[index].lat, myVariable[index].long); 
+        if(isNaN(parseFloat(myVariable[index].lat)) || !isFinite(myVariable[index].lat)){
+            continue;
+        }
+        if(isNaN(parseFloat(myVariable[index].long)) || !isFinite(myVariable[index].long)){
+            continue;
+        }
+      var pos = new google.maps.LatLng(parseFloat(myVariable[index].lat), parseFloat(myVariable[index].long)); 
         new google.maps.Marker({
             position: pos,
             map: map,
             title: myVariable[index].name
         });
-        bounds.extend(new google.maps.LatLng(myVariable[index].lat, myVariable[index].long));
+        bounds.extend(new google.maps.LatLng(parseFloat(myVariable[index].lat), parseFloat(myVariable[index].long)));
     }
 
 

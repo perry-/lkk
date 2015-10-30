@@ -120,9 +120,17 @@ wp_head();
 						<div class="post-title-wrapper">
 							<?php
 							if( '' != spacious_header_title() ) {
+								$obj = get_queried_object();
+ 								$custom_post_type = $obj->post_type;
+ 								if($custom_post_type == 'kodeklubb'){
 							?>
-						   	<h1 class="header-post-title-class"><?php echo spacious_header_title(); ?></h1>
+								<h1 class="header-post-title-class"><?php echo 'Kodeklubben ' . spacious_header_title(); ?></h1>
 						   <?php
+ 								}else{
+							?>
+								<h1 class="header-post-title-class"><?php echo spacious_header_title(); ?></h1>
+						   <?php
+								}
 							}
 							?>
 						</div>
