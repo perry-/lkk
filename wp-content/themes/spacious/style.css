@@ -2195,6 +2195,20 @@ ul.kodeklubb-list {
 	margin-right: 0.5rem;
 }
 
+.qa-faq{
+    border: 1px solid #EAEAEA;
+    border-radius: 3px;
+    margin-bottom: 1rem;
+}
+.qa-faq-title{
+	padding-bottom: 0;
+}
+
+.qa-faq-answer{
+	padding: 20px;
+	border-top: 1px solid #EAEAEA;
+}
+
 .qa-faq-anchor{
 	font-size: 20px;
 	text-decoration: none;
