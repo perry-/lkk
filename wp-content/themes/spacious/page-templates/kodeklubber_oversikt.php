@@ -57,7 +57,7 @@ class KlubbPos {
 
 				$query = new WP_Query( array(
 					'post_type' => 'kodeklubb' ,
-					'orderby' => 'name',
+					'orderby' => 'title',
 					'order' => 'ASC',
 					'posts_per_page' => -1
 					) );
