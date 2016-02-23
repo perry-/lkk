@@ -2240,3 +2240,6 @@ ul.kodeklubb-list {
 	content: '\f432';
 	text-decoration: none;
 }
+.un-discussions .un-filters > .un-my-feedback-link{
+	display: none;
+}
