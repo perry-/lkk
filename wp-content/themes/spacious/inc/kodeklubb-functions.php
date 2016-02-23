@@ -30,8 +30,16 @@ function create_kodeklubb() {
 			'menu_position' => 5,
 			'supports'      => array( 'title', 'editor', 'thumbnail'),
 			'has_archive'   => false,
-			'capability_type' => 'kodeklubb',
-			'map_meta_cap' => false
+			'capabilities' => array(
+								  'edit_post'          => 'edit_kodeklubb',
+								  'read_post'          => 'read_kodeklubb',
+								  'delete_post'        => 'delete_kodeklubb',
+								  'edit_posts'         => 'edit_kodeklubbs',
+								  'edit_others_posts'  => 'edit_others_kodeklubbs',
+								  'publish_posts'      => 'publish_kodeklubbs',
+								  'read_private_posts' => 'read_private_kodeklubbs',
+								  'create_posts'       => 'create_kodeklubbs',
+								)
 	);
 
 	register_post_type( 'kodeklubb', $args );
