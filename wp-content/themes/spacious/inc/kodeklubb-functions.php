@@ -29,7 +29,9 @@ function create_kodeklubb() {
 			'public'        => true,
 			'menu_position' => 5,
 			'supports'      => array( 'title', 'editor', 'thumbnail'),
-			'has_archive'   => false
+			'has_archive'   => false,
+			'capability_type' => 'kodeklubb',
+			'map_meta_cap' => false
 	);
 
 	register_post_type( 'kodeklubb', $args );
