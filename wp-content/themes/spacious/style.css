@@ -2144,9 +2144,9 @@ ul.kodeklubb-list {
 /* Post page */
 
 .post-item{
-	width: 28%;
+	width: 27%;
 	float: left;
-	margin: 2%;
+	margin:  2rem;
 }
 
 
