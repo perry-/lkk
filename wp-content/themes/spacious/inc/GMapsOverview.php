@@ -49,6 +49,7 @@
 
     </style>
     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
+    <script src=<?php echo SPACIOUS_JS_URL . '/markerclusterer.min.js'; ?>></script>
      <script>
 // This example adds a search box to a map, using the Google Place Autocomplete
 // feature. People can enter geographical searches. The search box will return a
@@ -56,11 +57,11 @@
 
 function initialize() {
 
-    var myVariable = <?php echo(json_encode($kodePlaces)); ?>;
-
+  var kodeklubberList = <?php echo(json_encode($kodePlaces)); ?>;
 
   var map = new google.maps.Map(document.getElementById('map-canvas'), {
-    mapTypeId: google.maps.MapTypeId.ROADMAP
+    mapTypeId: google.maps.MapTypeId.ROADMAP,
+    minZoom: 4
   });
 
   var defaultBounds = new google.maps.LatLngBounds(
@@ -68,36 +69,57 @@ function initialize() {
       new google.maps.LatLng(58.532423, 28.2631));
   map.fitBounds(defaultBounds);
 
- 
- 
-  // [END region_getplaces]
-        //document.write(myVariable[0].name);
-        var arrayLength = myVariable.length;
-        var bounds = new google.maps.LatLngBounds();
-    for (index = 0; index < arrayLength; ++index) {
-        if(isNaN(parseFloat(myVariable[index].lat)) || !isFinite(myVariable[index].lat)){
-            continue;
-        }
-        if(isNaN(parseFloat(myVariable[index].long)) || !isFinite(myVariable[index].long)){
-            continue;
-        }
-      var pos = new google.maps.LatLng(parseFloat(myVariable[index].lat), parseFloat(myVariable[index].long)); 
-        new google.maps.Marker({
-            position: pos,
-            map: map,
-            title: myVariable[index].name
-        });
-        bounds.extend(new google.maps.LatLng(parseFloat(myVariable[index].lat), parseFloat(myVariable[index].long)));
+  var infoWindow;
+
+  function showInfo() {
+    map.setZoom(8);
+    map.setCenter(this.getPosition());
+
+    if(infoWindow) {
+      infoWindow.close();
     }
+    infoWindow = new google.maps.InfoWindow({
+      content: this.contentString
+    });
 
+    infoWindow.open(map, this);
+  }
 
+  // [END region_getplaces]
+        //document.write(kodeklubberList[0].name);
+  var arrayLength = kodeklubberList.length;
+  var bounds = new google.maps.LatLngBounds();
+  var markers = [];
 
+  for (index = 0; index < arrayLength; ++index) {
+    var kodeklubb = kodeklubberList[index]
+    if(isNaN(parseFloat(kodeklubb.lat)) || !isFinite(kodeklubb.lat)){
+      continue;
+    }
+    if(isNaN(parseFloat(kodeklubb.long)) || !isFinite(kodeklubb.long)){
+      continue;
+    }
+    var pos = new google.maps.LatLng(parseFloat(kodeklubb.lat), parseFloat(kodeklubb.long));
+      var marker = new google.maps.Marker({
+        position: pos,
+        map: map,
+        title: kodeklubb.name,
+        contentString: '<a href="' + kodeklubb.url + '">Gå til Kodeklubben ' + kodeklubb.name + ' sin side!</a>'
+      });
+      markers.push(marker);
 
+    bounds.extend(new google.maps.LatLng(parseFloat(kodeklubb.lat), parseFloat(kodeklubb.long)));
+
+    marker.addListener('click', showInfo);
+  }
+
+  var markerCluster = new MarkerClusterer(map, markers);
+  markerCluster.setGridSize(35);
 }
 
 google.maps.event.addDomListener(window, 'load', initialize);
 
     </script>
 
-    
+
     <div id="map-canvas"></div>

@@ -15,6 +15,7 @@
 class KlubbPos {
 	public $lat;
 	public $long;
+	public $url;
 	public $name;
 }
 ?>
@@ -68,6 +69,7 @@ class KlubbPos {
 					$obj = new KlubbPos();
 					$obj->lat = get_post_custom_values('_kodeklubb_position_lat_key');
 					$obj->long = get_post_custom_values('_kodeklubb_position_long_key');
+					$obj->url = get_the_permalink();
 					$obj->name = get_the_title();
 					$kodePlaces[] = $obj;
 				endwhile;
