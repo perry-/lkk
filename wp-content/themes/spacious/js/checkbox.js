@@ -13,4 +13,9 @@ jQuery(document).ready(function($) {
         $("#kodeklubb_meetup_link_label").toggle();
         $("#kodeklubb_meetup_link_field").toggle();
     });
+
+    $("input[name='has_truegroups_link']").bind("change", function(){
+        $("#kodeklubb_truegroups_link_label").toggle();
+        $("#kodeklubb_truegroups_link_field").toggle();
+    });
 });
