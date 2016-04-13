@@ -72,7 +72,9 @@ function initialize() {
   var infoWindow;
 
   function showInfo() {
-    map.setZoom(8);
+    if(map.getZoom() < 8) {
+      map.setZoom(8); 
+    }
     map.setCenter(this.getPosition());
 
     if(infoWindow) {
