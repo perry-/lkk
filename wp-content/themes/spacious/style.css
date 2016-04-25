@@ -1993,6 +1993,10 @@ div.crafty-social-buttons-caption-block .crafty-social-caption {
 	margin-bottom: 15px;
 }
 
+img.social-button-truegroups {
+	border: 1px solid #333;
+}
+
 .widget_sp_image {
 	width: 29%;
 	float: left;
@@ -2144,9 +2148,9 @@ ul.kodeklubb-list {
 /* Post page */
 
 .post-item{
-	width: 28%;
+	width: 27%;
 	float: left;
-	margin: 2%;
+	margin:  2rem;
 }
 
 

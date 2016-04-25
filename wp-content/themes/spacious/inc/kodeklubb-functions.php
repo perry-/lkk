@@ -382,6 +382,173 @@ function kodeklubb_meetup_link_save_meta_box_data( $post_id ) {
 	update_post_meta( $post_id, '_kodeklubb_has_meetup_link_key', $my_data2 );
 }
 
+// Truegroups link metabox
+
+add_action( 'add_meta_boxes', 'kodeklubb_truegroups_link_box' );
+
+function kodeklubb_truegroups_link_box() {
+	add_meta_box(
+		'kodeklubb_truegroups_link_box',
+		__( 'Kodeklubbens Truegroups-side', 'kodeklubb_truegroups_link' ),
+		'kodeklubb_truegroups_link_box_content',
+		'kodeklubb',
+		'side',
+		'default'
+	);
+}
+
+function kodeklubb_truegroups_link_box_content( $post ) {
+	// Add a nonce field so we can check for it later.
+	wp_nonce_field( 'kodeklubb_truegroups_link_box', 'kodeklubb_truegroups_link_box_nonce' );
+	/*
+	 * Use get_post_meta() to retrieve an existing value
+	 * from the database and use the value for the form.
+	 */
+	$value = get_post_meta( $post->ID, '_kodeklubb_truegroups_link_value_key', true );
+	$hasLink = get_post_meta( $post->ID, '_kodeklubb_has_truegroups_link_key', true );
+	echo '<label><input type="checkbox"' . (!empty($hasLink) ? ' checked="checked" ' : null) . 'value="1" name="has_truegroups_link"/> Har Truegroups-side</label>';
+	echo '<br>';
+	echo '<label id="kodeklubb_truegroups_link_label" style="'. (empty($hasLink) ? 'display:none' : null) .'" for="kodeklubb_truegroups_link_field">';
+	_e( 'Kodeklubbens Truegroups-side', 'kodeklubb_truegroups_link' );
+	echo '</label> ';
+	echo '<input style="'. (empty($hasLink) ? 'display:none' : null) .'" type="text" id="kodeklubb_truegroups_link_field" name="kodeklubb_truegroups_link_field" value="' . esc_attr( $value ) . '" size="25" />';
+}
+
+
+
+add_action( 'save_post', 'kodeklubb_truegroups_link_save_meta_box_data' );
+
+function kodeklubb_truegroups_link_save_meta_box_data( $post_id ) {
+
+	// Check if our nonce is set.
+	if ( ! isset( $_POST['kodeklubb_truegroups_link_box_nonce'] ) ) {
+		return;
+	}
+
+	// Verify that the nonce is valid.
+	if ( ! wp_verify_nonce( $_POST['kodeklubb_truegroups_link_box_nonce'], 'kodeklubb_truegroups_link_box' ) ) {
+		return;
+	}
+
+	// If this is an autosave, our form has not been submitted, so we don't want to do anything.
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		return;
+	}
+
+	// Check the user's permissions.
+	if ( isset( $_POST['post_type'] ) && 'page' == $_POST['post_type'] ) {
+
+		if ( ! current_user_can( 'edit_page', $post_id ) ) {
+			return;
+		}
+
+	} else {
+
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return;
+		}
+	}
+
+	/* OK, it's safe for us to save the data now. */
+
+	// Make sure that it is set.
+	if ( ! isset( $_POST['kodeklubb_truegroups_link_field'] ) ) {
+		return;
+	}
+
+	// Sanitize user input.
+	$my_data = sanitize_text_field( $_POST['kodeklubb_truegroups_link_field'] );
+	$my_data2 =  $_POST['has_truegroups_link'] ;
+
+	// Update the meta field in the database.
+	update_post_meta( $post_id, '_kodeklubb_truegroups_link_value_key', $my_data );
+	update_post_meta( $post_id, '_kodeklubb_has_truegroups_link_key', $my_data2 );
+}
+
+// Eventbrite link metabox
+
+add_action( 'add_meta_boxes', 'kodeklubb_eventbrite_link_box' );
+
+function kodeklubb_eventbrite_link_box() {
+	add_meta_box(
+		'kodeklubb_eventbrite_link_box',
+		__( 'Kodeklubbens Eventbrite-side', 'kodeklubb_eventbrite_link' ),
+		'kodeklubb_eventbrite_link_box_content',
+		'kodeklubb',
+		'side',
+		'default'
+	);
+}
+
+function kodeklubb_eventbrite_link_box_content( $post ) {
+	// Add a nonce field so we can check for it later.
+	wp_nonce_field( 'kodeklubb_eventbrite_link_box', 'kodeklubb_eventbrite_link_box_nonce' );
+	/*
+	 * Use get_post_meta() to retrieve an existing value
+	 * from the database and use the value for the form.
+	 */
+	$value = get_post_meta( $post->ID, '_kodeklubb_eventbrite_link_value_key', true );
+	$hasLink = get_post_meta( $post->ID, '_kodeklubb_has_eventbrite_link_key', true );
+	echo '<label><input type="checkbox"' . (!empty($hasLink) ? ' checked="checked" ' : null) . 'value="1" name="has_eventbrite_link"/> Har Eventbrite-side</label>';
+	echo '<br>';
+	echo '<label id="kodeklubb_eventbrite_link_label" style="'. (empty($hasLink) ? 'display:none' : null) .'" for="kodeklubb_eventbrite_link_field">';
+	_e( 'Kodeklubbens Eventbrite-side', 'kodeklubb_eventbrite_link' );
+	echo '</label> ';
+	echo '<input style="'. (empty($hasLink) ? 'display:none' : null) .'" type="text" id="kodeklubb_eventbrite_link_field" name="kodeklubb_eventbrite_link_field" value="' . esc_attr( $value ) . '" size="25" />';
+}
+
+
+
+add_action( 'save_post', 'kodeklubb_eventbrite_link_save_meta_box_data' );
+
+function kodeklubb_eventbrite_link_save_meta_box_data( $post_id ) {
+
+	// Check if our nonce is set.
+	if ( ! isset( $_POST['kodeklubb_eventbrite_link_box_nonce'] ) ) {
+		return;
+	}
+
+	// Verify that the nonce is valid.
+	if ( ! wp_verify_nonce( $_POST['kodeklubb_eventbrite_link_box_nonce'], 'kodeklubb_eventbrite_link_box' ) ) {
+		return;
+	}
+
+	// If this is an autosave, our form has not been submitted, so we don't want to do anything.
+	if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
+		return;
+	}
+
+	// Check the user's permissions.
+	if ( isset( $_POST['post_type'] ) && 'page' == $_POST['post_type'] ) {
+
+		if ( ! current_user_can( 'edit_page', $post_id ) ) {
+			return;
+		}
+
+	} else {
+
+		if ( ! current_user_can( 'edit_post', $post_id ) ) {
+			return;
+		}
+	}
+
+	/* OK, it's safe for us to save the data now. */
+
+	// Make sure that it is set.
+	if ( ! isset( $_POST['kodeklubb_eventbrite_link_field'] ) ) {
+		return;
+	}
+
+	// Sanitize user input.
+	$my_data = sanitize_text_field( $_POST['kodeklubb_eventbrite_link_field'] );
+	$my_data2 =  $_POST['has_eventbrite_link'] ;
+
+	// Update the meta field in the database.
+	update_post_meta( $post_id, '_kodeklubb_eventbrite_link_value_key', $my_data );
+	update_post_meta( $post_id, '_kodeklubb_has_eventbrite_link_key', $my_data2 );
+}
+
+
 // Contact metabox
 
 add_action( 'add_meta_boxes', 'kodeklubb_contact_box' );
@@ -599,8 +766,7 @@ function kodeklubb_contact_delete( ) {
 add_filter('manage_kodeklubb_posts_columns', 'kodeklubb_table_head');
 
 //add_filter('manage_event_posts_columns', 'kodeklubb_table_head');
-function kodeklubb_table_head( $columns ) {
-
+function kodeklubb_table_head( $columns  ) {
 	$columns = array(
 			'cb' => '<input type="checkbox" />',
 			'title' => __( 'Kodeklubb' ),
@@ -624,7 +790,7 @@ function kodeklubb_table_content( $column_name, $post_id ) {
 		foreach ($kodeklubb_contacts as $kodeklubb_contact) {
 
 			if( !empty($kodeklubb_contact['name'])){
-				echo $kodeklubb_contact['name'];
+				echo "<a href='mailto:" .  $kodeklubb_contact['email'] . "'>" . $kodeklubb_contact['name'] . "</a>";
 			}
 
 			if (!empty($kodeklubb_contact['name']) &&

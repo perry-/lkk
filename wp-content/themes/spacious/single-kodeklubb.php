@@ -79,13 +79,15 @@
 		<?php $contacts = get_post_meta( $post->ID, '_kodeklubb_contact_value_key', true); ?>
 		<?php $facebook_link = get_post_meta( $post->ID, '_kodeklubb_facebook_link_value_key', true) ?>
 		<?php $meetup_link = get_post_meta( $post->ID, '_kodeklubb_meetup_link_value_key', true) ?>
+		<?php $truegroups_link = get_post_meta( $post->ID, '_kodeklubb_truegroups_link_value_key', true) ?>
+		<?php $eventbrite_link = get_post_meta( $post->ID, '_kodeklubb_eventbrite_link_value_key', true) ?>
 
 		<?php if(is_array($contacts) && count($contacts) > 0): ?>
 			<h2>Kontaktpersoner</h2>
 			<?php array_map("print_contact", $contacts); ?>
 		<?php endif ?>
 		
-		<?php if ($facebook_link || $meetup_link):?>
+		<?php if ($facebook_link || $meetup_link || $truegroups_link || $eventbrite_link):?>
 			<p>Finn oss her</p>
 			<div class="crafty-social-buttons">
 				<ul class="crafty-social-buttons-list">
@@ -100,6 +102,20 @@
 						<li>
 							<a href="<?php echo $meetup_link; ?>" class="crafty-social-button" title="Meetup.com" target="_blank">
 								<img class="crafty-social-button-image" alt="Meetup.com" width="45" height="45" src="<?php get_site_url(); ?>/wp-content/themes/spacious/inc/img/meetup_logo.png" scale="0">
+							</a>
+						</li>
+					<?php endif ?>
+					<?php if($truegroups_link):?>
+						<li>
+							<a href="<?php echo $truegroups_link; ?>" class="crafty-social-button" title="Truegroups" target="_blank">
+								<img class="crafty-social-button-image social-button-truegroups" alt="Truegroups.com" width="45" height="45" src="<?php get_site_url(); ?>/wp-content/themes/spacious/inc/img/truegroups_logo.png" scale="0">
+							</a>
+						</li>
+					<?php endif ?>
+					<?php if($eventbrite_link):?>
+						<li>
+							<a href="<?php echo $eventbrite_link; ?>" class="crafty-social-button" title="Eventbrite" target="_blank">
+								<img class="crafty-social-button-image social-button-eventbrite" alt="Eventbrite.com" width="45" height="45" src="<?php get_site_url(); ?>/wp-content/themes/spacious/inc/img/eventbrite_logo.png" scale="0">
 							</a>
 						</li>
 					<?php endif ?>
