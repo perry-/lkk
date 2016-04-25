@@ -1,5 +1,3 @@
-
-
     <style>
       html, body, #map-canvas {
         margin: 0px;
