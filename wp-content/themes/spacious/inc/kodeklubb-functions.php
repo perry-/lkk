@@ -814,3 +814,4 @@ function kodeklubb_sortable_columns( $columns ) {
 
 	return $columns;
 }
+?>
