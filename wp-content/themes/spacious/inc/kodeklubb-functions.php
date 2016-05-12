@@ -767,11 +767,40 @@ add_filter('manage_kodeklubb_posts_columns', 'kodeklubb_table_head');
 
 //add_filter('manage_event_posts_columns', 'kodeklubb_table_head');
 function kodeklubb_table_head( $columns  ) {
+	$query = new WP_Query( array(
+		'post_type' => 'kodeklubb' ,
+		'orderby' => 'title',
+		'order' => 'ASC',
+		'posts_per_page' => -1
+		) );
+
+	$kodeklubb_contacts = "";
+	$mailto = "";
+
+	while ( $query->have_posts() ) : $query->the_post();
+		$kodeklubb_contacts = get_post_meta( $query->post->ID, '_kodeklubb_contact_value_key', true );
+
+		foreach ($kodeklubb_contacts as $kodeklubb_contact) {
+
+			if( !empty($kodeklubb_contact['email'])){
+				$mailto .= $kodeklubb_contact['email'];
+			}
+
+			if (!empty($kodeklubb_contact['email']) &&
+				$kodeklubb_contact !== end($kodeklubb_contacts) &&
+				count($kodeklubb_contacts) > 1){
+				$mailto .= ',';
+			}
+		}
+
+			$mailto .= ',';
+	endwhile;
+
 	$columns = array(
 			'cb' => '<input type="checkbox" />',
 			'title' => __( 'Kodeklubb' ),
 			'kodeklubb_position_column' => __( 'Posisjon' ),
-			'kodeklubb_contact_column' => __( 'Kontaktperson(er)' ),
+			'kodeklubb_contact_column' => __( 'Kontaktperson(er) <a target="_blank" href="mailto:' . $mailto . '">Send mail til alle</a>'),
 			'date' => __( 'Lagt til' )
 		);
 
