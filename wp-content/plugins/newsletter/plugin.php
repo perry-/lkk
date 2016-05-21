@@ -3,17 +3,18 @@
 /*
   Plugin Name: Newsletter
   Plugin URI: http://www.thenewsletterplugin.com/plugins/newsletter
-  Description: Newsletter is a cool plugin to create your own subscriber list, to send newsletters, to build your business. <strong>Before update give a look to <a href="http://www.thenewsletterplugin.com/plugins/newsletter#update">this page</a> to know what's changed.</strong>
-  Version: 3.7.2
-  Author: Stefano Lissa
+  Description: Newsletter is a cool plugin to create your own subscriber list, to send newsletters, to build your business. <strong>Before update give a look to <a href="http://www.thenewsletterplugin.com/category/release">this page</a> to know what's changed.</strong>
+  Version: 4.2.2
+  Author: Stefano Lissa, The Newsletter Team
   Author URI: http://www.thenewsletterplugin.com
   Disclaimer: Use at your own risk. No warranty expressed or implied is provided.
+  Text Domain: newsletter
 
-  Copyright 2009-2015 The Newsletter Team (email: info@thenewsletterplugin.com, web: http://www.thenewsletterplugin.com)
+  Copyright 2009-2016 The Newsletter Team (email: info@thenewsletterplugin.com, web: http://www.thenewsletterplugin.com)
  */
 
 // Used as dummy parameter on css and js links
-define('NEWSLETTER_VERSION', '3.7.2');
+define('NEWSLETTER_VERSION', '4.2.2');
 
 global $wpdb, $newsletter;
 
@@ -27,6 +28,9 @@ if (!defined('NEWSLETTER_USERS_TABLE'))
 
 if (!defined('NEWSLETTER_STATS_TABLE'))
     define('NEWSLETTER_STATS_TABLE', $wpdb->prefix . 'newsletter_stats');
+
+if (!defined('NEWSLETTER_SENT_TABLE'))
+    define('NEWSLETTER_SENT_TABLE', $wpdb->prefix . 'newsletter_sent');
 
 // Do not use basename(dirname()) since on activation the plugin is sandboxed inside a function
 define('NEWSLETTER_SLUG', 'newsletter');
@@ -99,6 +103,7 @@ class Newsletter extends NewsletterModule {
     var $theme_posts; // WP_Query object
     // Secret key to create a unique log file name (and may be other)
     var $lock_found = false;
+    var $action = '';
     static $instance;
 
     const MAX_CRON_SAMPLES = 300;
@@ -114,23 +119,31 @@ class Newsletter extends NewsletterModule {
     }
 
     function __construct() {
-
+        // Grab it before a plugin decides to remove it.
+        if (isset($_GET['na'])) {
+            $this->action = $_GET['na'];
+        }
+        if (isset($_POST['na'])) {
+            $this->action = $_POST['na'];
+        }
 
         $this->time_start = time();
 
         // Here because the upgrade is called by the parent constructor and uses the scheduler
         add_filter('cron_schedules', array($this, 'hook_cron_schedules'), 1000);
 
-        parent::__construct('main', '1.2.2');
+        parent::__construct('main', '1.2.9');
 
         $max = $this->options['scheduler_max'];
-        if (!is_numeric($max))
+        if (!is_numeric($max)) {
             $max = 100;
+        }
         $this->max_emails = max(floor($max / 12), 1);
 
         add_action('init', array($this, 'hook_init'));
         add_action('newsletter', array($this, 'hook_newsletter'), 1);
         add_action('newsletter_extension_versions', array($this, 'hook_newsletter_extension_versions'), 1);
+        add_action('plugins_loaded', array($this, 'hook_plugins_loaded'));
 
         // This specific event is created by "Feed by mail" panel on configuration
         add_action('shutdown', array($this, 'hook_shutdown'));
@@ -157,9 +170,7 @@ class Newsletter extends NewsletterModule {
 
         add_action('wp_head', array($this, 'hook_wp_head'));
 
-        add_shortcode('newsletter_lock', array($this, 'shortcode_newsletter_lock'));
         add_filter('the_content', array($this, 'hook_the_content'), 99);
-        //add_shortcode('newsletter_profile', array($this, 'shortcode_newsletter_profile'));
 
         if (is_admin()) {
             add_action('admin_head', array($this, 'hook_admin_head'));
@@ -181,10 +192,21 @@ class Newsletter extends NewsletterModule {
         }
     }
 
+    function first_install() {
+        parent::first_install();
+        $dismissed = get_option('newsletter_dismissed', array());
+
+        $dismissed['wpmail'] = 1;
+        update_option('newsletter_dismissed', $dismissed);
+    }
+
     function upgrade() {
         global $wpdb, $charset_collate;
 
+        require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+
         parent::upgrade();
+
 
         $this->upgrade_query("create table if not exists " . NEWSLETTER_EMAILS_TABLE . " (id int auto_increment, primary key (id)) $charset_collate");
         $this->upgrade_query("alter table " . NEWSLETTER_EMAILS_TABLE . " add column message longtext");
@@ -212,6 +234,30 @@ class Newsletter extends NewsletterModule {
         $this->upgrade_query("alter table " . NEWSLETTER_EMAILS_TABLE . " drop column name");
         $this->upgrade_query("drop table if exists " . $wpdb->prefix . "newsletter_work");
         $this->upgrade_query("alter table " . NEWSLETTER_EMAILS_TABLE . " convert to character set utf8");
+
+        // WP does not manage composite primary key when it tries to upgrade a table...
+        $suppress_errors = $wpdb->suppress_errors(true);
+
+        dbDelta("CREATE TABLE " . $wpdb->prefix . "newsletter_sent (
+            email_id int(10) unsigned NOT NULL DEFAULT '0',
+            user_id int(10) unsigned NOT NULL DEFAULT '0',
+            status tinyint(1) unsigned NOT NULL DEFAULT '0',
+            open tinyint(1) unsigned NOT NULL DEFAULT '0',
+            time int(10) unsigned NOT NULL DEFAULT '0',
+            error varchar(100) NOT NULL DEFAULT '',
+	    ip varchar(100) NOT NULL DEFAULT '',
+            PRIMARY KEY (email_id,user_id),
+            KEY user_id (user_id),
+            KEY email_id (email_id)
+          ) ENGINE=MyISAM DEFAULT CHARSET=utf8;");
+        $wpdb->suppress_errors($suppress_errors);
+
+        if ('utf8mb4' === $wpdb->charset) {
+            require_once(ABSPATH . 'wp-admin/includes/upgrade.php');
+            if (function_exists('maybe_convert_table_to_utf8mb4')) {
+                maybe_convert_table_to_utf8mb4(NEWSLETTER_EMAILS_TABLE);
+            }
+        }
 
         // Some setting check to avoid the common support request for mis-configurations
         $options = $this->get_options();
@@ -252,25 +298,50 @@ class Newsletter extends NewsletterModule {
         wp_clear_scheduled_hook('newsletter_update');
         wp_clear_scheduled_hook('newsletter_check_versions');
 
-        wp_mkdir_p(WP_CONTENT_DIR . '/extensions/newsletter');
-        wp_mkdir_p(WP_CONTENT_DIR . '/cache/newsletter');
-
+        //wp_mkdir_p(WP_CONTENT_DIR . '/extensions/newsletter');
+        //wp_mkdir_p(WP_CONTENT_DIR . '/cache/newsletter');
         //wp_clear_scheduled_hook('newsletter_updates_run');
         wp_clear_scheduled_hook('newsletter_statistics_version_check');
         wp_clear_scheduled_hook('newsletter_reports_version_check');
         wp_clear_scheduled_hook('newsletter_feed_version_check');
         wp_clear_scheduled_hook('newsletter_popup_version_check');
 
+
+
+        // If the original options has already saved once
+        if (isset($options['smtp_host'])) {
+            $smtp_options['enabled'] = $options['smtp_enabled'];
+            $smtp_options['test_email'] = $options['smtp_test_email'];
+            $smtp_options['host'] = $options['smtp_host'];
+            $smtp_options['pass'] = $options['smtp_pass'];
+            $smtp_options['port'] = $options['smtp_port'];
+            $smtp_options['user'] = $options['smtp_user'];
+            $smtp_options['secure'] = $options['smtp_secure'];
+            $this->save_options($smtp_options, 'smtp');
+            unset($options['smtp_enabled']);
+            unset($options['smtp_test_email']);
+            unset($options['smtp_pass']);
+            unset($options['smtp_port']);
+            unset($options['smtp_user']);
+            unset($options['smtp_secure']);
+            unset($options['smtp_host']);
+            $this->save_options($options);
+        }
+        $this->init_options('smtp');
+
         return true;
     }
 
     function admin_menu() {
         // This adds the main menu page
-        add_menu_page('Newsletter', 'Newsletter', ($this->options['editor'] == 1) ? 'manage_categories' : 'manage_options', 'newsletter_main_index', '', plugins_url('newsletter') . '/images/menu-icon.png');
+        add_menu_page('Newsletter', 'Newsletter', ($this->options['editor'] == 1) ? 'manage_categories' : 'manage_options', 'newsletter_main_index', '', plugins_url('newsletter') . '/images/menu-icon.png', 30);
 
-        $this->add_menu_page('index', 'Welcome');
-        $this->add_menu_page('main', 'Configuration');
-        $this->add_menu_page('diagnostic', 'Diagnostic');
+        $this->add_menu_page('index', 'Dashboard');
+        $this->add_menu_page('main', 'Settings and More');
+        $this->add_admin_page('smtp', 'SMTP');
+        $this->add_admin_page('info', 'Company info');
+        $this->add_admin_page('diagnostic', 'Diagnostic');
+        $this->add_admin_page('startup', 'Quick Startup');
     }
 
     /**
@@ -287,9 +358,9 @@ class Newsletter extends NewsletterModule {
         }
 
         if (!empty($warnings)) {
-            echo '<div class="error"><p>';
+            echo '<div class="tnp-error">';
             echo $warnings;
-            echo '</p></div>';
+            echo '</div>';
         }
     }
 
@@ -303,6 +374,15 @@ class Newsletter extends NewsletterModule {
                 wp_enqueue_script('thickbox');
                 wp_enqueue_style('thickbox');
                 wp_enqueue_media();
+
+                $dismissed = get_option('newsletter_dismissed', array());
+
+                if (isset($_GET['dismiss'])) {
+                    $dismissed[$_GET['dismiss']] = 1;
+                    update_option('newsletter_dismissed', $dismissed);
+                    wp_redirect($_SERVER['HTTP_REFERER']);
+                    exit();
+                }
             }
         }
 
@@ -331,12 +411,11 @@ class Newsletter extends NewsletterModule {
     }
 
     function is_admin_page() {
-        // TODO: Use the module list to detect that...
-        if (!isset($_GET['page']))
+        if (!isset($_GET['page'])) {
             return false;
+        }
         $page = $_GET['page'];
-        return strpos($page, 'newsletter_') === 0 || strpos($page, 'newsletter-statistics/') === 0 || strpos($page, 'newsletter/') === 0 ||
-                strpos($page, 'newsletter-updates/') === 0 || strpos($page, 'newsletter-flows/') === 0;
+        return strpos($page, 'newsletter_') === 0; // || strpos($page, 'newsletter-') === 0;
     }
 
     function hook_admin_init() {
@@ -401,7 +480,7 @@ class Newsletter extends NewsletterModule {
      * Sends an email to targeted users ot to users passed on. If a list of users is given (usually a list of test users)
      * the query inside the email to retrieve users is not used.
      *
-     * @global type $wpdb
+     * @global wpdb $wpdb
      * @global type $newsletter_feed
      * @param type $email
      * @param array $users
@@ -442,7 +521,7 @@ class Newsletter extends NewsletterModule {
             if (!$test && $this->limits_exceeded())
                 return false;
 
-            $headers = array('List-Unsubscribe' => '<' . NEWSLETTER_UNSUBSCRIBE_URL . '?nk=' . $user->id . '-' . $user->token . '>');
+            $headers = array('List-Unsubscribe' => '<' . home_url('/') . '?na=u&nk=' . $user->id . '-' . $user->token . '>');
             $headers['Precedence'] = 'bulk';
             $headers['X-Newsletter-Email-Id'] = $email->id;
 
@@ -455,13 +534,14 @@ class Newsletter extends NewsletterModule {
             $mt = $this->replace($email->message_text, $user, $email->id);
 
 
-            if ($email->track == 1)
+            if ($email->track == 1) {
                 $m = $this->relink($m, $email->id, $user->id);
+            }
 
             $s = $this->replace($email->subject, $user);
 
             if (isset($user->wp_user_id) && $user->wp_user_id != 0) {
-                $this->logger->debug('Have wp_user_id: ' . $user->wp_user_id);
+                $this->logger->debug('Has wp_user_id: ' . $user->wp_user_id);
                 // TODO: possibly name extraction
                 $wp_user_email = $wpdb->get_var($wpdb->prepare("select user_email from $wpdb->users where id=%d limit 1", $user->wp_user_id));
                 if (!empty($wp_user_email)) {
@@ -472,7 +552,11 @@ class Newsletter extends NewsletterModule {
                 }
             }
 
-            $this->mail($user->email, $s, array('html' => $m, 'text' => $mt), $headers);
+            $r = $this->mail($user->email, $s, array('html' => $m, 'text' => $mt), $headers);
+
+            $status = $r ? 0 : 1;
+
+            $wpdb->query($wpdb->prepare("insert into " . $wpdb->prefix . 'newsletter_sent (user_id, email_id, time, status, error) values (%d, %d, %d, %d, %s) on duplicate key update time=%d, status=%d, error=%s', $user->id, $email->id, time(), $status, $this->mail_last_error, time(), $status, $this->mail_last_error));
 
             $this->email_limit--;
         }
@@ -565,8 +649,10 @@ class Newsletter extends NewsletterModule {
         $this->mail_method = $callable;
     }
 
-    function mail($to, $subject, $message, $headers = null) {
+    var $mail_last_error = '';
 
+    function mail($to, $subject, $message, $headers = null) {
+        $this->mail_last_error = '';
         $this->logger->debug('mail> To: ' . $to);
         $this->logger->debug('mail> Subject: ' . $subject);
         if (empty($subject)) {
@@ -597,8 +683,49 @@ class Newsletter extends NewsletterModule {
             return call_user_func($this->mail_method, $to, $subject, $message, $headers);
         }
 
-        if ($this->mailer == null)
+        if ($this->mailer == null) {
             $this->mailer_init();
+        }
+
+        if ($this->mailer == null) {
+            // If still null, we need to use wp_mail()...
+
+            $headers = array();
+            $headers[] = 'MIME-Version: 1.0';
+            $headers[] = 'Content-Type: text/html;charset=UTF-8';
+            $headers[] = 'From: ' . $this->options['sender_name'] . ' <' . $this->options['sender_email'] . '>';
+
+            if (!empty($this->options['return_path'])) {
+                $headers[] = 'Return-Path: ' . $this->options['return_path'];
+            }
+            if (!empty($this->options['reply_to'])) {
+                $headers[] = 'Reply-To: ' . $this->options['reply_to'];
+            }
+
+            if (!is_array($message)) {
+                $headers[] = 'Content-Type: text/html;charset=UTF-8';
+                $body = $message;
+            } else {
+                // Only html is present?
+                if (!empty($message['html'])) {
+                    $headers[] = 'Content-Type: text/html;charset=UTF-8';
+
+                    $body = $message['html'];
+                } else if (!empty($message['text'])) {
+                    $headers[] = 'Content-Type: text/plain;charset=UTF-8';
+                    $this->mailer->IsHTML(false);
+                    $body = $message['text'];
+                }
+            }
+            $r = wp_mail($to, $subject, $body, $headers);
+            if (!$r) {
+                $last_error = error_get_last();
+                if (is_array($last_error)) {
+                    $this->mail_last_error = $last_error['message'];
+                }
+            }
+            return $r;
+        }
 
         // Simple message is asumed to be html
         if (!is_array($message)) {
@@ -635,6 +762,7 @@ class Newsletter extends NewsletterModule {
         $this->mailer->Send();
 
         if ($this->mailer->IsError()) {
+            $this->mail_last_error = $this->mailer->ErrorInfo;
             $this->logger->error('mail> ' . $this->mailer->ErrorInfo);
             // If the error is due to SMTP connection, the mailer cannot be reused since it does not clean up the connection
             // on error.
@@ -644,22 +772,31 @@ class Newsletter extends NewsletterModule {
         return true;
     }
 
+    /**
+     * Returns the SMTP options filtered so extensions can change them.
+     */
+    function get_smtp_options() {
+        $smtp_options = $this->get_options('smtp');
+        $smtp_options = apply_filters('newsletter_smtp', $smtp_options);
+        return $smtp_options;
+    }
+
     function mailer_init() {
         require_once ABSPATH . WPINC . '/class-phpmailer.php';
         require_once ABSPATH . WPINC . '/class-smtp.php';
-        $this->mailer = new PHPMailer();
 
-        $smtp_options = array();
-        $smtp_options['enabled'] = $this->options['smtp_enabled'];
-        $smtp_options['host'] = $this->options['smtp_host'];
-        $smtp_options['port'] = $this->options['smtp_port'];
-        $smtp_options['user'] = $this->options['smtp_user'];
-        $smtp_options['pass'] = $this->options['smtp_pass'];
-        $smtp_options['secure'] = $this->options['smtp_secure'];
+        $smtp_options = $this->get_smtp_options();
+//        $smtp_options['enabled'] = $this->options['smtp_enabled'];
+//        $smtp_options['host'] = $this->options['smtp_host'];
+//        $smtp_options['port'] = $this->options['smtp_port'];
+//        $smtp_options['user'] = $this->options['smtp_user'];
+//        $smtp_options['pass'] = $this->options['smtp_pass'];
+//        $smtp_options['secure'] = $this->options['smtp_secure'];
+        //$smtp_options = apply_filters('newsletter_smtp', $smtp_options);
 
-        $smtp_options = apply_filters('newsletter_smtp', $smtp_options);
 
         if ($smtp_options['enabled'] == 1) {
+            $this->mailer = new PHPMailer();
             $this->mailer->IsSMTP();
             $this->mailer->Host = $smtp_options['host'];
             if (!empty($smtp_options['port']))
@@ -672,8 +809,25 @@ class Newsletter extends NewsletterModule {
             }
             $this->mailer->SMTPKeepAlive = true;
             $this->mailer->SMTPSecure = $smtp_options['secure'];
+            $this->mailer->SMTPAutoTLS = false;
+
+            if ($smtp_options['ssl_insecure'] == 1) {
+                $this->mailer->SMTPOptions = array(
+                    'ssl' => array(
+                        'verify_peer' => false,
+                        'verify_peer_name' => false,
+                        'allow_self_signed' => true
+                    )
+                );
+            }
         } else {
-            $this->mailer->IsMail();
+            if ($this->options['phpmailer'] == 1) {
+                $this->mailer = new PHPMailer();
+                $this->mailer->IsMail();
+            } else {
+                $this->mailer = null;
+                return;
+            }
         }
 
         if (!empty($this->options['content_transfer_encoding'])) {
@@ -761,7 +915,13 @@ class Newsletter extends NewsletterModule {
             return $wpdb->get_row($wpdb->prepare("select * from " . NEWSLETTER_USERS_TABLE . " where id=%d and token=%s limit 1", $id, $token));
         }
 
-        return null;
+        $wp_user_id = get_current_user_id();
+        if (empty($wp_user_id))
+            return null;
+
+        $user = $this->get_user_by_wp_user_id($wp_user_id);
+        return $user;
+
 
         /*
           if ($this->options_main['wp_integration'] != 1) {
@@ -827,16 +987,17 @@ class Newsletter extends NewsletterModule {
         }
 
         $email = null;
-        if (is_numeric($email_id)) {
+        if (is_object($email_id)) {
+            $email = $email_id;
+            $email_id = $email->id;
+        } else if (is_numeric($email_id)) {
             $email = $this->get_email($email_id);
         }
 
         $text = apply_filters('newsletter_replace', $text, $user, $email);
 
-        //$text = str_replace('{home_url}', get_option('home'), $text);
-        //$text = str_replace('{blog_url}', get_option('home'), $text);
-        $text = $this->replace_url($text, 'BLOG_URL', get_option('home'));
-        $text = $this->replace_url($text, 'HOME_URL', get_option('home'));
+        $text = $this->replace_url($text, 'BLOG_URL', home_url('/'));
+        $text = $this->replace_url($text, 'HOME_URL', home_url('/'));
 
         $text = str_replace('{blog_title}', get_option('blogname'), $text);
         $text = str_replace('{blog_description}', get_option('blogdescription'), $text);
@@ -905,11 +1066,14 @@ class Newsletter extends NewsletterModule {
             $id_token = '&amp;ni=' . $user->id . '&amp;nt=' . $user->token;
             $nk = $user->id . '-' . $user->token;
 
+            $options_subscription = NewsletterSubscription::instance()->options;
+
+            $home_url = home_url('/');
             //$text = $this->replace_url($text, 'SUBSCRIPTION_CONFIRM_URL', self::add_qs(plugins_url('do.php', __FILE__), 'a=c' . $id_token));
-            $text = $this->replace_url($text, 'SUBSCRIPTION_CONFIRM_URL', plugins_url('newsletter/do/confirm.php') . '?nk=' . $nk);
-            $text = $this->replace_url($text, 'UNSUBSCRIPTION_CONFIRM_URL', plugins_url('newsletter/do/unsubscribe.php') . '?nk=' . $nk);
+            $text = $this->replace_url($text, 'SUBSCRIPTION_CONFIRM_URL', $home_url . '?na=c&nk=' . $nk);
+            $text = $this->replace_url($text, 'UNSUBSCRIPTION_CONFIRM_URL', $home_url . '?na=uc&nk=' . $nk . ($email ? '&nek=' . $email->id : ''));
             //$text = $this->replace_url($text, 'UNSUBSCRIPTION_CONFIRM_URL', NEWSLETTER_URL . '/do/unsubscribe.php?nk=' . $nk);
-            $text = $this->replace_url($text, 'UNSUBSCRIPTION_URL', plugins_url('newsletter/do/unsubscription.php') . '?nk=' . $nk);
+            $text = $this->replace_url($text, 'UNSUBSCRIPTION_URL', $home_url . '?na=u&nk=' . $nk . ($email ? '&nek=' . $email->id : ''));
             $text = $this->replace_url($text, 'CHANGE_URL', plugins_url('newsletter/do/change.php'));
 
             // Obsolete.
@@ -920,14 +1084,14 @@ class Newsletter extends NewsletterModule {
 
 
             if (empty($options_profile['profile_url']))
-                $text = $this->replace_url($text, 'PROFILE_URL', plugins_url('newsletter/do/profile.php') . '?nk=' . $nk);
+                $text = $this->replace_url($text, 'PROFILE_URL', $home_url . '?na=p&nk=' . $nk);
             else
                 $text = $this->replace_url($text, 'PROFILE_URL', self::add_qs($options_profile['profile_url'], 'ni=' . $user->id . '&amp;nt=' . $user->token));
 
             //$text = $this->replace_url($text, 'UNLOCK_URL', self::add_qs($this->options_main['lock_url'], 'nm=m' . $id_token));
-            $text = $this->replace_url($text, 'UNLOCK_URL', plugins_url('newsletter/do/unlock.php') . '?nk=' . $nk);
+            $text = $this->replace_url($text, 'UNLOCK_URL', $home_url . '?na=ul&nk=' . $nk);
             if (!empty($email_id)) {
-                $text = $this->replace_url($text, 'EMAIL_URL', plugins_url('newsletter/do/view.php') . '?id=' . $email_id . '&amp;nk=' . $nk);
+                $text = $this->replace_url($text, 'EMAIL_URL', $home_url . '?na=v&id=' . $email_id . '&amp;nk=' . $nk);
             }
 
             for ($i = 1; $i <= NEWSLETTER_LIST_MAX; $i++) {
@@ -1002,46 +1166,6 @@ class Newsletter extends NewsletterModule {
 
         return $content;
     }
-
-    function shortcode_newsletter_lock($attrs, $content = null) {
-        global $hyper_cache_stop, $cache_stop;
-
-        $this->logger->debug('Lock short code start');
-        $hyper_cache_stop = true;
-        $cache_stop = true;
-
-        $this->lock_found = true;
-
-        $user = $this->check_user();
-        if (is_user_logged_in() || ($user != null && $user->status == 'C')) {
-            return do_shortcode($content);
-        }
-
-        $buffer = $this->options['lock_message'];
-//        ob_start();
-//        eval('? >' . $buffer . "\n");
-//        $buffer = ob_get_clean();
-        // TODO: add the newsletter check on submit
-        $buffer = str_ireplace('<form', '<form method="post" action="' . plugins_url('newsletter/do/subscribe.php') . '"', $buffer);
-        $buffer = $this->replace($buffer, null, null, 'lock');
-
-        $buffer = do_shortcode($buffer);
-        $this->logger->debug('Lock short code end');
-
-        return '<div class="newsletter-lock">' . $buffer . '</div>';
-    }
-
-//    function shortcode_newsletter_profile($attrs, $content) {
-//        global $wpdb, $current_user;
-//
-//        $user = $this->check_user();
-//
-//        if ($user == null) {
-//            return 'No user found.';
-//        }
-//
-//        return $this->profile_form($user);
-//    }
 
     /**
      * Exceutes a query and log it.
@@ -1215,6 +1339,28 @@ class Newsletter extends NewsletterModule {
         return $value;
     }
 
+    /**
+     * Load plugin textdomain.
+     *
+     * @since 1.0.0
+     */
+    function hook_plugins_loaded() {
+        if (function_exists('load_plugin_textdomain')) {
+            load_plugin_textdomain('newsletter', false, plugin_basename(dirname(__FILE__)) . '/languages');
+        }
+    }
+    
+    var $panels = array();
+    function add_panel($key, $panel) {
+        if (!isset($this->panels[$key])) $this->panels[$key] = array();
+        if (!isset($panel['id'])) $panel['id'] = sanitize_key($panel['label']);
+        $this->panels[$key][] = $panel;
+    }
+    
+    function has_license() {
+        return !empty($this->options['contract_key']);
+    }
+    
 }
 
 $newsletter = Newsletter::instance();
@@ -1223,7 +1369,8 @@ require_once NEWSLETTER_DIR . '/subscription/subscription.php';
 require_once NEWSLETTER_DIR . '/emails/emails.php';
 require_once NEWSLETTER_DIR . '/users/users.php';
 require_once NEWSLETTER_DIR . '/statistics/statistics.php';
-
+require_once NEWSLETTER_DIR . '/lock/lock.php';
+require_once NEWSLETTER_DIR . '/wp/wp.php';
 
 if (!is_dir(WP_PLUGIN_DIR . '/newsletter-feed')) {
     if (is_file(WP_CONTENT_DIR . '/extensions/newsletter/feed/feed.php')) {
@@ -1295,6 +1442,8 @@ function newsletter_activate() {
     NewsletterEmails::instance()->upgrade();
     NewsletterSubscription::instance()->upgrade();
     NewsletterStatistics::instance()->upgrade();
+    NewsletterLock::instance()->upgrade();
+    NewsletterWp::instance()->upgrade();
 }
 
 register_activation_hook(__FILE__, 'newsletter_deactivate');

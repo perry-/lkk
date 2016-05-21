@@ -18,7 +18,7 @@ jQuery(document).ready(function($) {
         $("#kodeklubb_truegroups_link_label").toggle();
         $("#kodeklubb_truegroups_link_field").toggle();
     });
-    
+
     $("input[name='has_eventbrite_link']").bind("change", function(){
         $("#kodeklubb_eventbrite_link_label").toggle();
         $("#kodeklubb_eventbrite_link_field").toggle();

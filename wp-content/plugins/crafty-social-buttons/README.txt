@@ -3,9 +3,9 @@ Contributors: shen045
 Donate link: http://sarahhenderson.info/donate
 Author URI: http://sarahhenderson.info
 Plugin URL: http://github.io/sarahhenderson/crafty-social-buttons
-Tags: social, social buttons, social icons, sharing, social sharing, facebook, google, pinterest, flickr, ravelry, etsy, craftsy, youtube, widget, shortcode
+Tags: social, social buttons, social icons, sharing, social sharing, facebook, google, pinterest, flickr, ravelry, etsy, craftsy, whatsapp, youtube, xing, vk, widget, shortcode
 Requires at least: 3.5
-Tested up to: 4.0.0
+Tested up to: 4.5
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -14,7 +14,7 @@ Adds social sharing and link buttons, including Ravelry, Etsy, Craftsy and Pinte
 
 == Description ==
 
-This plugin adds a set of social buttons to your website, and includes craft-related social sites like Ravelry, Etsy, Craftsy and Pinterest as well as other major social networks.   You can choose from nine different button styles to match your theme.  You can have the share buttons automatically added to the top or bottom of each post, and can position the link buttons using either a widget, a shortcode or a template action hook.
+This plugin adds a set of social buttons to your website, and includes craft-related social sites like Ravelry, Etsy, Craftsy and Pinterest as well as other major social networks, including WhatsApp.  Support for sharing to WhatsApp is also provided on mobile devices.   You can choose from nine different button styles to match your theme.  You can have the share buttons automatically added to the top or bottom of each post, and can position the link buttons using either a widget, a shortcode or a template action hook.
 
 You can use the share button and link button functions either separately, or together:
 
@@ -24,25 +24,30 @@ You can use the share button and link button functions either separately, or tog
 
 Supported social services include:
 
+*  Craftinoo (link only)
 *  Craftsy (link only)
-*	Digg
-*	Ebay (link only)
-*	Email (share only)
-*	Etsy (link only)
+*  Dawanda (link only)
+*  Digg
+*  Ebay (link only)
+*  Email (share only)
+*  Etsy (link only)
 *  Facebook
 *  Flickr (link only)
-*	Google+
+*  Google+
 *  Instagram (link only)
-*	LinkedIn
-*	Pinterest
-*	Ravelry
-*	Reddit
-*	Specific Feeds (link only)
-*	Stumble Upon
-*	Tumblr
-*	Twitter
+*  LinkedIn
+*  Pinterest
+*  Ravelry
+*  Reddit
+*  Specific Feeds (link only)
+*  Stumble Upon
+*  Tumblr
+*  Twitter
 *  Vimeo
+*  VK
 *  YouTube
+*  WhatApp (share only, only on mobile)
+*  Xing
 
 You can also choose exactly which services you want separately for each mode, so you can can have *Share Buttons* for Ravelry, Pinterest, Facebook, Twitter and Email, but have *Link Buttons* for Google+, Craftsy, Pinterest and your Etsy shop.
 
@@ -74,8 +79,8 @@ I'm happy to take requests for new services to add.
 
 Yes! The buttons can also be included in any post or page by using one of these shortcodes:
 
-*	[csblink] for the *Link buttons*
-*	[csbshare] for the *Share buttons*
+*  [csblink] for the *Link buttons*
+*  [csbshare] for the *Share buttons*
 *  [csbnone] will hide the *Share buttons* on a post/page where they would otherwise normally appear
 
 If your theme doesn't have a widget area where you want the buttons to be placed, you can include them by editing your theme template.  Just include one of these links in your template to generate the buttons:
@@ -95,6 +100,41 @@ Since the *Share buttons* are page/post specific, the shortcode is usually best,
 5. *Share buttons* displayed with post count bubbles next to them (twenty thirteen theme, arbenting icon set).
 
 == Changelog ==
+
+= 1.5.5 =
+* Added additional customisation options to shortcodes and action hooks
+* Widgets now respect theme styling and have an optional widget title
+
+= 1.5.4 =
+* Added Dawanda
+* Fixed issue that prevented Pinterest sharing UI appearing on https sites
+* Added ability to include like and comment counts with Facebook share count
+
+= 1.5.3 =
+* Added Xing, VK and Craftinoo
+
+= 1.5.2 =
+* Fixed bug where share count script was not getting loaded properly
+
+= 1.5.1 =
+* Fixed bug in plugin initialisation affecting PHP version older than 5.4.
+
+= 1.5.0 =
+* Added WhatsApp share button (displays on mobile devices only)
+* Can now add a simple hover effect (dim or brighten) to the buttons
+* Can now add rel="nofollow" to links
+* Can now add custom css classes to the button group (useful if you want to use something like animate.css)
+* Can now choose which post types the sharing buttons get added to (including custom post types)
+* Fixed bug where spaces were being stripped from email subject
+
+= 1.4.2 =
+* Fixed bug generating a notice next to link buttons
+
+= 1.4.1 =
+* Added specific CSS styles to be compatible with twenty fifteen theme
+* Ensure widget CSS class is output in the widget wrapper
+* Popups now work even if share counts are disabled
+* Experimental - added ability to float share buttons on single pages to right or left of content
 
 = 1.4.0 =
 * Added `crafty-social-button-image` class to button images for easier styling
@@ -207,6 +247,20 @@ Since the *Share buttons* are page/post specific, the shortcode is usually best,
 
 == Upgrade Notice ==
 
+= 1.5.5 =
+* Added additional customisation options to shortcodes and action hooks
+* Widgets now respect theme styling and have an optional widget title
+
+= 1.5.4 =
+* Added Dawanda
+* Added ability to include like and comment counts with Facebook share count
+
+= 1.5.3 =
+* Added VK, Xing & Craftinoo
+
+= 1.5.1 =
+* Added WhatsApp sharing button, a hover effect, rel="nofollow" option, ability to choose which post types have share buttons, and ability to add custom CSS classes to button blocks.
+
 = 1.3.8 =
 * Add link buttons for Ebay, Vimeo and SpecificFeeds (allows visitors to subscribe by email)
 
@@ -266,6 +320,7 @@ Since the *Share buttons* are page/post specific, the shortcode is usually best,
 
 These are the things currently in the pipeline:
 
-* Adding the ability to hide buttons on specific pages
-* Choosing which post types the share buttons are added to
+* Adding the ability to share/link to Flipboard, Goodreads and 500px
+* Additional options for layout and style of the buttons
+* Shortcode options for more manual control of the buttons
 * (Anything else?  You tell me!)

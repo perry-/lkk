@@ -73,6 +73,8 @@ class SH_Crafty_Social_Buttons_Admin
 
       $this->register_share_count_settings();
 
+      $this->register_advanced_settings();
+
       register_setting($this->plugin_slug, $this->plugin_slug, array($this, 'validate_settings'));
    }
 
@@ -99,17 +101,21 @@ class SH_Crafty_Social_Buttons_Admin
          $settings['show_on_static_home'] = isset($input['show_on_static_home']);
          $settings['show_on_category'] = isset($input['show_on_category']);
          $settings['show_on_archive'] = isset($input['show_on_archive']);
+         $settings['share_float_buttons'] = isset($input['share_float_buttons']);
          $settings['twitter_show_title'] = isset($input['twitter_show_title']);
 
          // parse out our radio buttons, they are constrained so just take the values
          $settings['open_in'] = $input['open_in'];
          $settings['popup'] = $input['open_in'] == 'popup';
+         $settings['share_hover_effect'] = $input['share_hover_effect'];
 
          // our select boxes have constrained UI, so just update them
          $settings['share_image_set'] = isset($input['share_image_set']) ? $input['share_image_set'] : 'simple';
          $settings['share_services'] = isset($input['share_services']) ? $input['share_services'] : '';
          $settings['position'] = isset($input['position']) ? $input['position'] : 'below';
          $settings['share_alignment'] = isset($input['share_alignment']) ? $input['share_alignment'] : 'left';
+         $settings['share_float_alignment'] = isset($input['share_float_alignment']) ? $input['share_float_alignment'] : 'left';
+         $settings['share_float_height'] = isset($input['share_float_height']) ? $input['share_float_height'] : '20';
          $settings['share_caption_position'] = isset($input['share_caption_position']) ? $input['share_caption_position'] : 'inline-block';
 
          // and finally, validate our text boxes
@@ -131,6 +137,7 @@ class SH_Crafty_Social_Buttons_Admin
          $settings['link_services'] = $input['link_services'];
          $settings['link_alignment'] = isset($input['link_alignment']) ? $input['link_alignment'] : 'left';
          $settings['link_caption_position'] = isset($input['link_caption_position']) ? $input['link_caption_position'] : 'inline-block';
+         $settings['link_hover_effect'] = $input['link_hover_effect'];
 
          // and finally, validate our text boxes
          $settings['link_caption'] = sanitize_text_field($input['link_caption']);
@@ -149,21 +156,31 @@ class SH_Crafty_Social_Buttons_Admin
          $settings['show_count'] = isset($input['show_count']);
          $settings['cache_share_counts'] = isset($input['cache_share_counts']);
 
-         // parse out our radio buttons, they are constrained so just take the values
-   //			$settings['open_in']            = $input['open_in'];
-
-         // our select boxes have constrained UI, so just update them
-   //			$settings['share_image_set'] = isset( $input['share_image_set'] ) ? $input['share_image_set'] : 'simple';
-
-         // and finally, validate our text boxes
-   //			$settings['share_caption'] = sanitize_text_field( $input['share_caption'] );
-
          // including numeric ones
-   			$settings['cache_expiry_minutes'] = $this->sanitize_cache_expiry( $input['cache_expiry_minutes'] );
+         $settings['cache_expiry_minutes'] = $this->sanitize_cache_expiry( $input['cache_expiry_minutes'] );
+
+         // and select boxes
+         $settings['facebook_count'] = $input['facebook_count'];
+
+
+      } else if ('advanced_options' == $tab) {
+
+          // first, all the checkboxes need to be set if present
+          $settings['post_types_are_filtered'] = isset($input['post_types_are_filtered']);
+          $settings['share_nofollow'] = isset($input['share_nofollow']);
+          $settings['link_nofollow'] = isset($input['link_nofollow']);
+
+          // our checkboxes have constrained UI, so just update them
+          $settings['post_types_for_display'] = $input['post_types_for_display'];
+
+          // and finally, sanitize our text boxes
+          $settings['share_css_classes'] = sanitize_text_field($input['share_css_classes']);
+          $settings['link_css_classes'] = sanitize_text_field($input['link_css_classes']);
+
 
       }
 
-      return $settings;
+    return $settings;
    }
 
    function sanitize_image_size($image_size_string)
@@ -257,11 +274,33 @@ class SH_Crafty_Social_Buttons_Admin
       add_settings_field('share_services', __('Show these services', $this->plugin_slug),
          array($this->renderer, 'render_service_select'), $page, $section, array('share_services'));
 
-      add_settings_field('position', __('Above or below content', $this->plugin_slug),
+      add_settings_field('position', __('Position', $this->plugin_slug),
          array($this->renderer, 'renderPositionSelect'), $page, $section, array('position'));
 
-      add_settings_field('share_alignment', __('Alignment', $this->plugin_slug),
+      add_settings_field('share_alignment', __('Button Alignment', $this->plugin_slug),
          array($this->renderer, 'renderAlignmentSelect'), $page, $section, array('share_alignment'));
+
+      add_settings_field('share_hover_effect', __('Hover Effect', $this->plugin_slug),
+           array($this->renderer, 'renderRadio'), $page, $section,
+           array('share_hover_effect', '',
+               array(
+                   'hover-none' => __('No effect', $this->plugin_slug),
+                   'hover-dim' => __('Dim on hover', $this->plugin_slug),
+                   'hover-brighten' => __('Brighten on hover', $this->plugin_slug))
+           ));
+
+	  $section = 'cbs_display_share_float_settings';
+	  add_settings_section($section, __('Floating Button Options', $this->plugin_slug), null, $page);
+
+	  add_settings_field('share_float_buttons', __('Float Share Buttons', $this->plugin_slug),
+		   array($this->renderer, 'renderCheckbox'), $page, $section,
+		   array('share_float_buttons', __('Make share buttons float on single post pages', $this->plugin_slug)));
+
+      add_settings_field('share_float_alignment', __('Float Alignment', $this->plugin_slug),
+	    array($this->renderer, 'renderFloatAlignmentSelect'), $page, $section, array('share_float_alignment'));
+
+	  add_settings_field('share_float_height', __('Float Height', $this->plugin_slug),
+		   array($this->renderer, 'renderFloatHeightSelect'), $page, $section, array('share_float_height'));
 
       $section = 'cbs_display_share_settings';
       add_settings_section($section, __('Display Options', $this->plugin_slug), null, $page);
@@ -350,6 +389,17 @@ class SH_Crafty_Social_Buttons_Admin
       add_settings_field('new_window', __('Open in new window', $this->plugin_slug),
          array($this->renderer, 'renderCheckbox'), $page, $section, array('new_window'));
 
+
+      add_settings_field('link_hover_effect', __('Hover Effect', $this->plugin_slug),
+           array($this->renderer, 'renderRadio'), $page, $section,
+           array('link_hover_effect', '',
+               array(
+                   'hover-none' => __('No effect', $this->plugin_slug),
+                   'hover-dim' => __('Dim on hover', $this->plugin_slug),
+                   'hover-brighten' => __('Brighten on hover', $this->plugin_slug))
+           ));
+
+
       $section = 'cbs_link_service_settings';
       add_settings_section($section, __('User IDs', $this->plugin_slug), array(
          $this,
@@ -360,16 +410,22 @@ class SH_Crafty_Social_Buttons_Admin
          // we want to add a custom description for some of the fields
          $caption = $service;
          $description = "";
+
+          $canLink = $this->call_service_method($service, 'canLink');
          $description = $this->call_service_method($service, 'description');
 
-         add_settings_field(
-            $service,
-            $caption,
-            array($this->renderer, 'renderTextbox'),
-            $page,
-            $section,
-            array($service, $description));
+          if ($canLink) {
+             add_settings_field(
+                $service,
+                $caption,
+                array($this->renderer, 'renderTextbox'),
+                $page,
+                $section,
+                array($service, $description));
+         }
       }
+
+
    }
 
    /** Registers the settings on the Share Options page
@@ -385,6 +441,15 @@ class SH_Crafty_Social_Buttons_Admin
          array($this->renderer, 'renderCheckbox'), $page, $section,
          array('show_count', __('Counts are displayed only for services that provide the count data.', $this->plugin_slug)));
 
+      add_settings_field('facebook_count', __('Facebook Count includes', $this->plugin_slug),
+          array($this->renderer, 'renderRadio'), $page, $section,
+          array('facebook_count', '',
+              array(
+                  'shares' => __('Shares', $this->plugin_slug),
+                  'likes' => __('Shares and likes', $this->plugin_slug),
+                  'comments' => __('Shares, likes and comments', $this->plugin_slug))
+          ));
+
       $section = 'cbs_share_count_caching_settings';
 
       add_settings_section($section, __('Caching Options', $this->plugin_slug), array($this, 'displayCacheSettingsText'), $page);
@@ -399,6 +464,57 @@ class SH_Crafty_Social_Buttons_Admin
          array('cache_expiry_minutes', __('Number of minutes to remember share counts (between 1 and 180)', $this->plugin_slug), 1, 180));
 
    }
+
+    /** Registers the settings on the Share Options page
+     */
+    private function register_advanced_settings()
+    {
+        $section = 'cbs_advanced_settings';
+        $page = $this->plugin_slug . '-advanced';
+
+        add_settings_section($section, __('', $this->plugin_slug),
+            array($this, 'displayAdvancedSettingsText'), $page);
+
+        $section = 'cbs_advanced_settings_css';
+        add_settings_section($section, __('Extra CSS Classes', $this->plugin_slug),
+            array($this, 'displayExtraCssSettingsText'), $page);
+
+        add_settings_field('share_css_classes', __('Share Button CSS Classes', $this->plugin_slug),
+            array($this->renderer, 'renderTextbox'), $page, $section,
+            array('share_css_classes', __('Add css classes, separated by spaces.  These will be added to the block of Share buttons', $this->plugin_slug)));
+
+        add_settings_field('link_css_classes', __('Link Button CSS Classes', $this->plugin_slug),
+            array($this->renderer, 'renderTextbox'), $page, $section,
+            array('link_css_classes', __('Add css classes, separated by spaces.  These will be added to the block of Link buttons', $this->plugin_slug)));
+
+        $section = 'cbs_advanced_settings_nofollow';
+        add_settings_section($section, __('Nofollow attributes', $this->plugin_slug),
+            array($this, 'displayNoFollowSettingsText'), $page);
+
+
+        add_settings_field('share_nofollow', __('Share Buttons', $this->plugin_slug),
+            array($this->renderer, 'renderCheckbox'), $page, $section,
+            array('share_nofollow', __('Add <code>rel="nofollow"</code> to share buttons', $this->plugin_slug)));
+
+        add_settings_field('link_nofollow', __('Link Buttons', $this->plugin_slug),
+            array($this->renderer, 'renderCheckbox'), $page, $section,
+            array('link_nofollow', __('Add <code>rel="nofollow"</code> to link buttons', $this->plugin_slug)));
+
+        $section = 'cbs_advanced_settings_post_types';
+        add_settings_section($section, __('Post Types', $this->plugin_slug),
+            array($this, 'displayPostTypeSettingsText'), $page);
+
+
+        add_settings_field('post_types_are_filtered', __('Post Type Filtering', $this->plugin_slug),
+            array($this->renderer, 'renderCheckbox'), $page, $section,
+            array('post_types_are_filtered', __('Enable post type filtering', $this->plugin_slug)));
+
+        add_settings_field('post_types_for_display', __('Selected Post Types', $this->plugin_slug),
+            array($this->renderer, 'renderPostTypeList'), $page, $section,
+            array('post_types_for_display', __('If filtering is enabled, Share buttons will only be shown on the post types you select', $this->plugin_slug)));
+
+
+    }
 
    /**
     * Display share basic settings section text
@@ -452,6 +568,37 @@ class SH_Crafty_Social_Buttons_Admin
       echo '</p>';
    }
 
+    public function displayAdvancedSettingsText()
+    {
+        echo '<p>';
+        _e('Most users will not need to change any settings on this page.', $this->plugin_slug);
+        echo '</p>';
+    }
+
+    public function displayExtraCssSettingsText()
+    {
+        echo '<p>';
+        _e('You may need to add extra styles to work with other libraries that define their own classes.', $this->plugin_slug);
+        echo '</p>';
+    }
+
+    public function displayNoFollowSettingsText()
+    {
+        echo '<p>';
+        _e('These settings let you add <code>rel="nofollow"</code> attributes to the share and link button hyperlinks.', $this->plugin_slug);
+        echo '</p>';
+    }
+
+    public function displayPostTypeSettingsText()
+    {
+        echo '<p>';
+        _e('By default, share buttons will be added to all post types.  If you want the buttons to appear only on certain posts types, you can configure them here.', $this->plugin_slug);
+        echo '</p>';
+        echo '<p>';
+        _e('This setting will be most useful if you are using custom post types that aren&apos;t suitable for sharing, or if you are using attachment pages and don&apos;t want them shared.', $this->plugin_slug);
+        echo '</p>';
+    }
+
    /**
     * Display share basic settings section text
     * @param $hook
@@ -486,6 +633,13 @@ class SH_Crafty_Social_Buttons_Admin
          'id' => 'csb-share-count-help',
          'title' => __('Share Count Options', $this->plugin_slug),
          'content' => file_get_contents(plugin_dir_path(__FILE__) . '/help/share-count-tab.php')
+      ));
+
+
+      $screen->add_help_tab(array(
+         'id' => 'csb-advanced-help',
+         'title' => __('Advanced Options', $this->plugin_slug),
+         'content' => file_get_contents(plugin_dir_path(__FILE__) . '/help/advanced-tab.php')
       ));
 
       $screen->add_help_tab(array(

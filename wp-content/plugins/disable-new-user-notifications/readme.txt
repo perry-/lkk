@@ -1,8 +1,8 @@
 === Disable New User Notification Emails ===
 Contributors: griffinjt
-Tags: email, disable user notification emails
+Tags: email, disable user notification emails, disable notification, disable admin notifications, disable user emails, disable notifications, user emails, new user emails
 Requires at least: 3.3.1
-Tested up to: 4.1
+Tested up to: 4.4
 Stable tag: trunk
 License: GNU General Public License v2.0 or later
 
@@ -21,8 +21,11 @@ This plugin was created by <a href="http://thomasgriffin.io" rel="me" title="Wor
 
 == Changelog ==
 
+= 1.0.2 =
+* Compatibility updates for WordPress 4.4.
+
 = 1.0.1 =
 * Compatibility updates for WordPress 4.1.
 
 = 1.0.0 =
-* Initial release
+* Initial release.

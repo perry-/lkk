@@ -1,0 +1,677 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: NonProfit Theme\n"
+"POT-Creation-Date: 2013-01-19 10:39-0800\n"
+"PO-Revision-Date: 2013-01-19 10:41-0800\n"
+"Last-Translator: \n"
+"Language-Team: Organic Themes <support@organicthemes.com>\n"
+"Language: English\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-KeywordsList: __;_e\n"
+"X-Poedit-Basepath: .\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-SearchPath-0: ..\n"
+
+#: ../404.php:13
+msgid "Not Found, Error 404"
+msgstr ""
+
+#: ../404.php:14
+msgid "The page you are looking for no longer exists."
+msgstr ""
+
+#: ../archive.php:24 ../page-blog.php:37 ../search.php:24
+msgid "Posted on"
+msgstr ""
+
+#: ../archive.php:24 ../page-blog.php:37 ../search.php:24
+msgid "F j, Y"
+msgstr ""
+
+#: ../archive.php:25 ../page-blog.php:38 ../search.php:25
+msgid "Leave a Comment"
+msgstr ""
+
+#: ../archive.php:25 ../page-blog.php:38 ../search.php:25
+msgid "1 Comment"
+msgstr ""
+
+#: ../archive.php:25 ../search.php:25
+msgid "% Comments"
+msgstr ""
+
+#: ../archive.php:39 ../index.php:66 ../search.php:39
+msgid "Category:"
+msgstr ""
+
+#: ../archive.php:39 ../index.php:66 ../search.php:39
+msgid "Tags:"
+msgstr ""
+
+#: ../archive.php:47 ../page-blog.php:69 ../search.php:47
+msgid "No Posts Found"
+msgstr ""
+
+#: ../archive.php:48 ../page-blog.php:70 ../search.php:48
+msgid ""
+"We're sorry, but no posts have been found. Create a post to be added to this "
+"section, and configure your theme options."
+msgstr ""
+
+#: ../author.php:26
+msgid "Website:"
+msgstr ""
+
+#: ../author.php:29
+msgid "Profile:"
+msgstr ""
+
+#: ../author.php:32
+msgid "Posts by"
+msgstr ""
+
+#: ../author.php:36
+#, php-format
+msgid "Permalink to %s"
+msgstr ""
+
+#: ../author.php:38
+msgid "No posts by this author."
+msgstr ""
+
+#: ../comments.php:18
+msgid ""
+"This post is password protected. Enter the password to view any comments."
+msgstr ""
+
+#: ../comments.php:34 ../comments.php:46
+msgid "Comment navigation"
+msgstr ""
+
+#: ../comments.php:35 ../comments.php:47
+msgid "&larr; Older Comments"
+msgstr ""
+
+#: ../comments.php:36 ../comments.php:48
+msgid "Newer Comments &rarr;"
+msgstr ""
+
+#: ../comments.php:53
+msgid "Comments are closed."
+msgstr ""
+
+#: ../content-home.php:9 ../home.php:105 ../home.php:145
+msgid "Learn More"
+msgstr ""
+
+#: ../footer.php:55
+msgid "Copyright"
+msgstr ""
+
+#: ../footer.php:55
+msgid "Y"
+msgstr ""
+
+#: ../footer.php:55
+msgid "All Rights Reserved"
+msgstr ""
+
+#: ../footer.php:56
+msgid "NonProfit Theme v4"
+msgstr ""
+
+#: ../footer.php:56 ../page-blog.php:37
+msgid "by"
+msgstr ""
+
+#: ../footer.php:56
+msgid "Organic Themes"
+msgstr ""
+
+#: ../footer.php:56
+msgid "WordPress Hosting"
+msgstr ""
+
+#: ../footer.php:56
+msgid "RSS Feed"
+msgstr ""
+
+#: ../functions.php:52 ../functions.php:68
+msgid "Theme Options"
+msgstr ""
+
+#: ../functions.php:69
+msgid ""
+"This theme requires the Options Framework plugin installed and activated to "
+"manage your theme options."
+msgstr ""
+
+#: ../functions.php:69
+msgid "Install Now"
+msgstr ""
+
+#: ../functions.php:221 ../sidebar.php:5
+msgid "Right Sidebar"
+msgstr ""
+
+#: ../functions.php:229
+msgid "Footer Left"
+msgstr ""
+
+#: ../functions.php:237
+msgid "Footer Mid Left"
+msgstr ""
+
+#: ../functions.php:245
+msgid "Footer Mid"
+msgstr ""
+
+#: ../functions.php:253
+msgid "Footer Mid Right"
+msgstr ""
+
+#: ../functions.php:261
+msgid "Footer Right"
+msgstr ""
+
+#: ../functions.php:281
+msgid "Pingback:"
+msgstr ""
+
+#: ../functions.php:281 ../functions.php:320
+msgid "Edit"
+msgstr ""
+
+#: ../functions.php:298
+#, php-format
+msgid "%1$s <br/> %2$s <br/>"
+msgstr ""
+
+#: ../functions.php:304
+#, php-format
+msgid "%1$s"
+msgstr ""
+
+#: ../functions.php:313
+msgid "Your comment is awaiting moderation."
+msgstr ""
+
+#: ../functions.php:318
+msgid "Reply"
+msgstr ""
+
+#: ../functions.php:344 ../header.php:91
+msgid "Go"
+msgstr ""
+
+#: ../functions.php:362
+msgid "«"
+msgstr ""
+
+#: ../functions.php:363
+msgid "»"
+msgstr ""
+
+#: ../functions.php:410
+msgid "Paste Video Embed Code"
+msgstr ""
+
+#: ../functions.php:411
+msgid "Enter Vimeo, YouTube or other embed code to display a featured video."
+msgstr ""
+
+#: ../functions.php:601
+msgid "Header Menu"
+msgstr ""
+
+#: ../header.php:90
+msgid "Search"
+msgstr ""
+
+#: ../index.php:31
+msgid "Tweet"
+msgstr ""
+
+#: ../index.php:52 ../page-full.php:33 ../page.php:27
+msgid "Pages:"
+msgstr ""
+
+#: ../index.php:57 ../page-full.php:38 ../page.php:32
+msgid "Next"
+msgstr ""
+
+#: ../index.php:58 ../page-full.php:39 ../page.php:33
+msgid "Previous"
+msgstr ""
+
+#: ../index.php:81 ../page-full.php:49 ../page-slideshow.php:63 ../page.php:43
+msgid "Sorry, no posts matched your criteria."
+msgstr ""
+
+#: ../options.php:32
+msgid "One"
+msgstr ""
+
+#: ../options.php:32
+msgid "Two"
+msgstr ""
+
+#: ../options.php:32
+msgid "Three"
+msgstr ""
+
+#: ../options.php:32
+msgid "Four"
+msgstr ""
+
+#: ../options.php:32
+msgid "Five"
+msgstr ""
+
+#: ../options.php:35
+msgid "French Toast"
+msgstr ""
+
+#: ../options.php:35
+msgid "Pancake"
+msgstr ""
+
+#: ../options.php:35
+msgid "Omelette"
+msgstr ""
+
+#: ../options.php:35
+msgid "Crepe"
+msgstr ""
+
+#: ../options.php:35
+msgid "Waffle"
+msgstr ""
+
+#: ../options.php:44
+msgid "1 Second"
+msgstr ""
+
+#: ../options.php:44
+msgid "2 Seconds"
+msgstr ""
+
+#: ../options.php:44
+msgid "4 Seconds"
+msgstr ""
+
+#: ../options.php:44
+msgid "6 Seconds"
+msgstr ""
+
+#: ../options.php:44
+msgid "8 Seconds"
+msgstr ""
+
+#: ../options.php:44
+msgid "10 Seconds"
+msgstr ""
+
+#: ../options.php:44
+msgid "12 Seconds"
+msgstr ""
+
+#: ../options.php:44
+msgid "14 Seconds"
+msgstr ""
+
+#: ../options.php:44
+msgid "16 Seconds"
+msgstr ""
+
+#: ../options.php:44
+msgid "18 Seconds"
+msgstr ""
+
+#: ../options.php:44
+msgid "20 Seconds"
+msgstr ""
+
+#: ../options.php:44
+msgid "30 Seconds"
+msgstr ""
+
+#: ../options.php:44
+msgid "1 Minute"
+msgstr ""
+
+#: ../options.php:44
+msgid "Hold Frame"
+msgstr ""
+
+#: ../options.php:47
+msgid "Yes"
+msgstr ""
+
+#: ../options.php:47
+msgid "No"
+msgstr ""
+
+#: ../options.php:58
+msgid "All Categories"
+msgstr ""
+
+#: ../options.php:63 ../options.php:105 ../options.php:112 ../options.php:119
+#: ../options.php:132
+msgid "Select a page:"
+msgstr ""
+
+#: ../options.php:73
+msgid "Homepage"
+msgstr ""
+
+#: ../options.php:76
+msgid "Featured Slideshow Category"
+msgstr ""
+
+#: ../options.php:77
+msgid "Choose the category you wish to display in the homepage slideshow."
+msgstr ""
+
+#: ../options.php:79 ../options.php:139 ../options.php:188
+msgid "Select a category:"
+msgstr ""
+
+#: ../options.php:83
+msgid "Featured Slideshow Posts To Display"
+msgstr ""
+
+#: ../options.php:84
+msgid ""
+"Enter the number of posts you would like to display on the homepage "
+"slideshow."
+msgstr ""
+
+#: ../options.php:89
+msgid "Slideshow Transition Interval"
+msgstr ""
+
+#: ../options.php:90
+msgid ""
+"Choose the transition time for the slideshow. This is the time the frame is "
+"held before transitioning to the next slide."
+msgstr ""
+
+#: ../options.php:96
+msgid "Display Homepage Middle Section?"
+msgstr ""
+
+#: ../options.php:97
+msgid ""
+"Select whether or not you would like to display the featured pages in the "
+"middle section of the homepage."
+msgstr ""
+
+#: ../options.php:102
+msgid "Featured Page Left"
+msgstr ""
+
+#: ../options.php:103
+msgid ""
+"Choose the page you wish to display in the left section, beneath the slider."
+msgstr ""
+
+#: ../options.php:109
+msgid "Featured Page Middle"
+msgstr ""
+
+#: ../options.php:110
+msgid ""
+"Choose the page you wish to display in the middle section, beneath the "
+"slider."
+msgstr ""
+
+#: ../options.php:116
+msgid "Featured Page Right"
+msgstr ""
+
+#: ../options.php:117
+msgid ""
+"Choose the page you wish to display in the right section, beneath the slider."
+msgstr ""
+
+#: ../options.php:123
+msgid "Display Homepage Bottom Section?"
+msgstr ""
+
+#: ../options.php:124
+msgid ""
+"Select whether or not you would like to display the bottom page and featured "
+"tabber on the homepage."
+msgstr ""
+
+#: ../options.php:129
+msgid "Featured Page Bottom"
+msgstr ""
+
+#: ../options.php:130
+msgid ""
+"Choose the page you wish to display in the bottom left section, next to the "
+"featured tabber."
+msgstr ""
+
+#: ../options.php:136
+msgid "Homepage Tab Section"
+msgstr ""
+
+#: ../options.php:137
+msgid "Choose the category you wish to display in the homepage tabbed section."
+msgstr ""
+
+#: ../options.php:143
+msgid "Homepage Tabs Displayed"
+msgstr ""
+
+#: ../options.php:144
+msgid ""
+"Enter the number of posts you would like to display in the homepage tabbed "
+"section."
+msgstr ""
+
+#: ../options.php:149
+msgid "Layout"
+msgstr ""
+
+#: ../options.php:152
+msgid "Display Header Search?"
+msgstr ""
+
+#: ../options.php:153
+msgid "Selecting this option will display the search field in the header."
+msgstr ""
+
+#: ../options.php:158
+msgid "Display Post Featured Image or Video?"
+msgstr ""
+
+#: ../options.php:159
+msgid ""
+"Selecting this option will display the featured image or video in an "
+"individual post."
+msgstr ""
+
+#: ../options.php:164
+msgid "Display Blog Featured Image or Video?"
+msgstr ""
+
+#: ../options.php:165
+msgid ""
+"Selecting this option will display the featured image or video on the blog "
+"page template."
+msgstr ""
+
+#: ../options.php:170
+msgid "Display Slideshow Page Content?"
+msgstr ""
+
+#: ../options.php:171
+msgid ""
+"Selecting this option will display the page title and body content on the "
+"slideshow page template."
+msgstr ""
+
+#: ../options.php:176
+msgid "Enable CSS3 Full Width Background Image?"
+msgstr ""
+
+#: ../options.php:177
+msgid ""
+"Enables an applied background image to stretch to the full width of the "
+"browser. Do not use with a tiled background."
+msgstr ""
+
+#: ../options.php:182
+msgid "Blog"
+msgstr ""
+
+#: ../options.php:185
+msgid "Blog Template Category"
+msgstr ""
+
+#: ../options.php:186
+msgid "Choose the category you wish to display on the blog page template."
+msgstr ""
+
+#: ../options.php:192
+msgid "Blog Posts To Display"
+msgstr ""
+
+#: ../options.php:193
+msgid ""
+"Enter the number of posts you would like to display on the blog page "
+"template."
+msgstr ""
+
+#: ../options.php:198
+msgid "Social"
+msgstr ""
+
+#: ../options.php:201
+msgid "Blog Social Links"
+msgstr ""
+
+#: ../options.php:202
+msgid ""
+"Select option to display the social links on the blog page template. "
+"Disabling this feature will increase the blog load time drastically."
+msgstr ""
+
+#: ../options.php:207
+msgid "Post Social Links"
+msgstr ""
+
+#: ../options.php:208
+msgid "Select option to display the social links on the individual posts."
+msgstr ""
+
+#: ../options.php:213
+msgid "Twitter Name"
+msgstr ""
+
+#: ../options.php:214
+msgid "Please enter your Twitter username."
+msgstr ""
+
+#: ../options.php:216
+msgid "organicthemes"
+msgstr ""
+
+#: ../options.php:219
+msgid "Colors"
+msgstr ""
+
+#: ../options.php:222
+msgid "Link Color"
+msgstr ""
+
+#: ../options.php:223
+msgid "Select the color you wish to use for the link colors."
+msgstr ""
+
+#: ../options.php:228
+msgid "Link Hover Color"
+msgstr ""
+
+#: ../options.php:229
+msgid "Select the color you wish to use for the text link hover colors."
+msgstr ""
+
+#: ../options.php:234
+msgid "Heading Link Color"
+msgstr ""
+
+#: ../options.php:235
+msgid "Select the color you wish to use for the heading link colors."
+msgstr ""
+
+#: ../options.php:240
+msgid "Heading Link Hover Color"
+msgstr ""
+
+#: ../options.php:241
+msgid "Select the color you wish to use for the heading link hover colors."
+msgstr ""
+
+#: ../options.php:246
+msgid "Highlight Color"
+msgstr ""
+
+#: ../options.php:247
+msgid ""
+"Select the color you wish to use for the highlight color. This refers "
+"primarily to button colors."
+msgstr ""
+
+#: ../page-archive.php:30
+msgid "By Page:"
+msgstr ""
+
+#: ../page-archive.php:35
+msgid "By Post:"
+msgstr ""
+
+#: ../page-archive.php:40
+msgid "By Month:"
+msgstr ""
+
+#: ../page-archive.php:43
+msgid "By Category:"
+msgstr ""
+
+#: ../page-blog.php:53 ../page-full.php:30 ../page-slideshow.php:57
+#: ../page.php:24
+msgid "Read More"
+msgstr ""
+
+#: ../page-full.php:45 ../page-slideshow.php:59 ../page.php:39
+msgid "(Edit)"
+msgstr ""
+
+#: ../sidebar.php:4
+msgid "Widget Area"
+msgstr ""
+
+#: ../sidebar.php:5
+msgid "This section is widgetized. To add widgets here, go to the"
+msgstr ""
+
+#: ../sidebar.php:5
+msgid "Widgets"
+msgstr ""
+
+#: ../sidebar.php:5
+msgid ""
+"panel in your WordPress admin, and add the widgets you would like to the"
+msgstr ""
+
+#: ../sidebar.php:6
+msgid "*This message will be overwritten after widgets have been added."
+msgstr ""

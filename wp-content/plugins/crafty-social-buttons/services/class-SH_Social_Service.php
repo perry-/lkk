@@ -23,15 +23,19 @@ class SH_Social_Service {
 		$this->imageExtension = ".png";
 		$this->imageSize = $settings[$type.'_image_size'];
 		$this->newWindow = ($type == "link" ? $settings['new_window'] : $settings['open_in'] == 'new_window');
+		$this->nofollow = $settings[$type .'_nofollow'];
+		$this->hover = $settings[$type .'_hover_effect'];
         $this->popup = ($type == 'share' && $settings['popup']);
 	}
 	
 	// generates the css class for the button link
 	protected function cssClass() {
 		$css = "crafty-social-button csb-" . trim(strtolower($this->service));
+        $css .= " " . $this->hover;
         if ($this->popup) {
             $css .= " popup";
         }
+
         return $css;
 	}
 
@@ -58,7 +62,7 @@ class SH_Social_Service {
 
 	public function shareButton($url, $title = '', $showCount = false) {
 
-		$url = esc_url($this-> shareButtonUrl($url, $title));
+		$url = esc_url($this-> shareButtonUrl($url, $title), array("http", "https", "mailto", "whatsapp"));
 		$buttonTitle = $this->getShareButtonTitle();
 		return $this->generateButtonHtml($url, $buttonTitle, $showCount);
 	}
@@ -76,7 +80,9 @@ class SH_Social_Service {
 		$html = '<a href="' . $url . '"'
 		        . ' class="' . $this->cssClass() .'"'
 		        . ' title="' . $title . '" '
-		        . ($this->newWindow ? 'target="_blank"' : '') . '>';
+		        . ($this->newWindow ? 'target="_blank"' : '')
+		        . ($this->nofollow ? 'rel="nofollow"' : '')
+                . '>';
 
 		$html .= $this->buttonImage($title);
 

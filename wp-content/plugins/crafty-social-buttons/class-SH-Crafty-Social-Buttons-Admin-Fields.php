@@ -147,8 +147,9 @@ class SH_Crafty_Social_Buttons_Admin_Fields
       ?>
 
       <?php foreach ($options as $key => $label) { ?>
-      <input type="radio" id="<?php echo $id ?>" name="<?php echo $name ?>" <?php echo checked($key, $value); ?>
-             value="<?php echo $key ?>"/> <?php echo $label; ?>
+        <label>
+       <input type="radio" id="<?php echo $id ?>" name="<?php echo $name ?>" <?php echo checked($key, $value); ?>
+             value="<?php echo $key ?>"/> <?php echo $label; ?> &nbsp; </label>
    <?php } ?>
       <span class="description" for="<?php echo $id ?>">
                 <?php echo $description ?>
@@ -247,7 +248,7 @@ class SH_Crafty_Social_Buttons_Admin_Fields
          <div class="csb-include-list chosen">
             <div><span class="include-heading"><?php _e('Selected', $this->plugin_slug); ?></span>
                (<?php _e('these will be displayed', $this->plugin_slug); ?></div>
-            <ul id="csbsort2" class="connectedSortable data-base="<?php echo $image_set ?>"">
+            <ul id="csbsort2" class="connectedSortable" data-base="<?php echo $image_set ?>">
             <?php echo $this->get_selected_services_html($value, $image_set, $image_size); ?>
             </ul>
             <input type="hidden" name="<?php echo $name ?>" id="<?php echo $id ?>" class="csb-services"/>
@@ -277,15 +278,39 @@ class SH_Crafty_Social_Buttons_Admin_Fields
 
       <select id="<?php echo $id ?>" name="<?php echo $name ?>">
          <option
-            value="above" <?php echo selected('above', $value); ?> ><?php _e('Above', $this->plugin_slug) ?></option>
+            value="above" <?php echo selected('above', $value); ?> ><?php _e('Above Content', $this->plugin_slug) ?></option>
          <option
-            value="below" <?php echo selected('below', $value); ?> ><?php _e('Below', $this->plugin_slug) ?></option>
-         <option
-            value="both" <?php echo selected('both', $value); ?> ><?php _e('Both', $this->plugin_slug) ?></option>
+            value="below" <?php echo selected('below', $value); ?> ><?php _e('Below Content', $this->plugin_slug) ?></option>
+	      <option
+            value="both" <?php echo selected('both', $value); ?> ><?php _e('Both above and below content', $this->plugin_slug) ?></option>
       </select>
-
    <?php
    }
+
+	/** Display selection for position */
+	public function renderFloatHeightSelect($args)
+	{
+		$id = $args[0];
+		$name = $this->plugin_slug . '[' . $args[0] . ']';
+		$settings = $this->getSettings();
+		$value = $settings[$id];
+		?>
+
+		<select id="<?php echo $id ?>" name="<?php echo $name ?>">
+			<option
+				value="10" <?php echo selected('10', $value); ?> ><?php _e('10% down from top', $this->plugin_slug) ?></option>
+			<option
+				value="20" <?php echo selected('20', $value); ?> ><?php _e('20% down from top', $this->plugin_slug) ?></option>
+			<option
+				value="30" <?php echo selected('30', $value); ?> ><?php _e('30% down from top', $this->plugin_slug) ?></option>
+			<option
+				value="40" <?php echo selected('40', $value); ?> ><?php _e('40% down from top', $this->plugin_slug) ?></option>
+			<option
+				value="50" <?php echo selected('50', $value); ?> ><?php _e('50% down from top', $this->plugin_slug) ?></option>
+		</select>
+
+	<?php
+	}
 
    /** Display selection for caption position */
    public function renderCaptionPositionSelect($args)
@@ -320,6 +345,51 @@ class SH_Crafty_Social_Buttons_Admin_Fields
             value="left" <?php echo selected('left', $value); ?> ><?php _e('Left', $this->plugin_slug) ?></option>
          <option
             value="center" <?php echo selected('center', $value); ?> ><?php _e('Center', $this->plugin_slug) ?></option>
+         <option
+            value="right" <?php echo selected('right', $value); ?> ><?php _e('Right', $this->plugin_slug) ?></option>
+      </select>
+
+
+   <?php
+   }
+
+    /** Display selection for caption position */
+    public function renderPostTypeList($args)
+    {
+        $id = $args[0];
+        $name = $this->plugin_slug . '[' . $args[0] . ']';
+        $settings = $this->getSettings();
+        $description = $args[1];
+        $post_types = get_post_types( array('public' => true), 'names' );
+        $values = $settings[$id];
+        if (!is_array($values))
+            $values = array();
+
+        foreach ( $post_types  as $post_type ) {
+            if ($post_type == 'page') continue;
+            ?>
+            <p>
+                <input type="checkbox"  id="<?php echo $id ?>" name="<?php echo $name ?>[]" value="<?php echo $post_type; ?>" <?php checked(in_array($post_type, $values)); ?>>
+                <?php echo $post_type; ?>
+            </p>
+        <?php } ?>
+        <p><?php echo $description; ?></p>
+    <?php
+    }
+
+
+   /** Display selection for alignment */
+   public function renderFloatAlignmentSelect($args)
+   {
+      $id = $args[0];
+      $name = $this->plugin_slug . '[' . $args[0] . ']';
+      $settings = $this->getSettings();
+      $value = $settings[$id];
+      ?>
+
+      <select id="<?php echo $id ?>" name="<?php echo $name ?>">
+         <option
+            value="left" <?php echo selected('left', $value); ?> ><?php _e('Left', $this->plugin_slug) ?></option>
          <option
             value="right" <?php echo selected('right', $value); ?> ><?php _e('Right', $this->plugin_slug) ?></option>
       </select>

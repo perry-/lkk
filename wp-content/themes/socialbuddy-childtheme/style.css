@@ -1,0 +1,162 @@
+/*
+Theme Name:     LKK Theme
+Description:    Theme for kidsakoder.no, a SocialBuddy child theme
+Author:     Benedicte (bGraphic)
+Author URI:   http://bgraphic.no
+Template:       socialbuddy
+Version:        1.0.0
+*/
+
+@import url("../socialbuddy/style.css");
+
+/* ------- Header ------- */
+
+
+#logo {
+   margin-top: -20px;
+}
+
+#logo a img {
+    height: 70px;
+}
+
+/* ------- Home Page ------- */
+
+#feature-blocks {
+  background-color: #242E33;
+}
+
+#feature-blocks .sidebar-off #content {
+  width: 100%;
+  float: none;
+  margin: 0;
+  border: none;
+}
+
+#slidecallout {
+  background-color: #242E33;
+}
+
+#slidecallout .container {
+  background-color: white; 
+}
+
+#slidecallout #hpslider {
+  background-color: #e2e2e2; 
+}
+
+#callout {
+  border: none;
+  margin: 0;
+  padding: 0;
+  margin-right: 4.4%;
+}
+
+#callout .callout-left,
+#callout .callout-right {
+  float: none;
+  width: 100%;
+}
+
+#callout .callout-right .btn{
+  float: right;
+}
+
+#slidecallout .column {
+  margin-bottom: 0;
+}
+
+#hpslider .slides {
+  min-height: 245px;
+}
+
+#home-blocks {
+  margin-bottom: -30px;
+}
+
+#home-blocks a {
+  color: inherit;
+}
+
+#home-blocks a:hover h3 {
+  text-decoration: underline;
+}
+
+#home-blocks a:hover .block-wrap {
+  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  filter: alpha(opacity=80);
+  opacity: 0.8;
+}
+
+#home-blocks a:hover img {
+  -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  filter: alpha(opacity=80);
+  opacity: 0.8;
+}
+
+/* ------- Forum ------- */
+
+#forum-front #bbpress-forums .bbp-forum-info {
+  width: 100%;
+}
+
+#forum-front #bbpress-forums ul.bbp-has-subforums .bbp-forum-header {
+  margin-bottom: 15px;
+}
+
+#forum-front .bbp-forum-content {
+  line-height: 110%;
+  margin-top: 10px;
+}
+
+#forum-front #bbpress-forums ul.bbp-has-subforums,
+#forum-front #bbpress-forums ul.bbp-has-subforums ul {
+  border: 0;
+}
+
+/* ------- Widgets ------- */
+
+.bbp_widget_login .logout-link {
+  color: #737980;
+}
+
+.widget_recent_entries li a:hover, 
+.widget_meta li a:hover, 
+.widget_nav_menu li a:hover, 
+.widget_pages li a:hover, 
+.widget_categories li a:hover, 
+.widget_archive li a:hover {
+  color: black;
+}
+
+.widget_display_forums li a:hover, 
+.widget_display_topics li a:hover, 
+.widget_display_replies li a:hover {
+   color: black;
+}
+
+/* ------- Groups Menu ------- */
+
+#item-nav .item-list-tabs ul li a, 
+#item-nav .item-list-tabs ul li>span {
+   padding: 22px 10px 20px;
+}
+
+#item-nav .item-list-tabs ul li:first-child a,
+#item-nav .item-list-tabs ul li:first-child>span {
+   padding-left: 10px;
+}
+
+/* ------- Unsure ------- */
+
+.lcp_catlist span {
+   display: block;
+}
+
+/* ------- FAQ ------- */
+
+.qa-faq-anchor {
+	font-size: 18px;
+	line-height: 1em;
+	padding: 0;
+}

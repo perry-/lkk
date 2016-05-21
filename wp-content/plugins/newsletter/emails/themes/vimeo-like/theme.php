@@ -22,9 +22,9 @@ global $post; // Current post managed by WordPress
 $filters = array();
 
 // Maximum number of post to retrieve
-$filters['showposts'] = (int) $theme_options['theme_max_posts'];
-if ($filters['showposts'] == 0) {
-    $filters['showposts'] = 10;
+$filters['posts_per_page'] = (int) $theme_options['theme_max_posts'];
+if ($filters['posts_per_page'] == 0) {
+    $filters['posts_per_page'] = 10;
 }
 
 
@@ -91,7 +91,7 @@ $font_size = $theme_options['theme_font_size'];
                                 <?php
                                 foreach ($posts as $post) {
                                     setup_postdata($post);
-                                    $image = nt_post_image(get_the_ID());
+                                    $image = nt_post_image(get_the_ID(), 'thumbnail');
                                     ?>
 
 
