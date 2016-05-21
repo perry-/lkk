@@ -25,3 +25,5 @@ lett å komme i gang med utvilkling.
 Dersom du kjører MySQL 5.5 eller eldre må du endre datatabasetabelltype fra
 InnoDB til MyISAM. Redigér mysql.sql og erstatt alle instanser av InnoDB med
 MyISAM.
+
+Dersom undersider ikke laster, husk å skru på rewrite-modulen i Apache.
