@@ -623,7 +623,6 @@ li.default-menu {
 .main-navigation ul li.current_page_item a,
 .main-navigation ul li:hover > a {
 	color: #0FBE7C;
-	font-weight: bolder;
 }
 
 /* =DROP DOWN
