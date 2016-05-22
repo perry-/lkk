@@ -57,7 +57,7 @@
 	
             <div class="footer left">
                 <p><?php _e("Copyright", 'organicthemes'); ?> &copy; <?php echo date(__("Y", 'organicthemes')); ?> &middot; <?php _e("All Rights Reserved", 'organicthemes'); ?> &middot; <?php bloginfo('name'); ?></p>
-                <p><a href="http://www.kidsakoder.no" target="_blank"><?php _e("Kidsakoder 1.0", 'organicthemes'); ?></a> <?php _e("by", 'organicthemes'); ?> <a href="http://www.kidsakoder.no" target="_blank"><?php _e("LKK", 'organicthemes'); ?></a> &middot; <a href="http://kahunahost.com" target="_blank" title="WordPress Hosting"><?php _e("WordPress Hosting", 'organicthemes'); ?></a> &middot; <a href="<?php bloginfo('rss2_url'); ?>"><?php _e("RSS Feed", 'organicthemes'); ?></a> &middot; <?php wp_loginout(); ?></p>
+                <p><a href="/" target="_blank"><?php _e("Kidsakoder 1.0", 'organicthemes'); ?></a> <?php _e("by", 'organicthemes'); ?> <a href="/" target="_blank"><?php _e("LKK", 'organicthemes'); ?></a> &middot; <a href="http://kahunahost.com" target="_blank" title="WordPress Hosting"><?php _e("WordPress Hosting", 'organicthemes'); ?></a> &middot; <a href="<?php bloginfo('rss2_url'); ?>"><?php _e("RSS Feed", 'organicthemes'); ?></a> &middot; <?php wp_loginout(); ?></p>
             </div>
         
         </div>
