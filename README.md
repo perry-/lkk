@@ -16,9 +16,13 @@ lett å komme i gang med utvilkling.
    prosjektet hjelpe deg med, inntil videre.
 5. Importér databasen fra mysql-dumpen du fikk. Les "vanlige feil" under dersom
    du har MySQL 5.5 eller eldre.
-6. Kopiér wp-config-sample.php til wp-config.php og sett inn passord og
+6. Konvertér alle lenker i databasen fra kidsakoder.no til localhost med
+   scriptet som inkluderes i en submodul:
+   `git submodule update --init`  
+   `php Search-Replace-DB/srdb.cli.php -h localhost -u root -p '' -n wp_lkk -s kidsakoder.no -r localhost`
+7. Kopiér wp-config-sample.php til wp-config.php og sett inn passord og
    brukernavn til databasen.
-7. Sjekk om siden fungerer ved å åpne http://localhost/
+8. Sjekk om siden fungerer ved å åpne http://localhost/
 
 ## Vanlige feil
 
