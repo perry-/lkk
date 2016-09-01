@@ -6,11 +6,15 @@ jQuery(document).ready(function($) {
       route: 'long_name',
       locality: 'long_name',
       administrative_area_level_1: 'short_name',
-      country: 'long_name',
       postal_code: 'short_name'
     };
 
     function fillInAddress(place) {
+		console.log(place);
+		if ($.inArray('school', place.types) !== -1) {
+			document.getElementById('school').value = place.name;
+		}
+
       for (var component in componentForm) {
         document.getElementById(component).value = '';
         document.getElementById(component).disabled = false;
@@ -37,7 +41,7 @@ jQuery(document).ready(function($) {
 			//see this page https://developers.google.com/maps/documentation/javascript/places-autocomplete
 			//for other avaliable options
 			var options = {
-				types: ['geocode'],
+  				componentRestrictions: {country: 'no'}
 			};
 
 			var autocomplete = new google.maps.places.Autocomplete(input, options);
