@@ -11,7 +11,6 @@ jQuery(document).ready(function($) {
     };
 
     function fillInAddress(place) {
-
       for (var component in componentForm) {
         document.getElementById(component).value = '';
         document.getElementById(component).disabled = false;
@@ -31,7 +30,7 @@ jQuery(document).ready(function($) {
 	$.each( gacFields, function( key, field ) {
 		var input = document.getElementById(field);
 
-		//varify the field
+		//verify the field
 		if ( input != null ) {
 
 			//basic options of Google places API.
