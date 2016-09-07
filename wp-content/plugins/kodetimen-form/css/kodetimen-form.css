@@ -1,0 +1,29 @@
+.kodetimen-form .kodetimen-form__button {
+    margin-top: 24px;
+    padding: 12px 36px;
+}
+
+.kodetimen-form .kodetimen-form__input{
+    height: 30px;
+    width: 100%;
+    padding: 6px 12px;
+    background-color: white;
+    border: 1px solid #b3b3b3;
+    border-radius: 0;
+}
+
+.kodetimen-form__field {
+    margin-right: 12px;
+}
+
+.kodetimen-form__field + .kodetimen-form__field {
+    margin-top: 12px;
+}
+
+.kodetimen-form__fieldset + .kodetimen-form__fieldset {
+    margin-top: 24px;
+}
+
+.kodetimen-form__legend {
+    margin-bottom: 6px;
+}
