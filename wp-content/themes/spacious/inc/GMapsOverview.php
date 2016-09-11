@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 0bcb1bb9755139e7a45b69904739113e6b46858f
-    <style>
+<style>
       html, body, #map-canvas {
         margin: 0px;
         padding: 0px
@@ -51,12 +46,9 @@
       }
 
     </style>
-<<<<<<< HEAD
+
     <script src=<?php echo SPACIOUS_JS_URL . '/markerclusterer.js'; ?>></script>
-=======
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&signed_in=true&libraries=places"></script>
-    <script src=<?php echo SPACIOUS_JS_URL . '/markerclusterer.min.js'; ?>></script>
->>>>>>> 0bcb1bb9755139e7a45b69904739113e6b46858f
+
      <script>
 // This example adds a search box to a map, using the Google Place Autocomplete
 // feature. People can enter geographical searches. The search box will return a
@@ -80,7 +72,7 @@ function initialize() {
 
   function showInfo() {
     if(map.getZoom() < 8) {
-      map.setZoom(8); 
+      map.setZoom(8);
     }
     map.setCenter(this.getPosition());
 
@@ -122,11 +114,7 @@ function initialize() {
     marker.addListener('click', showInfo);
   }
 
-<<<<<<< HEAD
   var markerCluster = new MarkerClusterer(map, markers, {'imagePath': '../../wp-content/themes/spacious/images/m'});
-=======
-  var markerCluster = new MarkerClusterer(map, markers);
->>>>>>> 0bcb1bb9755139e7a45b69904739113e6b46858f
   markerCluster.setGridSize(35);
 }
 
@@ -134,9 +122,4 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
     </script>
 
-
-<<<<<<< HEAD
     <div id="map-canvas"></div>
-=======
-    <div id="map-canvas"></div>
->>>>>>> 0bcb1bb9755139e7a45b69904739113e6b46858f
