@@ -1,8 +1,8 @@
 <?php
 /**
- * Template Name: Kodeklubboversikt
+ * Template Name: Kodetimen oversikt
  *
- * For presenting kodeklubber in a map and a list udner that map
+ * For presenting kodetimen attendees in a map and a list under that map
  *
  * @package LKK
  * @subpackage Spacious
@@ -12,10 +12,9 @@
 
 <?php get_header(); ?>
 <?php
-class KlubbPos {
+class KodetimenPos {
 	public $lat;
 	public $long;
-	public $url;
 	public $name;
 }
 ?>
@@ -23,25 +22,25 @@ class KlubbPos {
 	<?php do_action( 'spacious_before_body_content' ); ?>
 	<!--[if lt IE 10]>
 	<style>
-	li.kodeklubb-item {
+	li.kodetimen-item {
 		width: 25%;
 		float: left;
 	}
 
 	@media screen and (max-width: 950px) {
-		li.kodeklubb-item {
+		li.kodetimen-item {
 			width: 33%;
 		}
 	}
 
 	@media screen and (max-width: 750px) {
-		li.kodeklubb-item {
+		li.kodetimen-item {
 			width: 50%;
 		}
 	}
 
 	@media screen and (max-width: 450px) {
-		li.kodeklubb-item {
+		li.kodetimen-item {
 			width: 100%;
 		}
 	}
@@ -57,30 +56,28 @@ class KlubbPos {
 				<?php
 
 				$query = new WP_Query( array(
-					'post_type' => 'kodeklubb' ,
+					'post_type' => 'kodetimen' ,
 					'orderby' => 'title',
 					'order' => 'ASC',
 					'posts_per_page' => -1
 					) );
 
 				$myVariable = 70.0000;
-				$kodePlaces = array();
+				$kodetimen_attendees = array();
 				while ( $query->have_posts() ) : $query->the_post();
-					$obj = new KlubbPos();
-					$obj->lat = get_post_custom_values('_kodeklubb_position_lat_key');
-					$obj->long = get_post_custom_values('_kodeklubb_position_long_key');
-					$obj->url = get_the_permalink();
+					$obj = new KodetimenPos();
+					$obj->lat = get_post_custom_values('_kodetimen_position_lat_key');
+					$obj->long = get_post_custom_values('_kodetimen_position_long_key');
 					$obj->name = get_the_title();
-					$kodePlaces[] = $obj;
+					$kodetimen_attendees[] = $obj;
 				endwhile;
 
-				require_once( SPACIOUS_INCLUDES_DIR . '/GMapsOverview_kodeklubb.php');
+				require_once( SPACIOUS_INCLUDES_DIR . '/GMapsOverview_kodetimen.php');
 
-				echo "<ul class=\"kodeklubb-list clearfix\">";
+				echo "<ul class=\"kodetimen-list clearfix\">";
 				while ( $query->have_posts() ) : $query->the_post();
-					echo '<li class="kodeklubb-item"><a href="';
-					the_permalink();
-					echo '">';
+					echo '<li class="kodetimen-item">';
+					echo '<p>';
 					the_title();
 					echo '</a></li>';
 

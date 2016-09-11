@@ -21,33 +21,41 @@ function html_form_code() {
 	echo '</div>';
 
 	echo '<div class="kodetimen-form__field">';
-    echo  '<label for="street">Gate</label>';
-    echo  '<input class="kodetimen-form__input" id="street" name="kodetimen_street" value="' . ( isset( $_POST["kodetimen_street"] ) ? esc_attr( $_POST["kodetimen_street"] ) : '' ) . '"></input>';
+    echo  '<label for="route">Gate</label>';
+    echo  '<input class="kodetimen-form__input" id="route" name="kodetimen_street" value=""></input>';
 	echo '</div>';
 
 	echo '<div class="kodetimen-form__field">';
     echo  '<label for="street_number">Gatenummer</label>';
-    echo  '<input class="kodetimen-form__input" id="street_number" name="kodetimen_street_number" value="' . ( isset( $_POST["kodetimen_street_number"] ) ? esc_attr( $_POST["kodetimen_street_number"] ) : '' ) . '"></input>';
+    echo  '<input class="kodetimen-form__input" id="street_number" name="kodetimen_street_number" value=""></input>';
 	echo '</div>';
 
 	echo '<div class="kodetimen-form__field">';
     echo  '<label for="locality">By</label>';
-    echo  '<input class="kodetimen-form__input" id="locality" name="kodetimen_locality" value="' . ( isset( $_POST["kodetimen_locality"] ) ? esc_attr( $_POST["kodetimen_locality"] ) : '' ) . '"></input>';
+    echo  '<input class="kodetimen-form__input" id="locality" name="kodetimen_locality" value=""></input>';
 	echo '</div>';
 
 	echo '<div class="kodetimen-form__field">';
     echo  '<label for="administrative_area_level_1">Fylke</label>';
-    echo  '<input class="kodetimen-form__input" id="administrative_area_level_1" name="kodetimen_county" value="' . ( isset( $_POST["kodetimen_county"] ) ? esc_attr( $_POST["kodetimen_county"] ) : '' ) . '"></input>';
+    echo  '<input class="kodetimen-form__input" id="administrative_area_level_1" name="kodetimen_county" value=""></input>';
 	echo '</div>';
 
 	echo '<div class="kodetimen-form__field">';
     echo  '<label for="postal_code">Postnummer</label>';
-    echo  '<input class="kodetimen-form__input" id="postal_code" name="kodetimen_postal_code" value="' . ( isset( $_POST["kodetimen_postal_code"] ) ? esc_attr( $_POST["kodetimen_postal_code"] ) : '' ) . '"></input>';
+    echo  '<input class="kodetimen-form__input" id="postal_code" name="kodetimen_postal_code" value=""></input>';
 	echo '</div>';
 
 	echo '<div class="kodetimen-form__field">';
     echo  '<label for="school">Skole</label>';
-    echo  '<input class="kodetimen-form__input" id="school" name="kodetimen_school" value="' . ( isset( $_POST["kodetimen_school"] ) ? esc_attr( $_POST["kodetimen_school"] ) : '' ) . '"></input>';
+    echo  '<input class="kodetimen-form__input" id="school" name="kodetimen_school" value=""></input>';
+	echo '</div>';
+
+	echo '<div class="kodetimen-form__field kodetimen-form__field--hidden">';
+    echo  '<input class="kodetimen-form__input" id="kodetimen_lat" name="kodetimen_lat" value=""></input>';
+	echo '</div>';
+
+	echo '<div class="kodetimen-form__field kodetimen-form__field--hidden">';
+    echo  '<input class="kodetimen-form__input" id="kodetimen_long" name="kodetimen_long" value=""></input>';
 	echo '</div>';
 
     echo '</fieldset>';
@@ -57,12 +65,12 @@ function html_form_code() {
 
 	echo '<div class="kodetimen-form__field">';
 	echo '<label for="name">Navn (påkrevd)</label>';
-	echo '<input class="kodetimen-form__input" type="text" id="name" name="kodetimen_name" pattern="[a-zA-Z0-9 ]+" value="' . ( isset( $_POST["kodetimen_name"] ) ? esc_attr( $_POST["kodetimen_name"] ) : '' ) . '"/>';
+	echo '<input class="kodetimen-form__input" type="text" id="name" name="kodetimen_name" pattern="[a-zA-Z0-9 ]+" value=""/>';
 	echo '</div>';
 
 	echo '<div class="kodetimen-form__field">';
 	echo '<label for="email">E-post (påkrevd)</label>';
-	echo '<input class="kodetimen-form__input" type="email" id="email" name="kodetimen_email" value="' . ( isset( $_POST["kodetimen_email"] ) ? esc_attr( $_POST["kodetimen_email"] ) : '' ) . '"/>';
+	echo '<input class="kodetimen-form__input" type="email" id="email" name="kodetimen_email" value=""/>';
 	echo '</div>';
 
     echo '</fieldset>';
@@ -95,6 +103,24 @@ function wp_kodetimen_enqueue_scripts()
 }
 add_action( 'wp_enqueue_scripts', 'wp_kodetimen_enqueue_scripts' );
 
+
+function save_kodetimen_post($content, $title, $lat, $long, $location) {
+	// Create post object
+	$new_kodetimen_attendee = array(
+	  'post_title'    => $title,
+	  'post_content'  => $content,
+	  'post_status'   => 'publish',
+	  'post_type' => 'kodetimen'
+	);
+
+	// Insert the post into the database
+	$post_id = wp_insert_post( $new_kodetimen_attendee );
+	
+	add_post_meta($post_id, '_kodetimen_position_lat_key', $lat);
+	add_post_meta($post_id, '_kodetimen_position_long_key', $long);
+	add_post_meta($post_id, '_kodetimen_position_value_key', $location);
+}
+
 function deliver_mail() {
 
 	// if the submit button is clicked, send the email
@@ -106,6 +132,9 @@ function deliver_mail() {
 		$street_number    = sanitize_text_field( $_POST["kodetimen_street_number"] );
 		$school    = sanitize_text_field( $_POST["kodetimen_school"] );
 		$county    = sanitize_text_field( $_POST["kodetimen_county"] );
+		$lat = sanitize_text_field( $_POST['kodetimen_lat'] );
+		$long = sanitize_text_field( $_POST['kodetimen_long'] );
+		$location = sanitize_text_field( $_POST['autocomplete'] );
 		$postal_code    = sanitize_text_field( $_POST["kodetimen_postal_code"] );
 		$locality   = sanitize_text_field( $_POST["kodetimen_locality"] );
 		$email   = sanitize_email( $_POST["kodetimen_email"] );
@@ -126,7 +155,10 @@ function deliver_mail() {
 					.'<p>Postnummer: ' . $postal_code . '</p>'
 					.'</div>';
 
+		save_kodetimen_post($message, $school, $lat, $long, $location);
+
 		// If email has been process for sending, display a success message
+		/*
 		if ( wp_mail( $to, $subject, $message, $headers ) ) {
 			echo '<div>';
 			echo '<p>Takk for din påmelding!</p>';
@@ -138,6 +170,7 @@ function deliver_mail() {
 		} else {
 			echo 'En feil oppstod.';
 		}
+		*/
 	}
 }
 

@@ -10,7 +10,9 @@ jQuery(document).ready(function($) {
     };
 
     function fillInAddress(place) {
-		console.log(place);
+		document.getElementById('kodetimen_lat').value = place.geometry.location.lat();
+		document.getElementById('kodetimen_long').value = place.geometry.location.lng();
+
 		if ($.inArray('school', place.types) !== -1) {
 			document.getElementById('school').value = place.name;
 		}
