@@ -81,8 +81,7 @@ function school_level() {
 	echo '</div>';
 }
 
-// Navn, Epost, Skole/Barnehage, Trinn (mange),
-// Valider skolenavn basert på adresse
+//Valider skolenavn basert på liste over tidligere påmeldte skoler
 function html_form_code() {
 	echo '<form class="kodetimen-form" action="' . esc_url( $_SERVER['REQUEST_URI'] ) . '" method="post">';
 
