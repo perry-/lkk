@@ -78,8 +78,11 @@ function kodetimen_table_content( $column_name, $post_id ) {
 	}
 
 	if( $column_name == 'kodetimen_school_level' ) {
-		$kodetimen_school_level = get_post_meta( $post_id, '_kodetimen_school_level_key', true );
-		echo $kodetimen_school_level;
+        $kodetimen_school_levels = get_post_meta( $post_id, '_kodetimen_school_level_key', true );
+
+        foreach ($kodetimen_school_levels as $key => $kodetimen_school_level) {
+            echo $kodetimen_school_level . '. ';
+        }
 	}
 
     /*

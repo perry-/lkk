@@ -71,7 +71,7 @@ function school_level() {
 		echo '<div class="kodetimen-form__checkboxgroup">';
 		foreach ($levels as $level) {
 			echo  '<label class="kodetimen-form__checkbox" id="level">';
-				echo '<input class="kodetimen-form__checkbox-nativeinput kodetimen-form__input--vishidden" type="checkbox" id="kodetimen_level'. $level . '" value="' . $level . '"></input>';
+				echo '<input class="kodetimen-form__checkbox-nativeinput kodetimen-form__input--vishidden" name="kodetimen_level[]" type="checkbox" id="kodetimen_level'. $level . '" value="' . $level . '"></input>';
 				echo '<span class="kodetimen-form__checkbox-input" aria-hidden="true"></span>';
 				echo '<span class="kodetimen-form__checkbox-label" for="kodetimen_level'. $level . '">'. $level .'.</span>';
 			echo  '</label>';
@@ -215,7 +215,7 @@ function save_kodetimen_post() {
 	add_post_meta($post_id, '_kodetimen_email_key', $_POST["kodetimen_email"]);
 	add_post_meta($post_id, '_kodetimen_name_key', $_POST["kodetimen_name"]);
 	add_post_meta($post_id, '_kodetimen_number_of_students_key', $_POST["kodetimen_number_of_students"]);
-	//add_post_meta($post_id, '_kodetimen_school_level_key', $_POST["kodetimen_school_level"]);
+	add_post_meta($post_id, '_kodetimen_school_level_key', $_POST["kodetimen_level"]);
 }
 
 function validate_form() {
@@ -272,6 +272,7 @@ function deliver_mail() {
 		$locality   = sanitize_text_field( $_POST["kodetimen_locality"] );
 		$year   = sanitize_text_field( $_POST["kodetimen_year"] );
 		$number_of_students   = sanitize_text_field( $_POST["kodetimen_number_of_students"] );
+		$level   = sanitize_text_field( $_POST["kodetimen_level"] );
         $subject = "Kodetimen";
         $locale = "no";
 
