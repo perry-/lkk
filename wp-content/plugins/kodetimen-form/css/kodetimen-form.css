@@ -15,6 +15,76 @@
     margin: 0;
 }
 
+.kodetimen-form .kodetimen-form__input--vishidden{
+    border: 0;
+    clip: rect(0 0 0 0);
+    height: 1px;
+    margin: -1px;
+    overflow: hidden;
+    padding: 0;
+    position: absolute;
+    width: 1px;
+}
+
+.kodetimen-form .kodetimen-form__checkboxgroup{
+    display: block;
+}
+
+.kodetimen-form .kodetimen-form__checkbox {
+    display: block;
+    margin-top: 6px;
+}
+
+.kodetimen-form .kodetimen-form__checkbox-input {
+    color: rgba(51,51,51,.87);
+    background-color: #fff;
+    border: 1px solid #b3b3b3;
+    border-radius: 4px;
+    transition: color .2s ease,border-color .2s ease;
+    display: inline-block;
+    vertical-align: middle;
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+}
+
+.kodetimen-form .kodetimen-form__checkbox-input:hover {
+    border: 1px solid black;
+}
+
+.kodetimen-form__checkbox-label {
+    display: inline-block;
+    padding-left: 6px;
+    vertical-align: middle;
+}
+
+.kodetimen-form .kodetimen-form__checkbox-input {
+    position: relative;
+    color: rgba(51,51,51,.87);
+    background-color: #fff;
+    border: 1px solid #b3b3b3;
+    border-radius: 4px;
+    transition: color .2s ease,border-color .2s ease;
+    vertical-align: middle;
+    width: 24px;
+    height: 24px;
+    min-width: 24px;
+}
+
+.kodetimen-form .kodetimen-form__checkbox-nativeinput:checked + .kodetimen-form__checkbox-input:after {
+    display: block;
+    position: absolute;
+    content: '';
+    left: 8px;
+    top: 2px;
+    width: 7px;
+    height: 13px;
+    border: solid #333;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
 select.kodetimen-form__input {
   background-image:
     linear-gradient(45deg, transparent 50%, black 50%),

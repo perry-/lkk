@@ -62,6 +62,25 @@ function years() {
 	echo '</div>';
 }
 
+function school_level() {
+	$levels = range(1, 10);
+
+	echo '<div class="kodetimen-form__field">';
+    echo  '<label for="level">Klassetrinn</label>';
+	if(is_array($levels)){
+		echo '<div class="kodetimen-form__checkboxgroup">';
+		foreach ($levels as $level) {
+			echo  '<label class="kodetimen-form__checkbox" id="level">';
+				echo '<input class="kodetimen-form__checkbox-nativeinput kodetimen-form__input--vishidden" type="checkbox" id="kodetimen_level'. $level . '" value="' . $level . '"></input>';
+				echo '<span class="kodetimen-form__checkbox-input" aria-hidden="true"></span>';
+				echo '<span class="kodetimen-form__checkbox-label" for="kodetimen_level'. $level . '">'. $level .'.</span>';
+			echo  '</label>';
+		}
+		echo  '</div>';
+	}
+	echo '</div>';
+}
+
 // Navn, Epost, Skole/Barnehage, Trinn (mange),
 // Valider skolenavn basert på adresse
 function html_form_code() {
@@ -115,6 +134,8 @@ function html_form_code() {
     echo  '<label for="number_of_students">Antall elever</label>';
     echo  '<input type="number" required class="kodetimen-form__input" id="number_of_students" name="kodetimen_number_of_students" value=""></input>';
 	echo '</div>';
+
+	school_level();
 
 	years();
 
