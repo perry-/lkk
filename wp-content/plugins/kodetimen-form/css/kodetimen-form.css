@@ -12,6 +12,7 @@
     border-radius: 0;
     -webkit-appearance: none;
     box-sizing: content-box;
+    margin: 0;
 }
 
 select.kodetimen-form__input {
@@ -42,9 +43,10 @@ select.kodetimen-form__input {
 }
 
 .kodetimen-form__fieldset + .kodetimen-form__fieldset {
-    margin-top: 24px;
+    margin-top: 36px;
 }
 
 .kodetimen-form__legend {
-    margin-bottom: 6px;
+    margin-bottom: 12px;
+    font-size: 18px;
 }

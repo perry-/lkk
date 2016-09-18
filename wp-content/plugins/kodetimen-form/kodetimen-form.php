@@ -45,7 +45,7 @@ function counties() {
 
 function years() {
 	$years = range(2013, date("Y"));
-	
+
 	echo '<div class="kodetimen-form__field">';
     echo  '<label for="year">Deltagerår</label>';
 	echo  '<select class="kodetimen-form__input" name="kodetimen_year" id="year">';
@@ -80,12 +80,10 @@ function html_form_code() {
     echo  '<input type="text" required class="kodetimen-form__input" id="school" name="kodetimen_school" value=""></input>';
 	echo '</div>';
 
-	echo '<div class="kodetimen-form__field">';
-    echo  '<label for="number_of_students">Antall elever</label>';
-    echo  '<input type="number" required class="kodetimen-form__input" id="number_of_students" name="kodetimen_number_of_students" value=""></input>';
-	echo '</div>';
+    echo '</fieldset>';
 
-	years();
+	echo '<fieldset class="kodetimen-form__fieldset">';
+    echo '<legend class="kodetimen-form__legend">Skolens adresse</legend>';
 
 	echo '<div class="kodetimen-form__field">';
     echo  '<label for="route">Gate</label>';
@@ -109,15 +107,18 @@ function html_form_code() {
     echo  '<input type="number" class="kodetimen-form__input" id="postal_code" name="kodetimen_postal_code" value=""></input>';
 	echo '</div>';
 
-	echo '<div class="kodetimen-form__field kodetimen-form__field--hidden">';
-    echo  '<input class="kodetimen-form__input" id="kodetimen_lat" name="kodetimen_lat" value=""></input>';
-	echo '</div>';
-
-	echo '<div class="kodetimen-form__field kodetimen-form__field--hidden">';
-    echo  '<input class="kodetimen-form__input" id="kodetimen_long" name="kodetimen_long" value=""></input>';
-	echo '</div>';
-
     echo '</fieldset>';
+
+	echo '<div class="kodetimen-form__fieldset">';
+
+	echo '<div class="kodetimen-form__field">';
+    echo  '<label for="number_of_students">Antall elever</label>';
+    echo  '<input type="number" required class="kodetimen-form__input" id="number_of_students" name="kodetimen_number_of_students" value=""></input>';
+	echo '</div>';
+
+	years();
+
+    echo '</div>';
 
     echo '<fieldset class="kodetimen-form__fieldset">';
     echo '<legend class="kodetimen-form__legend">Kontaktperson</legend>';
@@ -133,6 +134,14 @@ function html_form_code() {
 	echo '</div>';
 
     echo '</fieldset>';
+
+	echo '<div class="kodetimen-form__field kodetimen-form__field--hidden">';
+	echo  '<input class="kodetimen-form__input" id="kodetimen_lat" name="kodetimen_lat" value=""></input>';
+	echo '</div>';
+
+	echo '<div class="kodetimen-form__field kodetimen-form__field--hidden">';
+	echo  '<input class="kodetimen-form__input" id="kodetimen_long" name="kodetimen_long" value=""></input>';
+	echo '</div>';
 
 	echo '<button class="kodetimen-form__button" type="submit" name="kodetimen-submitted">Send</button>';
 
