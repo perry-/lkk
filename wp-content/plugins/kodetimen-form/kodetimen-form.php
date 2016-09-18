@@ -43,6 +43,30 @@ function counties() {
 	echo '</div>';
 }
 
+function years() {
+	$years = array(
+		'2013',
+		'2014',
+		'2015',
+		'2016'
+	);
+
+	echo '<div class="kodetimen-form__field">';
+    echo  '<label for="year">Deltagerår</label>';
+	echo  '<select class="kodetimen-form__input" name="kodetimen_year" id="year">';
+	if(is_array($years)){
+		foreach ($years as $year) {
+			if($year == date('Y')){
+				echo '<option value="' . $year . '" selected="selected">' . $year . '</option>';
+			} else {
+				echo '<option value="' . $year . '">' . $year . '</option>';
+			}
+		}
+	}
+	echo  '</select>';
+	echo '</div>';
+}
+
 // Navn, Epost, Skole/Barnehage, Trinn (mange), Antall elever, Deltagerår; 2013, 2014, 2015, Adresse
 // Valider skolenavn basert på adresse
 function html_form_code() {
@@ -66,10 +90,7 @@ function html_form_code() {
     echo  '<input type="number" class="kodetimen-form__input" id="number_of_students" name="kodetimen_number_of_students" value=""></input>';
 	echo '</div>';
 
-	echo '<div class="kodetimen-form__field">';
-    echo  '<label for="year">Deltagerår</label>';
-    echo  '<input type="year" class="kodetimen-form__input" id="year" name="kodetimen_year" value="'. date('Y') .'"></input>';
-	echo '</div>';
+	years();
 
 	echo '<div class="kodetimen-form__field">';
     echo  '<label for="route">Gate</label>';
@@ -180,6 +201,7 @@ function deliver_mail() {
 		$location = sanitize_text_field( $_POST['autocomplete'] );
 		$postal_code    = sanitize_text_field( $_POST["kodetimen_postal_code"] );
 		$locality   = sanitize_text_field( $_POST["kodetimen_locality"] );
+		$year   = sanitize_text_field( $_POST["kodetimen_year"] );
 		$email   = sanitize_email( $_POST["kodetimen_email"] );
         $subject = "Kodetimen";
         $locale = "no";
