@@ -7,6 +7,42 @@ Version: 1.0
 Author: LKK
 */
 
+function counties() {
+	$counties = array(
+		'Østfold',
+		'Akershus',
+		'Oslo',
+		'Hedmark',
+		'Oppland',
+		'Buskerud',
+		'Vestfold',
+		'Telemark',
+		'Aust-Agder',
+		'Vest-Agder',
+		'Rogaland',
+		'Hordaland',
+		'Sogn og Fjordane',
+		'Møre og Romsdal',
+		'Sør-Trøndelag',
+		'Nord-Trøndelag',
+		'Nordland',
+		'Troms',
+		'Finnmark'
+	);
+
+	echo '<div class="kodetimen-form__field">';
+    echo  '<label for="administrative_area_level_1">Fylke</label>';
+	echo  '<select class="kodetimen-form__input" name="kodetimen_county" id="administrative_area_level_1">';
+	echo  '<option value="">Velg fylke</option>';
+	if(is_array($counties)){
+		foreach ($counties as $county) {
+			echo '<option value="' . $county . '">' . $county . '</option>';
+		}
+	}
+	echo  '</select>';
+	echo '</div>';
+}
+
 // Navn, Epost, Skole/Barnehage, Trinn (mange), Antall elever, Deltagerår; 2013, 2014, 2015, Adresse
 // Valider skolenavn basert på adresse
 function html_form_code() {
@@ -50,17 +86,12 @@ function html_form_code() {
     echo  '<input type="text" class="kodetimen-form__input" id="locality" name="kodetimen_locality" value=""></input>';
 	echo '</div>';
 
-	// TODO: Use select instead
-	echo '<div class="kodetimen-form__field">';
-    echo  '<label for="administrative_area_level_1">Fylke</label>';
-    echo  '<input type="text" class="kodetimen-form__input" id="administrative_area_level_1" name="kodetimen_county" value=""></input>';
-	echo '</div>';
-
 	echo '<div class="kodetimen-form__field">';
     echo  '<label for="postal_code">Postnummer</label>';
     echo  '<input type="number" class="kodetimen-form__input" id="postal_code" name="kodetimen_postal_code" value=""></input>';
 	echo '</div>';
 
+	counties();
 
 	echo '<div class="kodetimen-form__field kodetimen-form__field--hidden">';
     echo  '<input class="kodetimen-form__input" id="kodetimen_lat" name="kodetimen_lat" value=""></input>';
