@@ -98,6 +98,8 @@ function html_form_code() {
     echo  '<input type="text" required class="kodetimen-form__input" id="school" name="kodetimen_school" value=""></input>';
 	echo '</div>';
 
+	echo '<div class="kodetimen-form__map" id="kodetimen_map"></div>';
+
     echo '</fieldset>';
 
 	echo '<fieldset class="kodetimen-form__fieldset">';

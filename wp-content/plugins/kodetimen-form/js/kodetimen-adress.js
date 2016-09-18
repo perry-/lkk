@@ -13,6 +13,18 @@ jQuery(document).ready(function($) {
 		document.getElementById('kodetimen_lat').value = place.geometry.location.lat();
 		document.getElementById('kodetimen_long').value = place.geometry.location.lng();
 
+		var location = {lat: place.geometry.location.lat(), lng: place.geometry.location.lng()};
+
+	    var map = new google.maps.Map(document.getElementById('kodetimen_map'), {
+	      zoom: 12,
+	      center: location
+	    });
+
+	    var marker = new google.maps.Marker({
+	      position: location,
+	      map: map
+	    });
+
 		if ($.inArray('school', place.types) !== -1) {
 			document.getElementById('school').value = place.name;
 		}
