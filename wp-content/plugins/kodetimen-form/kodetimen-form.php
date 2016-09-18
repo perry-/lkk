@@ -209,12 +209,48 @@ function save_kodetimen_post($content, $title, $lat, $long, $location) {
 	add_post_meta($post_id, '_kodetimen_position_value_key', $location);
 }
 
+function validate_form() {
+	if( !isset($_POST["kodetimen_name"]) || empty($_POST["kodetimen_name"]) ){
+		return;
+	}
+
+	if( !isset($_POST["kodetimen_street"]) || empty($_POST["kodetimen_street"])  ){
+		return;
+	}
+
+	if( !isset($_POST["kodetimen_street_number"]) || empty($_POST["kodetimen_street_number"])  ){
+		return;
+	}
+
+	if( !isset($_POST["kodetimen_school"]) || empty($_POST["kodetimen_school"])  ){
+		return;
+	}
+
+	if( !isset($_POST["kodetimen_county"]) || empty($_POST["kodetimen_county"])  ){
+		return;
+	}
+
+	if( !isset($_POST["kodetimen_locality"]) || empty($_POST["kodetimen_locality"])  ){
+		return;
+	}
+
+	if( !isset($_POST["kodetimen_year"]) || empty($_POST["kodetimen_year"])  ){
+		return;
+	}
+
+	if( !isset($_POST["kodetimen_email"]) || empty($_POST["kodetimen_email"])  ){
+		return;
+	}
+}
+
 function deliver_mail() {
 
 	// if the submit button is clicked, send the email
 	if ( isset( $_POST['kodetimen-submitted'] ) ) {
 
 		// sanitize form values
+	 	validate_form();
+
 		$name    = sanitize_text_field( $_POST["kodetimen_name"] );
 		$street    = sanitize_text_field( $_POST["kodetimen_street"] );
 		$street_number    = sanitize_text_field( $_POST["kodetimen_street_number"] );
@@ -226,7 +262,6 @@ function deliver_mail() {
 		$postal_code    = sanitize_text_field( $_POST["kodetimen_postal_code"] );
 		$locality   = sanitize_text_field( $_POST["kodetimen_locality"] );
 		$year   = sanitize_text_field( $_POST["kodetimen_year"] );
-		$email   = sanitize_email( $_POST["kodetimen_email"] );
         $subject = "Kodetimen";
         $locale = "no";
 
