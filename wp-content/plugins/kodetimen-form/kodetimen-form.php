@@ -62,7 +62,7 @@ function years() {
 	echo '</div>';
 }
 
-// Navn, Epost, Skole/Barnehage, Trinn (mange), Antall elever, Deltagerår; 2013, 2014, 2015, Adresse
+// Navn, Epost, Skole/Barnehage, Trinn (mange),
 // Valider skolenavn basert på adresse
 function html_form_code() {
 	echo '<form class="kodetimen-form" action="' . esc_url( $_SERVER['REQUEST_URI'] ) . '" method="post">';
@@ -77,12 +77,12 @@ function html_form_code() {
 
 	echo '<div class="kodetimen-form__field">';
     echo  '<label for="school">Skole</label>';
-    echo  '<input type="text" class="kodetimen-form__input" id="school" name="kodetimen_school" value=""></input>';
+    echo  '<input type="text" required class="kodetimen-form__input" id="school" name="kodetimen_school" value=""></input>';
 	echo '</div>';
 
 	echo '<div class="kodetimen-form__field">';
     echo  '<label for="number_of_students">Antall elever</label>';
-    echo  '<input type="number" class="kodetimen-form__input" id="number_of_students" name="kodetimen_number_of_students" value=""></input>';
+    echo  '<input type="number" required class="kodetimen-form__input" id="number_of_students" name="kodetimen_number_of_students" value=""></input>';
 	echo '</div>';
 
 	years();
@@ -97,6 +97,8 @@ function html_form_code() {
     echo  '<input type="number" class="kodetimen-form__input" id="street_number" name="kodetimen_street_number" value=""></input>';
 	echo '</div>';
 
+	counties();
+
 	echo '<div class="kodetimen-form__field">';
     echo  '<label for="locality">By</label>';
     echo  '<input type="text" class="kodetimen-form__input" id="locality" name="kodetimen_locality" value=""></input>';
@@ -106,8 +108,6 @@ function html_form_code() {
     echo  '<label for="postal_code">Postnummer</label>';
     echo  '<input type="number" class="kodetimen-form__input" id="postal_code" name="kodetimen_postal_code" value=""></input>';
 	echo '</div>';
-
-	counties();
 
 	echo '<div class="kodetimen-form__field kodetimen-form__field--hidden">';
     echo  '<input class="kodetimen-form__input" id="kodetimen_lat" name="kodetimen_lat" value=""></input>';
