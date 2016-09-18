@@ -48,10 +48,11 @@ function kodetimen_table_head( $columns  ) {
 
 	$columns = array(
 			'cb' => '<input type="checkbox" />',
-			'title' => __( 'Kodetimen' ),
-			'kodetimen_position_column' => __( 'Posisjon' ),
-			'kodetimen_lat_column' => __( 'Latitude' ),
-			'kodetimen_long_column' => __( 'Longitude' ),
+			'title' => __( 'Skole' ),
+            'kodetimen_contact_person' => __('Kontaktperson'),
+            'kodetimen_year' => __('Deltagerår'),
+            'kodetimen_number_of_students' => __('Antall elever'),
+            'kodetimen_school_level' => __('Klassetrinn'),
 			'date' => __( 'Lagt til' )
 		);
 
@@ -60,8 +61,30 @@ function kodetimen_table_head( $columns  ) {
 add_action( 'manage_kodetimen_posts_custom_column', 'kodetimen_table_content', 10, 2 );
 
 function kodetimen_table_content( $column_name, $post_id ) {
+	if( $column_name == 'kodetimen_contact_person' ) {
+		$kodetimen_name = get_post_meta( $post_id, '_kodetimen_name_key', true );
+		$kodetimen_email = get_post_meta( $post_id, '_kodetimen_email_key', true );
+		echo '<a href="mailto:'. $kodetimen_email . '">' . $kodetimen_name . '</a>';
+	}
+
+	if( $column_name == 'kodetimen_year' ) {
+		$kodetimen_year = get_post_meta( $post_id, '_kodetimen_year_key', true );
+		echo $kodetimen_year;
+	}
+
+	if( $column_name == 'kodetimen_number_of_students' ) {
+		$kodetimen_number_of_students = get_post_meta( $post_id, '_kodetimen_number_of_students_key', true );
+		echo $kodetimen_number_of_students;
+	}
+
+	if( $column_name == 'kodetimen_school_level' ) {
+		$kodetimen_school_level = get_post_meta( $post_id, '_kodetimen_school_level_key', true );
+		echo $kodetimen_school_level;
+	}
+
+    /*
 	if( $column_name == 'kodetimen_position_column' ) {
-		$kodetimen_position = get_post_meta( $post_id, '_kodetimen_position_value_key', true );
+		$kodetimen_position = get_post_meta( $post_id, '_kodetimen_location_key', true );
 		echo $kodetimen_position;
 	}
 	if( $column_name == 'kodetimen_lat_column' ) {
@@ -72,6 +95,7 @@ function kodetimen_table_content( $column_name, $post_id ) {
 		$kodetimen_long = get_post_meta( $post_id, '_kodetimen_position_long_key', true );
 		echo $kodetimen_long;
 	}
+    */
 }
 
 add_filter( 'manage_edit-kodetimen_sortable_columns', 'kodetimen_sortable_columns' );

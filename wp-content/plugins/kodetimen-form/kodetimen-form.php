@@ -192,11 +192,11 @@ function wp_kodetimen_enqueue_scripts()
 add_action( 'wp_enqueue_scripts', 'wp_kodetimen_enqueue_scripts' );
 
 
-function save_kodetimen_post($content, $title, $lat, $long, $location) {
+function save_kodetimen_post() {
 	// Create post object
 	$new_kodetimen_attendee = array(
-	  'post_title'    => $title,
-	  'post_content'  => $content,
+	  'post_title'    => $_POST["kodetimen_school"],
+	  'post_content' => '',
 	  'post_status'   => 'publish',
 	  'post_type' => 'kodetimen'
 	);
@@ -204,9 +204,18 @@ function save_kodetimen_post($content, $title, $lat, $long, $location) {
 	// Insert the post into the database
 	$post_id = wp_insert_post( $new_kodetimen_attendee );
 
-	add_post_meta($post_id, '_kodetimen_position_lat_key', $lat);
-	add_post_meta($post_id, '_kodetimen_position_long_key', $long);
-	add_post_meta($post_id, '_kodetimen_position_value_key', $location);
+	add_post_meta($post_id, '_kodetimen_position_lat_key', $_POST["kodetimen_lat"]);
+	add_post_meta($post_id, '_kodetimen_position_long_key', $_POST["kodetimen_long"]);
+	add_post_meta($post_id, '_kodetimen_location_key', $_POST["kodetimen_location"]);
+	add_post_meta($post_id, '_kodetimen_street_key', $_POST["kodetimen_street"]);
+	add_post_meta($post_id, '_kodetimen_street_number_key', $_POST["kodetimen_street_number"]);
+	add_post_meta($post_id, '_kodetimen_county_key', $_POST["kodetimen_county"]);
+	add_post_meta($post_id, '_kodetimen_locality_key', $_POST["kodetimen_locality"]);
+	add_post_meta($post_id, '_kodetimen_year_key', $_POST["kodetimen_year"]);
+	add_post_meta($post_id, '_kodetimen_email_key', $_POST["kodetimen_email"]);
+	add_post_meta($post_id, '_kodetimen_name_key', $_POST["kodetimen_name"]);
+	add_post_meta($post_id, '_kodetimen_number_of_students_key', $_POST["kodetimen_number_of_students"]);
+	//add_post_meta($post_id, '_kodetimen_school_level_key', $_POST["kodetimen_school_level"]);
 }
 
 function validate_form() {
@@ -262,6 +271,7 @@ function deliver_mail() {
 		$postal_code    = sanitize_text_field( $_POST["kodetimen_postal_code"] );
 		$locality   = sanitize_text_field( $_POST["kodetimen_locality"] );
 		$year   = sanitize_text_field( $_POST["kodetimen_year"] );
+		$number_of_students   = sanitize_text_field( $_POST["kodetimen_number_of_students"] );
         $subject = "Kodetimen";
         $locale = "no";
 
@@ -279,7 +289,7 @@ function deliver_mail() {
 					.'<p>Postnummer: ' . $postal_code . '</p>'
 					.'</div>';
 
-		save_kodetimen_post($message, $school, $lat, $long, $location);
+		save_kodetimen_post();
 
 		// If email has been process for sending, display a success message
 		/*
