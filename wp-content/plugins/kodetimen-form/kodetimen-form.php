@@ -44,13 +44,8 @@ function counties() {
 }
 
 function years() {
-	$years = array(
-		'2013',
-		'2014',
-		'2015',
-		'2016'
-	);
-
+	$years = range(2013, date("Y"));
+	
 	echo '<div class="kodetimen-form__field">';
     echo  '<label for="year">Deltagerår</label>';
 	echo  '<select class="kodetimen-form__input" name="kodetimen_year" id="year">';
