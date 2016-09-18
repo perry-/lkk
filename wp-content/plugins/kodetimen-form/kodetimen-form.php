@@ -94,7 +94,7 @@ function html_form_code() {
 	echo '</div>';
 
 	echo '<div class="kodetimen-form__field">';
-    echo  '<label for="school">Skole</label>';
+    echo  '<label for="school">Skolens navn (påkrevd)</label>';
     echo  '<input type="text" required class="kodetimen-form__input" id="school" name="kodetimen_school" value=""></input>';
 	echo '</div>';
 
@@ -130,7 +130,7 @@ function html_form_code() {
 	echo '<div class="kodetimen-form__fieldset">';
 
 	echo '<div class="kodetimen-form__field">';
-    echo  '<label for="number_of_students">Antall elever</label>';
+    echo  '<label for="number_of_students">Antall elever (påkrevd)</label>';
     echo  '<input type="number" required class="kodetimen-form__input" id="number_of_students" name="kodetimen_number_of_students" value=""></input>';
 	echo '</div>';
 
