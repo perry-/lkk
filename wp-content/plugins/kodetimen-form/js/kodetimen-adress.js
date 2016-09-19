@@ -10,6 +10,7 @@ jQuery(document).ready(function($) {
     };
 
     function fillInAddress(place) {
+		$(".kodetimen-form")[0].reset();
 		document.getElementById('kodetimen_lat').value = place.geometry.location.lat();
 		document.getElementById('kodetimen_long').value = place.geometry.location.lng();
 
