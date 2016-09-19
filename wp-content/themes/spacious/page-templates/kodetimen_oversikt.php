@@ -46,7 +46,7 @@ class KodetimenPos {
 	}
 	</style>
 	<![endif]-->
-	<div id="primary">
+	<div>
 		<div id="content" class="clearfix">
 			<?php while ( have_posts() ) : the_post(); ?>
 
@@ -71,9 +71,15 @@ class KodetimenPos {
 					$obj->name = get_the_title();
 					$obj->number_of_students = get_post_custom_values('_kodetimen_number_of_students_key');
 					$kodetimen_attendees[] = $obj;
+					$total_number_of_attendees += get_post_custom_values('_kodetimen_number_of_students_key')[0];
 				endwhile;
 
-				echo 'Antall påmeldte skoler: ' . count($kodetimen_attendees);
+				if(count($kodetimen_attendees) > 0 and $total_number_of_attendees > 0){
+					echo '<p class="kodetimen-info__text">';
+					echo 'Nå har <span class="kodetimen-info__number"> ' . $total_number_of_attendees . '</span>';
+					echo ' elever fra <span class="kodetimen-info__number"> ' . count($kodetimen_attendees) . '</span> skoler meldt seg på!';
+					echo '</p>';
+				}
 
 				require_once( SPACIOUS_INCLUDES_DIR . '/GMapsOverview_kodetimen.php');
 
