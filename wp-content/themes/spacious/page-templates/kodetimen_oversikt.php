@@ -77,9 +77,8 @@ class KodetimenPos {
 				echo "<ul class=\"kodetimen-list clearfix\">";
 				while ( $query->have_posts() ) : $query->the_post();
 					echo '<li class="kodetimen-item">';
-					echo '<p>';
 					the_title();
-					echo '</a></li>';
+					echo '</li>';
 
 
 				endwhile;
