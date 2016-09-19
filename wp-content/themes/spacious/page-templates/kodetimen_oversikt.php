@@ -69,8 +69,11 @@ class KodetimenPos {
 					$obj->lat = get_post_custom_values('_kodetimen_position_lat_key');
 					$obj->long = get_post_custom_values('_kodetimen_position_long_key');
 					$obj->name = get_the_title();
+					$obj->number_of_students = get_post_custom_values('_kodetimen_number_of_students_key');
 					$kodetimen_attendees[] = $obj;
 				endwhile;
+
+				echo 'Antall påmeldte skoler: ' . count($kodetimen_attendees);
 
 				require_once( SPACIOUS_INCLUDES_DIR . '/GMapsOverview_kodetimen.php');
 
