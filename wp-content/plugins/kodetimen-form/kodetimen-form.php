@@ -235,6 +235,13 @@ function validate_form() {
 
 	if( !isset($_POST["kodetimen_school"]) || empty($_POST["kodetimen_school"])  ){
 		return;
+	} else {
+		$existing_attendee = get_page_by_title($_POST["kodetimen_school"], 'OBJECT', 'kodetimen');
+		if($existing_attendee == null){
+			return;
+		} else {
+			echo '<p>Skolen finnes fra før!</p>';
+		}
 	}
 
 	if( !isset($_POST["kodetimen_county"]) || empty($_POST["kodetimen_county"])  ){
@@ -258,7 +265,6 @@ function deliver_mail() {
 
 	// if the submit button is clicked, send the email
 	if ( isset( $_POST['kodetimen-submitted'] ) ) {
-
 		// sanitize form values
 	 	validate_form();
 
