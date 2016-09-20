@@ -240,7 +240,9 @@ function validate_form() {
 		if($existing_attendee == null){
 			return;
 		} else {
-			echo '<p>Skolen finnes fra før!</p>';
+			echo '<p class="kodetimen-form__errormessage">';
+			echo 'Skolen finnes fra før!';
+			echo '</p>';
 		}
 	}
 
@@ -290,15 +292,17 @@ function deliver_mail() {
 		$headers = "From: $name <$email>" . "\r\n";
 		$subject = 'Kodetimen 2016';
 
-		$message = 	 '<div>'
-					.'<p>Takk for din påmelding!</p>'
-					.'<p>Navn: ' . $name . '</p>'
-					.'<p>Adresse: ' . $street . ' ' . $street_number . ', ' . $county . '</p>'
-					.'<p>By: ' . $locality . '</p>'
+		$message = 	 '<div class="kodetimen-form__success">'
+					.'<h2>Takk for din påmelding!</h2>'
+					.'<p>Skole: ' . $school . '</p>'
+					.'<p>Kontaktperson: ' . $name . '</p>'
+					.'<p>Adresse: ' . $street . ' ' . $street_number . ', ' . $locality . ', ' . $county . '</p>'
 					.'<p>Postnummer: ' . $postal_code . '</p>'
 					.'</div>';
 
 		save_kodetimen_post();
+
+		echo $message;
 
 		// If email has been process for sending, display a success message
 		/*
