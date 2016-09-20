@@ -323,6 +323,10 @@ function submit_form() {
 			echo 'Det oppstod en feil under sending av epost til ' . $email;
 			echo '</p>';
 		}
+
+
+	    header("Location: ".esc_url( $_SERVER['REQUEST_URI'] ). '?status=success');
+	    exit();
 	}
 }
 
