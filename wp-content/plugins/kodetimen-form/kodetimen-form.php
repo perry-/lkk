@@ -94,7 +94,7 @@ function html_form_code() {
 	echo '</div>';
 
 	echo '<div class="kodetimen-form__field">';
-    echo  '<label for="school">Skolens navn (påkrevd)</label>';
+    echo  '<label for="school">Skolens / barnehagens navn (påkrevd)</label>';
     echo  '<input type="text" required class="kodetimen-form__input" id="school" name="kodetimen_school" value=""></input>';
 	echo '</div>';
 
@@ -103,7 +103,7 @@ function html_form_code() {
     echo '</fieldset>';
 
 	echo '<fieldset class="kodetimen-form__fieldset">';
-    echo '<legend class="kodetimen-form__legend">Skolens adresse</legend>';
+    echo '<legend class="kodetimen-form__legend">Skolens / barnehagens adresse</legend>';
 
 	echo '<div class="kodetimen-form__field">';
     echo  '<label for="route">Gate</label>';
@@ -165,7 +165,7 @@ function html_form_code() {
 	echo  '<input class="kodetimen-form__input" id="kodetimen_long" name="kodetimen_long" value=""></input>';
 	echo '</div>';
 
-	echo '<button class="kodetimen-form__button" type="submit" name="kodetimen-submitted">Send</button>';
+	echo '<button class="kodetimen-form__button" type="submit" name="kodetimen-submitted">Meld oss på!</button>';
 
 	echo '</form>';
 }
