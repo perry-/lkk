@@ -241,7 +241,7 @@ function submit_form() {
 			$existing_attendee = get_page_by_title($_POST["kodetimen_school"], 'OBJECT', 'kodetimen');
 			if($existing_attendee !== null){
 				echo '<p class="kodetimen-form__errormessage">';
-				echo 'Denne skolen / barnehagen er påmeldt tidligere';
+				echo $_POST["kodetimen_school"] . ' er påmeldt tidligere';
 				echo '</p>';
 				return;
 			}
