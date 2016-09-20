@@ -304,6 +304,7 @@ function deliver_mail() {
 
 		echo $message;
 
+
 		// If email has been process for sending, display a success message
 		/*
 		if ( wp_mail( $to, $subject, $message, $headers ) ) {
@@ -322,6 +323,7 @@ function deliver_mail() {
 }
 
 function kodetimen_shortcode() {
+	$_POST = array(); // Clear the form
 	ob_start();
 	deliver_mail();
 	html_form_code();
