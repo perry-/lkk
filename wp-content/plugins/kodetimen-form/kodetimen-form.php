@@ -277,6 +277,7 @@ function submit_form() {
 
 		// sanitize form values
 		$name    = sanitize_text_field( $_POST["kodetimen_name"] );
+		$email    = sanitize_text_field( $_POST["kodetimen_email"] );
 		$street    = sanitize_text_field( $_POST["kodetimen_street"] );
 		$street_number    = sanitize_text_field( $_POST["kodetimen_street_number"] );
 		$school    = sanitize_text_field( $_POST["kodetimen_school"] );
@@ -292,10 +293,7 @@ function submit_form() {
         $subject = "Kodetimen";
         $locale = "no";
 
-		// get the blog administrator's email address
-		$to = get_option( 'admin_email' );
-
-		$headers = "From: $name <$email>" . "\r\n";
+		$headers = array('Content-Type: text/html; charset=UTF-8', "From: Kodetimen <kodetimen@kidsakoder.no>" . "\r\n");
 		$subject = 'Kodetimen 2016';
 
 		$message = 	 '<div class="kodetimen-form__success">'
@@ -306,25 +304,25 @@ function submit_form() {
 					.'<p>Postnummer: ' . $postal_code . '</p>'
 					.'</div>';
 
+		$emailmessage = '<h2>Takk for din påmelding til Kodetimen 2016!</h2>'
+						.'<p>Skole: ' . $school . '</p>'
+						.'<p>Kontaktperson: ' . $name . '</p>'
+						.'<p>Adresse: ' . $street . ' ' . $street_number . ', ' . $locality . ', ' . $county . '</p>'
+						.'<p>Postnummer: ' . $postal_code . '</p>';
+
 		save_kodetimen_post();
 
-		echo $message;
+		// Send email to admin
+ 		//wp_mail( get_option( 'admin_email' ), $subject, $message, $headers ) ;
 
-
-		// If email has been process for sending, display a success message
-		/*
-		if ( wp_mail( $to, $subject, $message, $headers ) ) {
-			echo '<div>';
-			echo '<p>Takk for din påmelding!</p>';
-			echo '<p>Navn: ' . $name . '</p>';
-			echo '<p>Adresse: ' . $street . ' ' . $street_number . ', ' . $county . '</p>';
-			echo '<p>By: ' . $locality . '</p>';
-			echo '<p>Postnummer: ' . $postal_code . '</p>';
-			echo '</div>';
+		// Send email to user
+		if ( wp_mail( $email, $subject, $emailmessage, $headers ) ) {
+			echo $message;
 		} else {
-			echo 'En feil oppstod.';
+			echo '<p class="kodetimen-form__errormessage">';
+			echo 'Det oppstod en feil under sending av epost til ' . $email;
+			echo '</p>';
 		}
-		*/
 	}
 }
 
