@@ -118,8 +118,8 @@ function html_form_code() {
 	counties();
 
 	echo '<div class="kodetimen-form__field">';
-    echo  '<label for="locality">By</label>';
-    echo  '<input type="text" class="kodetimen-form__input" id="locality" name="kodetimen_locality" value=""></input>';
+    echo  '<label for="locality">By (påkrevd)</label>';
+    echo  '<input type="text" required class="kodetimen-form__input" id="locality" name="kodetimen_locality" value=""></input>';
 	echo '</div>';
 
 	echo '<div class="kodetimen-form__field">';
@@ -226,44 +226,52 @@ function submit_form() {
 	if ( isset( $_POST['kodetimen-submitted'] ) ) {
 		// validate form
 		if( !isset($_POST["kodetimen_name"]) || empty($_POST["kodetimen_name"]) ){
-			return;
-		}
-
-		if( !isset($_POST["kodetimen_street"]) || empty($_POST["kodetimen_street"])  ){
-			return;
-		}
-
-		if( !isset($_POST["kodetimen_street_number"]) || empty($_POST["kodetimen_street_number"])  ){
+			echo '<p class="kodetimen-form__errormessage">';
+			echo 'Kontaktpersonens navn er påkrevd';
+			echo '</p>';
 			return;
 		}
 
 		if( !isset($_POST["kodetimen_school"]) || empty($_POST["kodetimen_school"])  ){
+			echo '<p class="kodetimen-form__errormessage">';
+			echo 'Skolens / barnehagens navn er obligatorisk';
+			echo '</p>';
 			return;
 		} else {
 			$existing_attendee = get_page_by_title($_POST["kodetimen_school"], 'OBJECT', 'kodetimen');
-			if($existing_attendee == null){
-				return;
-			} else {
+			if($existing_attendee !== null){
 				echo '<p class="kodetimen-form__errormessage">';
-				echo 'Skolen finnes fra før!';
+				echo 'Denne skolen / barnehagen er påmeldt tidligere';
 				echo '</p>';
 				return;
 			}
 		}
 
 		if( !isset($_POST["kodetimen_county"]) || empty($_POST["kodetimen_county"])  ){
+			echo '<p class="kodetimen-form__errormessage">';
+			echo 'Fylke er påkrevd';
+			echo '</p>';
 			return;
 		}
 
 		if( !isset($_POST["kodetimen_locality"]) || empty($_POST["kodetimen_locality"])  ){
+			echo '<p class="kodetimen-form__errormessage">';
+			echo 'By er påkrevd';
+			echo '</p>';
 			return;
 		}
 
 		if( !isset($_POST["kodetimen_year"]) || empty($_POST["kodetimen_year"])  ){
+			echo '<p class="kodetimen-form__errormessage">';
+			echo 'Deltagerår er påkrevd';
+			echo '</p>';
 			return;
 		}
 
 		if( !isset($_POST["kodetimen_email"]) || empty($_POST["kodetimen_email"])  ){
+			echo '<p class="kodetimen-form__errormessage">';
+			echo 'Epost er påkrevd';
+			echo '</p>';
 			return;
 		}
 
