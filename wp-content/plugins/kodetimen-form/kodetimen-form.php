@@ -220,56 +220,54 @@ function save_kodetimen_post() {
 	add_post_meta($post_id, '_kodetimen_school_level_key', $_POST["kodetimen_level"]);
 }
 
-function validate_form() {
-	if( !isset($_POST["kodetimen_name"]) || empty($_POST["kodetimen_name"]) ){
-		return;
-	}
-
-	if( !isset($_POST["kodetimen_street"]) || empty($_POST["kodetimen_street"])  ){
-		return;
-	}
-
-	if( !isset($_POST["kodetimen_street_number"]) || empty($_POST["kodetimen_street_number"])  ){
-		return;
-	}
-
-	if( !isset($_POST["kodetimen_school"]) || empty($_POST["kodetimen_school"])  ){
-		return;
-	} else {
-		$existing_attendee = get_page_by_title($_POST["kodetimen_school"], 'OBJECT', 'kodetimen');
-		if($existing_attendee == null){
-			return;
-		} else {
-			echo '<p class="kodetimen-form__errormessage">';
-			echo 'Skolen finnes fra før!';
-			echo '</p>';
-		}
-	}
-
-	if( !isset($_POST["kodetimen_county"]) || empty($_POST["kodetimen_county"])  ){
-		return;
-	}
-
-	if( !isset($_POST["kodetimen_locality"]) || empty($_POST["kodetimen_locality"])  ){
-		return;
-	}
-
-	if( !isset($_POST["kodetimen_year"]) || empty($_POST["kodetimen_year"])  ){
-		return;
-	}
-
-	if( !isset($_POST["kodetimen_email"]) || empty($_POST["kodetimen_email"])  ){
-		return;
-	}
-}
-
-function deliver_mail() {
+function submit_form() {
 
 	// if the submit button is clicked, send the email
 	if ( isset( $_POST['kodetimen-submitted'] ) ) {
-		// sanitize form values
-	 	validate_form();
+		// validate form
+		if( !isset($_POST["kodetimen_name"]) || empty($_POST["kodetimen_name"]) ){
+			return;
+		}
 
+		if( !isset($_POST["kodetimen_street"]) || empty($_POST["kodetimen_street"])  ){
+			return;
+		}
+
+		if( !isset($_POST["kodetimen_street_number"]) || empty($_POST["kodetimen_street_number"])  ){
+			return;
+		}
+
+		if( !isset($_POST["kodetimen_school"]) || empty($_POST["kodetimen_school"])  ){
+			return;
+		} else {
+			$existing_attendee = get_page_by_title($_POST["kodetimen_school"], 'OBJECT', 'kodetimen');
+			if($existing_attendee == null){
+				return;
+			} else {
+				echo '<p class="kodetimen-form__errormessage">';
+				echo 'Skolen finnes fra før!';
+				echo '</p>';
+				return;
+			}
+		}
+
+		if( !isset($_POST["kodetimen_county"]) || empty($_POST["kodetimen_county"])  ){
+			return;
+		}
+
+		if( !isset($_POST["kodetimen_locality"]) || empty($_POST["kodetimen_locality"])  ){
+			return;
+		}
+
+		if( !isset($_POST["kodetimen_year"]) || empty($_POST["kodetimen_year"])  ){
+			return;
+		}
+
+		if( !isset($_POST["kodetimen_email"]) || empty($_POST["kodetimen_email"])  ){
+			return;
+		}
+
+		// sanitize form values
 		$name    = sanitize_text_field( $_POST["kodetimen_name"] );
 		$street    = sanitize_text_field( $_POST["kodetimen_street"] );
 		$street_number    = sanitize_text_field( $_POST["kodetimen_street_number"] );
@@ -323,11 +321,9 @@ function deliver_mail() {
 }
 
 function kodetimen_shortcode() {
-	$_POST = array(); // Clear the form
 	ob_start();
-	deliver_mail();
+	submit_form();
 	html_form_code();
-
 	return ob_get_clean();
 }
 
