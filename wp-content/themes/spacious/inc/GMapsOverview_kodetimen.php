@@ -104,7 +104,8 @@ function initialize() {
       var marker = new google.maps.Marker({
         position: pos,
         map: map,
-        title: kodetimen.name
+        title: kodetimen.name,
+        contentString: kodetimen.name
       });
       markers.push(marker);
 
