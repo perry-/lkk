@@ -194,7 +194,29 @@ function wp_kodetimen_enqueue_scripts()
 add_action( 'wp_enqueue_scripts', 'wp_kodetimen_enqueue_scripts' );
 
 
-function save_kodetimen_post() {
+function save_kodetimen_post()
+{
+	$existing_attendee = get_page_by_title($_POST["kodetimen_school"], 'OBJECT', 'kodetimen');
+	// If school is already attending, append contact, number of students, and school levels
+	if($existing_attendee !== null){
+		$number_of_students = $existing_attendee->_kodetimen_number_of_students_key;
+		$school_levels = $existing_attendee->_kodetimen_school_level_key;
+		$contact_people = $existing_attendee->_kodetimen_contact_people_key;
+
+		$number_of_students = $number_of_students + $_POST["kodetimen_number_of_students"];
+		$school_levels = array_merge($school_levels, $_POST["kodetimen_level"]);
+		$contact_people[] = array(
+			'name' => $_POST["kodetimen_name"],
+			'email' => $_POST["kodetimen_email"]
+		);
+
+		$post_id = $existing_attendee->ID;
+		update_post_meta($post_id, '_kodetimen_contact_people_key', $contact_people);
+		update_post_meta($post_id, '_kodetimen_number_of_students_key', $number_of_students);
+		update_post_meta($post_id, '_kodetimen_school_level_key', array_unique($school_levels));
+		return;
+	}
+
 	// Create post object
 	$new_kodetimen_attendee = array(
 	  'post_title'    => $_POST["kodetimen_school"],
@@ -205,6 +227,18 @@ function save_kodetimen_post() {
 
 	// Insert the post into the database
 	$post_id = wp_insert_post( $new_kodetimen_attendee );
+	$contact_people = array(
+		array(
+			'name' => $_POST["kodetimen_name"],
+			'email' => $_POST["kodetimen_email"]
+		)
+	);
+	$school_levels = $_POST["kodetimen_level"];
+	$number_of_students = $_POST["kodetimen_number_of_students"];
+
+	add_post_meta($post_id, '_kodetimen_contact_people_key', $contact_people);
+	add_post_meta($post_id, '_kodetimen_number_of_students_key', $number_of_students);
+	add_post_meta($post_id, '_kodetimen_school_level_key', $school_levels);
 
 	add_post_meta($post_id, '_kodetimen_position_lat_key', $_POST["kodetimen_lat"]);
 	add_post_meta($post_id, '_kodetimen_position_long_key', $_POST["kodetimen_long"]);
@@ -214,10 +248,6 @@ function save_kodetimen_post() {
 	add_post_meta($post_id, '_kodetimen_county_key', $_POST["kodetimen_county"]);
 	add_post_meta($post_id, '_kodetimen_locality_key', $_POST["kodetimen_locality"]);
 	add_post_meta($post_id, '_kodetimen_year_key', $_POST["kodetimen_year"]);
-	add_post_meta($post_id, '_kodetimen_email_key', $_POST["kodetimen_email"]);
-	add_post_meta($post_id, '_kodetimen_name_key', $_POST["kodetimen_name"]);
-	add_post_meta($post_id, '_kodetimen_number_of_students_key', $_POST["kodetimen_number_of_students"]);
-	add_post_meta($post_id, '_kodetimen_school_level_key', $_POST["kodetimen_level"]);
 }
 
 function submit_form() {
@@ -237,14 +267,6 @@ function submit_form() {
 			echo 'Skolens / barnehagens navn er obligatorisk';
 			echo '</p>';
 			return;
-		} else {
-			$existing_attendee = get_page_by_title($_POST["kodetimen_school"], 'OBJECT', 'kodetimen');
-			if($existing_attendee !== null){
-				echo '<p class="kodetimen-form__errormessage">';
-				echo $_POST["kodetimen_school"] . ' er påmeldt tidligere';
-				echo '</p>';
-				return;
-			}
 		}
 
 		if( !isset($_POST["kodetimen_county"]) || empty($_POST["kodetimen_county"])  ){

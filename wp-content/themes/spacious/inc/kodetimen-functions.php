@@ -49,7 +49,7 @@ function kodetimen_table_head( $columns  ) {
 	$columns = array(
 			'cb' => '<input type="checkbox" />',
 			'title' => __( 'Skole' ),
-            'kodetimen_contact_person' => __('Kontaktperson'),
+            'kodetimen_contact_person' => __('Kontaktperson(er)'),
             'kodetimen_year' => __('Deltagerår'),
             'kodetimen_number_of_students' => __('Antall elever'),
             'kodetimen_school_level' => __('Klassetrinn'),
@@ -62,9 +62,11 @@ add_action( 'manage_kodetimen_posts_custom_column', 'kodetimen_table_content', 1
 
 function kodetimen_table_content( $column_name, $post_id ) {
 	if( $column_name == 'kodetimen_contact_person' ) {
-		$kodetimen_name = get_post_meta( $post_id, '_kodetimen_name_key', true );
-		$kodetimen_email = get_post_meta( $post_id, '_kodetimen_email_key', true );
-		echo '<a href="mailto:'. $kodetimen_email . '">' . $kodetimen_name . '</a>';
+		$contact_people = get_post_meta( $post_id, '_kodetimen_contact_people_key', true );
+
+		foreach ($contact_people as $key => $contact_person) {
+			echo '<a href="mailto:'. $contact_person['email'] . '">' . $contact_person['name']  . '</a></br>';
+		}
 	}
 
 	if( $column_name == 'kodetimen_year' ) {
@@ -78,8 +80,8 @@ function kodetimen_table_content( $column_name, $post_id ) {
 	}
 
 	if( $column_name == 'kodetimen_school_level' ) {
-        $kodetimen_school_levels = get_post_meta( $post_id, '_kodetimen_school_level_key', true );
-
+        $kodetimen_school_levels =  get_post_meta( $post_id, '_kodetimen_school_level_key', true );
+		natsort($kodetimen_school_levels);
         foreach ($kodetimen_school_levels as $key => $kodetimen_school_level) {
             echo $kodetimen_school_level . '. ';
         }
