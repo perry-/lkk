@@ -95,7 +95,18 @@ class KodetimenPos {
 				while ( $query->have_posts() ) : $query->the_post();
 				?>
 					<li class="kodetimen-item">
-						<?php echo the_title(); ?>
+						<?php
+							echo the_title();
+							$postid = get_the_id();
+					        $kodetimen_school_levels =  get_post_meta($postid, '_kodetimen_school_level_key', true );
+							natsort($kodetimen_school_levels);
+
+							echo ' (';
+					        foreach ($kodetimen_school_levels as $key => $kodetimen_school_level) {
+					            echo $kodetimen_school_level . ', ';
+					        }
+							echo ') ';
+						?>
 					</li>
 				<?php
 
