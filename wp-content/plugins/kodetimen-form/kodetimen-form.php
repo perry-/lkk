@@ -62,10 +62,32 @@ function school_level() {
 	echo '</div>';
 }
 
+function contact_person() {
+	echo '
+		<fieldset class="kodetimen-form__fieldset">
+		     <legend class="kodetimen-form__legend">Kontaktperson</legend>
+
+			 <div class="kodetimen-form__field">
+				 <label for="name">Navn (påkrevd)</label>
+				 <input type="text" required class="kodetimen-form__input" type="text" id="name" name="kodetimen_name" pattern="[a-zA-Z0-9 ]+" value=""/>
+			 </div>
+
+			 <div class="kodetimen-form__field">
+				 <label for="email">E-post (påkrevd)</label>
+				 <input type="text" required class="kodetimen-form__input" type="email" id="email" name="kodetimen_email" value=""/>
+			 </div>
+
+	     </fieldset>
+	 ';
+}
+
 //Valider skolenavn basert på liste over tidligere påmeldte skoler
 function html_form_code() {
-	echo '<form class="kodetimen-form" action="' . esc_url( $_SERVER['REQUEST_URI'] ) . '" method="post">
+	echo '<form class="kodetimen-form" action="' . esc_url( $_SERVER['REQUEST_URI'] ) . '" method="post">';
 
+	 contact_person();
+
+	 echo '
 	 <fieldset class="kodetimen-form__fieldset">
      <legend class="kodetimen-form__legend">Skole / barnehage</legend>
 
@@ -120,21 +142,6 @@ function html_form_code() {
 	school_level();
 
     echo '</div>
-
-     <fieldset class="kodetimen-form__fieldset">
-     <legend class="kodetimen-form__legend">Kontaktperson</legend>
-
-	 <div class="kodetimen-form__field">
-	 <label for="name">Navn (påkrevd)</label>
-	 <input type="text" required class="kodetimen-form__input" type="text" id="name" name="kodetimen_name" pattern="[a-zA-Z0-9 ]+" value=""/>
-	 </div>
-
-	 <div class="kodetimen-form__field">
-	 <label for="email">E-post (påkrevd)</label>
-	 <input type="text" required class="kodetimen-form__input" type="email" id="email" name="kodetimen_email" value=""/>
-	 </div>
-
-     </fieldset>
 
 	 <div class="kodetimen-form__field kodetimen-form__field--hidden">
 	 <input class="kodetimen-form__input" id="kodetimen_lat" name="kodetimen_lat" value=""></input>
