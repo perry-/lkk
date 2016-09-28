@@ -87,79 +87,75 @@ function contact_person() {
 
 //Valider skolenavn basert på liste over tidligere påmeldte skoler
 function html_form_code() {
-	echo '<form class="kodetimen-form" action="' . esc_url( $_SERVER['REQUEST_URI'] ) . '" method="post">';
+	?>
+	<form class="kodetimen-form" action="<?php echo esc_url( $_SERVER['REQUEST_URI'] ); ?>" method="post">
 
-	 contact_person();
+		<?php echo contact_person(); ?>
 
-	 echo '
-	 <fieldset class="kodetimen-form__fieldset">
-     <legend class="kodetimen-form__legend">Skole / barnehage</legend>
+		<fieldset class="kodetimen-form__fieldset">
+			<legend class="kodetimen-form__legend">Skole / barnehage</legend>
 
-	 <div class="kodetimen-form__field">
-     <label for="autocomplete">Søk på skole/barnehage eller adresse</label>
-     <input type="text" class="kodetimen-form__input" id="autocomplete" placeholder=""></input>
-	 </div>
+			<div class="kodetimen-form__field">
+				<label for="autocomplete">Søk på skole/barnehage eller adresse</label>
+				<input type="text" class="kodetimen-form__input" id="autocomplete" placeholder=""></input>
+			</div>
 
-	 <div class="kodetimen-form__field">
-     <label for="school">Skolens / barnehagens navn (påkrevd)</label>
-     <input type="text" required class="kodetimen-form__input" id="school" name="kodetimen_school" value=""></input>
-	 </div>
+			<div class="kodetimen-form__field">
+				<label for="school">Skolens / barnehagens navn (påkrevd)</label>
+				<input type="text" required class="kodetimen-form__input" id="school" name="kodetimen_school" value=""></input>
+			</div>
 
-	 <div class="kodetimen-form__map" id="kodetimen_map"></div>
+		 	<div class="kodetimen-form__map" id="kodetimen_map"></div>
 
-     </fieldset>
+		</fieldset>
 
-	 <fieldset class="kodetimen-form__fieldset">
-     <legend class="kodetimen-form__legend">Skolens / barnehagens adresse</legend>
+		<fieldset class="kodetimen-form__fieldset">
+			<legend class="kodetimen-form__legend">Skolens / barnehagens adresse</legend>
 
-	 <div class="kodetimen-form__field">
-     <label for="route">Gate</label>
-     <input type="text" class="kodetimen-form__input" id="route" name="kodetimen_street" value=""></input>
-	 </div>
+			<div class="kodetimen-form__field">
+				<label for="route">Gate</label>
+				<input type="text" class="kodetimen-form__input" id="route" name="kodetimen_street" value=""></input>
+			</div>
 
-	 <div class="kodetimen-form__field">
-     <label for="street_number">Gatenummer</label>
-     <input type="number" class="kodetimen-form__input" id="street_number" name="kodetimen_street_number" value=""></input>
-	 </div>
+			<div class="kodetimen-form__field">
+				<label for="street_number">Gatenummer</label>
+				<input type="number" class="kodetimen-form__input" id="street_number" name="kodetimen_street_number" value=""></input>
+			</div>
 
- 	<div class="kodetimen-form__field">
-     <label for="postal_code">Postnummer</label>
-     <input type="number" class="kodetimen-form__input" id="postal_code" name="kodetimen_postal_code" value=""></input>
- 	</div>
+			<div class="kodetimen-form__field">
+				<label for="postal_code">Postnummer</label>
+				<input type="number" class="kodetimen-form__input" id="postal_code" name="kodetimen_postal_code" value=""></input>
+			</div>
 
-	<div class="kodetimen-form__field">
-    <label for="locality">Sted (påkrevd)</label>
-    <input type="text" required class="kodetimen-form__input" id="locality" name="kodetimen_locality" value=""></input>
-	</div>
-	 ';
+			<div class="kodetimen-form__field">
+				<label for="locality">Sted (påkrevd)</label>
+				<input type="text" required class="kodetimen-form__input" id="locality" name="kodetimen_locality" value=""></input>
+			</div>
 
-	counties();
+			<?php echo counties(); ?>
+		</fieldset>
 
-	echo '
-    </fieldset>
+		<div class="kodetimen-form__fieldset">
+			<div class="kodetimen-form__field">
+			    <label for="number_of_students">Antall elever (påkrevd)</label>
+			    <input type="number" required class="kodetimen-form__input" id="number_of_students" name="kodetimen_number_of_students" value=""></input>
+			</div>
 
-	<div class="kodetimen-form__fieldset">
+			<?php echo school_level(); ?>
+	    </div>
 
-	<div class="kodetimen-form__field">
-    <label for="number_of_students">Antall elever (påkrevd)</label>
-    <input type="number" required class="kodetimen-form__input" id="number_of_students" name="kodetimen_number_of_students" value=""></input>
-	</div>';
+		<div class="kodetimen-form__field kodetimen-form__field--hidden">
+			<input class="kodetimen-form__input" id="kodetimen_lat" name="kodetimen_lat" value=""></input>
+		</div>
 
-	school_level();
+		<div class="kodetimen-form__field kodetimen-form__field--hidden">
+			<input class="kodetimen-form__input" id="kodetimen_long" name="kodetimen_long" value=""></input>
+		</div>
 
-    echo '</div>
+		<button class="kodetimen-form__button" type="submit" name="kodetimen-submitted">Meld oss på!</button>
+	</form>
 
-	 <div class="kodetimen-form__field kodetimen-form__field--hidden">
-	 <input class="kodetimen-form__input" id="kodetimen_lat" name="kodetimen_lat" value=""></input>
-	 </div>
-
-	 <div class="kodetimen-form__field kodetimen-form__field--hidden">
-	 <input class="kodetimen-form__input" id="kodetimen_long" name="kodetimen_long" value=""></input>
-	 </div>
-
-	 <button class="kodetimen-form__button" type="submit" name="kodetimen-submitted">Meld oss på!</button>
-
-	 </form>';
+	 <?php
 }
 
 
