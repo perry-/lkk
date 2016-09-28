@@ -43,25 +43,6 @@ function counties() {
 	echo '</div>';
 }
 
-function years() {
-	$years = range(2013, date("Y"));
-
-	echo '<div class="kodetimen-form__field">';
-    echo  '<label for="year">Deltagerår</label>';
-	echo  '<select class="kodetimen-form__input" name="kodetimen_year" id="year">';
-	if(is_array($years)){
-		foreach ($years as $year) {
-			if($year == date('Y')){
-				echo '<option value="' . $year . '" selected="selected">' . $year . '</option>';
-			} else {
-				echo '<option value="' . $year . '">' . $year . '</option>';
-			}
-		}
-	}
-	echo  '</select>';
-	echo '</div>';
-}
-
 function school_level() {
 	$levels = range(1, 10);
 
@@ -137,8 +118,6 @@ function html_form_code() {
 	</div>';
 
 	school_level();
-
-	years();
 
     echo '</div>
 
@@ -247,7 +226,7 @@ function save_kodetimen_post()
 	add_post_meta($post_id, '_kodetimen_street_number_key', $_POST["kodetimen_street_number"]);
 	add_post_meta($post_id, '_kodetimen_county_key', $_POST["kodetimen_county"]);
 	add_post_meta($post_id, '_kodetimen_locality_key', $_POST["kodetimen_locality"]);
-	add_post_meta($post_id, '_kodetimen_year_key', $_POST["kodetimen_year"]);
+	add_post_meta($post_id, '_kodetimen_year_key', '2016');
 }
 
 function submit_form() {
@@ -283,13 +262,6 @@ function submit_form() {
 			return;
 		}
 
-		if( !isset($_POST["kodetimen_year"]) || empty($_POST["kodetimen_year"])  ){
-			echo '<p class="kodetimen-form__errormessage">';
-			echo 'Deltagerår er påkrevd';
-			echo '</p>';
-			return;
-		}
-
 		if( !isset($_POST["kodetimen_email"]) || empty($_POST["kodetimen_email"])  ){
 			echo '<p class="kodetimen-form__errormessage">';
 			echo 'Epost er påkrevd';
@@ -309,7 +281,7 @@ function submit_form() {
 		$location = sanitize_text_field( $_POST['autocomplete'] );
 		$postal_code    = sanitize_text_field( $_POST["kodetimen_postal_code"] );
 		$locality   = sanitize_text_field( $_POST["kodetimen_locality"] );
-		$year   = sanitize_text_field( $_POST["kodetimen_year"] );
+		$year   = '2016';
 		$number_of_students   = sanitize_text_field( $_POST["kodetimen_number_of_students"] );
 		$school_levels   = $_POST["kodetimen_level"];
         $subject = "Kodetimen";
