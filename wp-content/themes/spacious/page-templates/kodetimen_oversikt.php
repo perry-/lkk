@@ -75,20 +75,29 @@ class KodetimenPos {
 				endwhile;
 
 				if(count($kodetimen_attendees) > 0 and $total_number_of_attendees > 0){
-					echo '<p class="kodetimen-info__text">';
-					echo 'Nå har <span class="kodetimen-info__number"> ' . $total_number_of_attendees . '</span>';
-					echo ' elever fra <span class="kodetimen-info__number"> ' . count($kodetimen_attendees) . '</span> skoler meldt seg på!';
-					echo '</p>';
+					?>
+					<p class="kodetimen-info__text">
+						Nå har
+						<span class="kodetimen-info__number">
+							<?php echo $total_number_of_attendees; ?>
+						</span>
+						 elever fra
+						<span class="kodetimen-info__number">
+							<?php echo count($kodetimen_attendees); ?>
+						</span> skoler meldt seg på!
+					</p>
+					<?php
 				}
 
 				require_once( SPACIOUS_INCLUDES_DIR . '/GMapsOverview_kodetimen.php');
 
 				echo "<ul class=\"kodetimen-list clearfix\">";
 				while ( $query->have_posts() ) : $query->the_post();
-					echo '<li class="kodetimen-item">';
-					the_title();
-					echo '</li>';
-
+				?>
+					<li class="kodetimen-item">
+						<?php echo the_title(); ?>
+					</li>
+				<?php
 
 				endwhile;
 				echo "</ul>";
