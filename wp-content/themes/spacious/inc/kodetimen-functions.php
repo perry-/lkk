@@ -83,7 +83,7 @@ function kodetimen_table_content( $column_name, $post_id ) {
         $kodetimen_school_levels =  get_post_meta( $post_id, '_kodetimen_school_level_key', true );
 		natsort($kodetimen_school_levels);
         foreach ($kodetimen_school_levels as $key => $kodetimen_school_level) {
-            echo $kodetimen_school_level . '., ';
+            echo $kodetimen_school_level . ', ';
         }
 	}
 
