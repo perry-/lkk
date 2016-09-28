@@ -120,20 +120,22 @@ function html_form_code() {
 	 <div class="kodetimen-form__field">
      <label for="street_number">Gatenummer</label>
      <input type="number" class="kodetimen-form__input" id="street_number" name="kodetimen_street_number" value=""></input>
-	 </div>';
+	 </div>
 
-	counties();
+ 	<div class="kodetimen-form__field">
+     <label for="postal_code">Postnummer</label>
+     <input type="number" class="kodetimen-form__input" id="postal_code" name="kodetimen_postal_code" value=""></input>
+ 	</div>
 
-	echo '<div class="kodetimen-form__field">
+	<div class="kodetimen-form__field">
     <label for="locality">Sted (påkrevd)</label>
     <input type="text" required class="kodetimen-form__input" id="locality" name="kodetimen_locality" value=""></input>
 	</div>
+	 ';
 
-	<div class="kodetimen-form__field">
-    <label for="postal_code">Postnummer</label>
-    <input type="number" class="kodetimen-form__input" id="postal_code" name="kodetimen_postal_code" value=""></input>
-	</div>
+	counties();
 
+	echo '
     </fieldset>
 
 	<div class="kodetimen-form__fieldset">
