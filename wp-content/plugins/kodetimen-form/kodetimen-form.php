@@ -118,7 +118,7 @@ function html_form_code() {
 	counties();
 
 	echo '<div class="kodetimen-form__field">
-    <label for="locality">By (påkrevd)</label>
+    <label for="locality">Sted (påkrevd)</label>
     <input type="text" required class="kodetimen-form__input" id="locality" name="kodetimen_locality" value=""></input>
 	</div>
 
