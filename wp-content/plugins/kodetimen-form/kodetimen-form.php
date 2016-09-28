@@ -43,8 +43,12 @@ function counties() {
 	echo '</div>';
 }
 
+function generate_school_levels($level) {
+	return $level . '.';
+}
+
 function school_level() {
-	$levels = range(1, 10);
+	$levels = array_merge(array_map('generate_school_levels', range(1, 10)), ['VG1', 'VG2', 'Barnehage']);
 
 	echo '<div class="kodetimen-form__field">';
     echo  '<label for="level">Klassetrinn</label>';
@@ -54,7 +58,7 @@ function school_level() {
 			echo  '<label class="kodetimen-form__checkbox" id="level">';
 				echo '<input class="kodetimen-form__checkbox-nativeinput kodetimen-form__input--vishidden" name="kodetimen_level[]" type="checkbox" id="kodetimen_level'. $level . '" value="' . $level . '"></input>';
 				echo '<span class="kodetimen-form__checkbox-input" aria-hidden="true"></span>';
-				echo '<span class="kodetimen-form__checkbox-label" for="kodetimen_level'. $level . '">'. $level .'.</span>';
+				echo '<span class="kodetimen-form__checkbox-label" for="kodetimen_level'. $level . '">'. $level .'</span>';
 			echo  '</label>';
 		}
 		echo  '</div>';
