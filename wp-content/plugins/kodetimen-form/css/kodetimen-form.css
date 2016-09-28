@@ -63,7 +63,8 @@
     min-width: 24px;
 }
 
-.kodetimen-form .kodetimen-form__checkbox-input:hover {
+.kodetimen-form .kodetimen-form__checkbox-input:hover,
+.kodetimen-form .kodetimen-form__checkbox-nativeinput:focus + .kodetimen-form__checkbox-input {
     border: 1px solid black;
 }
 
