@@ -46,8 +46,9 @@
 }
 
 .kodetimen-form .kodetimen-form__checkbox {
-    display: block;
+    display: inline-block;
     margin-top: 6px;
+    margin-right: 12px;
 }
 
 .kodetimen-form .kodetimen-form__checkbox-input {
