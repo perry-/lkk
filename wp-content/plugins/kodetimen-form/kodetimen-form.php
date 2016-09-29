@@ -163,7 +163,7 @@ function wp_kodetimen_enqueue_scripts()
 {
     //register google maps api if not already registered
     if ( !wp_script_is( 'google-maps', 'registered' ) ) {
-        wp_register_script( 'google-maps', ( is_ssl() ? 'https' : 'http' ) . '://maps.googleapis.com/maps/api/js&v=3.24&key=AIzaSyA_VKoV6XVMReOu2b6wpTTUwYFyQKkKnPk&libraries=places&language=no', array( 'jquery' ), false );
+        wp_register_script( 'google-maps', ( is_ssl() ? 'https' : 'http' ) . '://maps.googleapis.com/maps/api/js&v=3.25&key=AIzaSyA_VKoV6XVMReOu2b6wpTTUwYFyQKkKnPk&libraries=places&language=no', array( 'jquery' ), false );
     }
 	$plugin_url = plugin_dir_url( __FILE__ );
 
