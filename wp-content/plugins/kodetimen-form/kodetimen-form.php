@@ -113,13 +113,8 @@ function html_form_code() {
 			<legend class="kodetimen-form__legend">Skolens / barnehagens adresse</legend>
 
 			<div class="kodetimen-form__field">
-				<label for="route">Gate</label>
-				<input type="text" class="kodetimen-form__input" id="route" name="kodetimen_street" value=""></input>
-			</div>
-
-			<div class="kodetimen-form__field">
-				<label for="street_number">Gatenummer</label>
-				<input type="number" class="kodetimen-form__input" id="street_number" name="kodetimen_street_number" value=""></input>
+				<label for="street_address">Gateadresse</label>
+				<input type="text" class="kodetimen-form__input" id="street_address" name="kodetimen_street" value=""></input>
 			</div>
 
 			<div class="kodetimen-form__field">

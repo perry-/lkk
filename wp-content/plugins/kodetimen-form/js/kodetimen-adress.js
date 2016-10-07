@@ -30,10 +30,21 @@ jQuery(document).ready(function($) {
 			document.getElementById('school').value = place.name;
 		}
 
+		var route = "";
+		var streetNumber = "";
       // Get each component of the address from the place details
       // and fill the corresponding field on the form.
       for (var i = 0; i < place.address_components.length; i++) {
         var addressType = place.address_components[i].types[0];
+
+		if(addressType === "route") {
+			route = place.address_components[i].long_name;
+		}
+
+		if(addressType === "street_number") {
+			streetNumber = place.address_components[i].long_name;
+		}
+
         if (componentForm[addressType]) {
 			var val = place.address_components[i][componentForm[addressType]];
 
@@ -44,6 +55,8 @@ jQuery(document).ready(function($) {
 			}
         }
       }
+
+	  document.getElementById("street_address").value = route + ' ' + streetNumber;
     }
 
 	$.each( gacFields, function( key, field ) {
