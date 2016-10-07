@@ -88,7 +88,7 @@ function contact_person() {
 //Valider skolenavn basert på liste over tidligere påmeldte skoler
 function html_form_code() {
 	?>
-	<form class="kodetimen-form" action="<?php echo esc_url( $_SERVER['REQUEST_URI'] ); ?>" method="post">
+	<form class="kodetimen-form" method="post">
 
 		<?php echo contact_person(); ?>
 
@@ -109,7 +109,7 @@ function html_form_code() {
 
 			<div class="kodetimen-form__field">
 				<label for="street_address">Gateadresse</label>
-				<input type="text" class="kodetimen-form__input" id="street_address" name="kodetimen_street" value=""></input>
+				<input type="text" class="kodetimen-form__input" id="street_address" name="kodetimen_street_address" value="" placeholder=""></input>
 			</div>
 
 			<div class="kodetimen-form__field">
@@ -220,9 +220,7 @@ function save_kodetimen_post()
 
 	add_post_meta($post_id, '_kodetimen_position_lat_key', $_POST["kodetimen_lat"]);
 	add_post_meta($post_id, '_kodetimen_position_long_key', $_POST["kodetimen_long"]);
-	add_post_meta($post_id, '_kodetimen_location_key', $_POST["kodetimen_location"]);
-	add_post_meta($post_id, '_kodetimen_street_key', $_POST["kodetimen_street"]);
-	add_post_meta($post_id, '_kodetimen_street_number_key', $_POST["kodetimen_street_number"]);
+	add_post_meta($post_id, '_kodetimen_street_address_key', $_POST["kodetimen_street_address"]);
 	add_post_meta($post_id, '_kodetimen_county_key', $_POST["kodetimen_county"]);
 	add_post_meta($post_id, '_kodetimen_locality_key', $_POST["kodetimen_locality"]);
 	add_post_meta($post_id, '_kodetimen_year_key', '2016');
@@ -256,7 +254,14 @@ function submit_form() {
 
 		if( !isset($_POST["kodetimen_locality"]) || empty($_POST["kodetimen_locality"])  ){
 			echo '<p class="kodetimen-form__errormessage">';
-			echo 'By er påkrevd';
+			echo 'Sted er påkrevd';
+			echo '</p>';
+			return;
+		}
+
+		if( !isset($_POST["kodetimen_street_address"]) || empty($_POST["kodetimen_street_address"])  ){
+			echo '<p class="kodetimen-form__errormessage">';
+			echo 'Adresse er påkrevd';
 			echo '</p>';
 			return;
 		}
@@ -271,13 +276,11 @@ function submit_form() {
 		// sanitize form values
 		$name    = sanitize_text_field( $_POST["kodetimen_name"] );
 		$email    = sanitize_text_field( $_POST["kodetimen_email"] );
-		$street    = sanitize_text_field( $_POST["kodetimen_street"] );
-		$street_number    = sanitize_text_field( $_POST["kodetimen_street_number"] );
+		$street_address    = sanitize_text_field( $_POST["kodetimen_street_address"] );
 		$school    = sanitize_text_field( $_POST["kodetimen_school"] );
 		$county    = sanitize_text_field( $_POST["kodetimen_county"] );
 		$lat = sanitize_text_field( $_POST['kodetimen_lat'] );
 		$long = sanitize_text_field( $_POST['kodetimen_long'] );
-		$location = sanitize_text_field( $_POST['autocomplete'] );
 		$postal_code    = sanitize_text_field( $_POST["kodetimen_postal_code"] );
 		$locality   = sanitize_text_field( $_POST["kodetimen_locality"] );
 		$year   = '2016';
@@ -293,15 +296,20 @@ function submit_form() {
 					.'<h2>Takk for din påmelding!</h2>'
 					.'<p>Skole: ' . $school . '</p>'
 					.'<p>Kontaktperson: ' . $name . '</p>'
-					.'<p>Adresse: ' . $street . ' ' . $street_number . ', ' . $locality . ', ' . $county . '</p>'
+					.'<p>Adresse: ' . $street_address . ', ' . $locality . ', ' . $county . '</p>'
 					.'<p>Postnummer: ' . $postal_code . '</p>'
 					.'</div>';
 
+		natsort($school_levels);
+		foreach ($school_levels as $key => $kodetimen_school_level) {
+			$kodetimen_school_levels = $kodetimen_school_levels . ', ' . $kodetimen_school_level;
+		}
+
 		$emailmessage = '<h2>Takk for din påmelding til Kodetimen 2016!</h2>'
 						.'<p>Skole: ' . $school . ' ('. $number_of_students .' elever)</p>'
-						.'<p>Klassetrinn: ' . $school_levels . '</p>'
+						.'<p>Klassetrinn: ' . $kodetimen_school_levels . '</p>'
 						.'<p>Kontaktperson: ' . $name . '</p>'
-						.'<p>Adresse: ' . $street . ' ' . $street_number . ', ' . $locality . ', ' . $county . '</p>'
+						.'<p>Adresse: ' . $street_address . ', ' . $locality . ', ' . $county . '</p>'
 						.'<p>Postnummer: ' . $postal_code . '</p>';
 
 		save_kodetimen_post();

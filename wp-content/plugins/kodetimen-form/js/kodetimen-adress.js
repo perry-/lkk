@@ -1,4 +1,12 @@
 jQuery(document).ready(function($) {
+	$('.kodetimen-form').on('keyup keypress', function(e) {
+	  var keyCode = e.keyCode || e.which;
+	  if (keyCode === 13) {
+	    e.preventDefault();
+	    return false;
+	  }
+	});
+
 	var map = new google.maps.Map(document.getElementById('kodetimen_map'), {
 	  zoom: 12
 	});
