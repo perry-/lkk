@@ -73,7 +73,7 @@ function contact_person() {
 
 			 <div class="kodetimen-form__field">
 				 <label for="name">Navn (påkrevd)</label>
-				 <input type="text" required class="kodetimen-form__input" type="text" id="name" name="kodetimen_name" pattern="[a-zA-Z0-9 ]+" value=""/>
+				 <input type="text" required class="kodetimen-form__input" type="text" id="name" name="kodetimen_name" value=""/>
 			 </div>
 
 			 <div class="kodetimen-form__field">
