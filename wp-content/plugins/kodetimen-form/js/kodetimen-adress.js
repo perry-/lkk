@@ -1,9 +1,16 @@
 jQuery(document).ready(function($) {
+	var map = new google.maps.Map(document.getElementById('kodetimen_map'), {
+	  zoom: 12
+	});
+
+	var defaultBounds = new google.maps.LatLngBounds(
+		new google.maps.LatLng(70.0000, 4.1759),
+		new google.maps.LatLng(58.532423, 28.2631));
+	map.fitBounds(defaultBounds);
+
 	//Array of input fields ID.
-	var gacFields = ["autocomplete"];
+	var gacFields = ["school"];
     var componentForm = {
-      street_number: 'short_name',
-      route: 'long_name',
       locality: 'long_name',
       administrative_area_level_1: 'short_name',
 	  administrative_area_level_2: 'long_name',
@@ -16,15 +23,13 @@ jQuery(document).ready(function($) {
 
 		var location = {lat: place.geometry.location.lat(), lng: place.geometry.location.lng()};
 
-	    var map = new google.maps.Map(document.getElementById('kodetimen_map'), {
-	      zoom: 12,
-	      center: location
-	    });
-
 	    var marker = new google.maps.Marker({
 	      position: location,
 	      map: map
 	    });
+
+		map.setCenter(location);
+		map.setZoom(16);
 
 		if ($.inArray('school', place.types) !== -1) {
 			document.getElementById('school').value = place.name;

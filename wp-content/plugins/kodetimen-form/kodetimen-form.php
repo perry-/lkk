@@ -96,13 +96,8 @@ function html_form_code() {
 			<legend class="kodetimen-form__legend">Skole / barnehage</legend>
 
 			<div class="kodetimen-form__field">
-				<label for="autocomplete">Søk på skole/barnehage eller adresse</label>
-				<input type="text" class="kodetimen-form__input" id="autocomplete" placeholder=""></input>
-			</div>
-
-			<div class="kodetimen-form__field">
 				<label for="school">Skolens / barnehagens navn (påkrevd)</label>
-				<input type="text" required class="kodetimen-form__input" id="school" name="kodetimen_school" value=""></input>
+				<input type="text" required class="kodetimen-form__input" id="school" name="kodetimen_school" value="" placeholder=""></input>
 			</div>
 
 		 	<div class="kodetimen-form__map" id="kodetimen_map"></div>
