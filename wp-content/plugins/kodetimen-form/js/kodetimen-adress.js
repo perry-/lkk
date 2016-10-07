@@ -23,13 +23,15 @@ jQuery(document).ready(function($) {
 
 		var location = {lat: place.geometry.location.lat(), lng: place.geometry.location.lng()};
 
+		map = new google.maps.Map(document.getElementById('kodetimen_map'), {
+		  zoom: 16,
+		  center: location
+		});
+
 	    var marker = new google.maps.Marker({
 	      position: location,
 	      map: map
 	    });
-
-		map.setCenter(location);
-		map.setZoom(16);
 
 		if ($.inArray('school', place.types) !== -1) {
 			document.getElementById('school').value = place.name;
