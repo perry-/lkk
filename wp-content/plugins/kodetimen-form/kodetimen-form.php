@@ -93,6 +93,11 @@ function html_form_code() {
 		<?php echo contact_person(); ?>
 
 		<fieldset class="kodetimen-form__fieldset">
+			<p class="kodetimen-form__helptext">
+				Det er mulig å søke opp skoler i kartet ved å bruke navnefeltet.
+				Om du ikke finner skolen, kan du søke på adresse
+				lengre nede i skjemaet (gateadresse).
+			</p>
 			<legend class="kodetimen-form__legend">Skole / barnehage</legend>
 
 			<div class="kodetimen-form__field">

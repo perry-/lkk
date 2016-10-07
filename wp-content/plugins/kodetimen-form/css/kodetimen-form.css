@@ -154,6 +154,12 @@ select.kodetimen-form__input {
     color: red;
 }
 
+.kodetimen-form__helptext {
+    background-color: #9e96c8;
+    color: white;
+    padding: 12px;
+}
+
 .kodetimen-list {
     margin-top: 24px;
     margin-bottom: 24px;
