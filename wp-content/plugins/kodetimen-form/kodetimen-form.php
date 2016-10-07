@@ -337,9 +337,8 @@ function submit_form() {
 			echo '</p>';
 		}
 
-
-	    header("Location: ".esc_url( $_SERVER['REQUEST_URI'] ));
-	    exit();
+	    //header("Location:".esc_url( $_SERVER['REQUEST_URI']));
+	    //exit();
 	}
 }
 
