@@ -149,6 +149,21 @@ select.kodetimen-form__input {
     padding-left: 3px;
     vertical-align: top;
 }
+
 .kodetimen-form__errormessage {
     color: red;
+}
+
+.kodetimen-list {
+    margin-top: 24px;
+    margin-bottom: 24px;
+}
+
+.kodetimen-item__title {
+    font-weight: bold;
+    color: #9e96c8;
+}
+
+.kodetimen-item + .kodetimen-item {
+    margin-top: 12px;
 }
