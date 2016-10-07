@@ -338,7 +338,7 @@ function submit_form() {
 		}
 
 
-	    header("Location: ".esc_url( $_SERVER['REQUEST_URI'] ). '?status=success');
+	    header("Location: ".esc_url( $_SERVER['REQUEST_URI'] ));
 	    exit();
 	}
 }
