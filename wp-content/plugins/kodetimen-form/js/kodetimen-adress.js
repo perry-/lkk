@@ -9,7 +9,7 @@ jQuery(document).ready(function($) {
 	map.fitBounds(defaultBounds);
 
 	//Array of input fields ID.
-	var gacFields = ["school"];
+	var gacFields = ["school", "street_address"];
     var componentForm = {
       locality: 'long_name',
       administrative_area_level_1: 'short_name',
