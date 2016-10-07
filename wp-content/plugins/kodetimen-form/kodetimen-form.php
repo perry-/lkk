@@ -302,20 +302,31 @@ function submit_form() {
 
 		natsort($school_levels);
 		foreach ($school_levels as $key => $kodetimen_school_level) {
-			$kodetimen_school_levels = $kodetimen_school_levels . ', ' . $kodetimen_school_level;
+			if(empty($kodetimen_school_levels)) {
+				$kodetimen_school_levels = $kodetimen_school_level;
+			} else {
+				$kodetimen_school_levels = $kodetimen_school_levels . ', ' . $kodetimen_school_level;
+			}
 		}
 
-		$emailmessage = '<h2>Takk for din påmelding til Kodetimen 2016!</h2>'
-						.'<p>Skole: ' . $school . ' ('. $number_of_students .' elever)</p>'
-						.'<p>Klassetrinn: ' . $kodetimen_school_levels . '</p>'
-						.'<p>Kontaktperson: ' . $name . '</p>'
-						.'<p>Adresse: ' . $street_address . ', ' . $locality . ', ' . $county . '</p>'
-						.'<p>Postnummer: ' . $postal_code . '</p>';
+		$emailmessage = '<img src="http://1hzoda29f77r1yh9c33lm1ae.wpengine.netdna-cdn.com/wp-content/uploads/2013/10/kidsakoder-1-685x3001.jpg" alt="Kodetimen 2016"/>'
+						.'<h2>Takk for din påmelding til Kodetimen 2016!</h2>'
+						.'<p><span style="color: #9e96c8; font-weight: bold">Skole: </span>' . $school . ' ('. $number_of_students .' elever)</p>'
+						.'<p><span style="color: #9e96c8; font-weight: bold">Klassetrinn: </span>' . $kodetimen_school_levels . '</p>'
+						.'<p><span style="color: #9e96c8; font-weight: bold">Kontaktperson: </span>' . $name . '</p>'
+						.'<p><span style="color: #9e96c8; font-weight: bold">Adresse: </span>' . $street_address . ', ' . $locality . ', ' . $county . '</p>'
+						.'<p><span style="color: #9e96c8; font-weight: bold">Postnummer: </span>' . $postal_code . '</p>'
+						.'</br>'
+						.'<p>Om du har noen spørsmål, svar enten på denne mailen eller besøk <a style="color: #0FBE7C; text-decoration: none" href="http://kidsakoder.no/kodetimen/">nettsidene våre</a>.</p>';
 
 		save_kodetimen_post();
 
 		// Send email to admin
  		//wp_mail( get_option( 'admin_email' ), $subject, $message, $headers ) ;
+
+		add_filter('wp_mail_content_type', function( $content_type ) {
+            return 'text/html';
+		});
 
 		// Send email to user
 		if ( wp_mail( $email, $subject, $emailmessage, $headers ) ) {
