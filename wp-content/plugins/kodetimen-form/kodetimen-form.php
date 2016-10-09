@@ -274,6 +274,27 @@ function submit_form() {
 			return;
 		}
 
+		if( !isset($_POST["kodetimen_postal_code"]) || empty($_POST["kodetimen_postal_code"])  ){
+			echo '<p class="kodetimen-form__errormessage">';
+			echo 'Postnummer er påkrevd';
+			echo '</p>';
+			return;
+		}
+
+		if( !isset($_POST["kodetimen_number_of_students"]) || empty($_POST["kodetimen_number_of_students"])  ){
+			echo '<p class="kodetimen-form__errormessage">';
+			echo 'Antall studenter er påkrevd';
+			echo '</p>';
+			return;
+		}
+
+		if( !isset($_POST["kodetimen_level"]) || empty($_POST["kodetimen_level"])  ){
+			echo '<p class="kodetimen-form__errormessage">';
+			echo 'Klassetrinn er påkrevd';
+			echo '</p>';
+			return;
+		}
+
 		if( !isset($_POST["kodetimen_email"]) || empty($_POST["kodetimen_email"])  ){
 			echo '<p class="kodetimen-form__errormessage">';
 			echo 'Epost er påkrevd';
