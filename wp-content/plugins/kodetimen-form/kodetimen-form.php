@@ -50,39 +50,41 @@ function generate_school_levels($level) {
 function school_level() {
 	$levels = array_merge(array_map('generate_school_levels', range(1, 10)), ['VG1', 'VG2', 'VG3', 'Barnehage', 'Annet']);
 
-	echo '<div class="kodetimen-form__field">';
-    echo  '<label for="level">Klassetrinn</label>';
-	if(is_array($levels)){
-		echo '<div class="kodetimen-form__checkboxgroup">';
-		foreach ($levels as $level) {
-			echo  '<label class="kodetimen-form__checkbox" id="level">';
-				echo '<input class="kodetimen-form__checkbox-nativeinput kodetimen-form__input--vishidden" name="kodetimen_level[]" type="checkbox" id="kodetimen_level'. $level . '" value="' . $level . '"></input>';
-				echo '<span class="kodetimen-form__checkbox-input" aria-hidden="true"></span>';
-				echo '<span class="kodetimen-form__checkbox-label" for="kodetimen_level'. $level . '">'. $level .'</span>';
-			echo  '</label>';
-		}
-		echo  '</div>';
-	}
-	echo '</div>';
+	?>
+	<div class="kodetimen-form__field">
+    	<label for="level">Klassetrinn</label>
+	<?php if(is_array($levels)){ ?>
+	<div class="kodetimen-form__checkboxgroup">
+		<?php foreach ($levels as $level) { ?>
+			<label class="kodetimen-form__checkbox" id="level">
+				<input class="kodetimen-form__checkbox-nativeinput kodetimen-form__input--vishidden" name="kodetimen_level[]" type="checkbox" id="kodetimen_level<?php echo $level;?>" value="<?php echo $level;?>"></input>
+				<span class="kodetimen-form__checkbox-input" aria-hidden="true"></span>
+				<span class="kodetimen-form__checkbox-label" for="kodetimen_level<?php echo $level;?>"><?php echo $level;?></span>
+			</label>
+		<?php } ?>
+	</div>
+	<?php } ?>
+	</div>
+<?php
 }
 
 function contact_person() {
-	echo '
+	?>
 		<fieldset class="kodetimen-form__fieldset">
 		     <legend class="kodetimen-form__legend">Kontaktperson</legend>
 
 			 <div class="kodetimen-form__field">
-				 <label for="name">Navn (påkrevd)</label>
+				 <label for="name">Navn</label>
 				 <input type="text" required class="kodetimen-form__input" type="text" id="name" name="kodetimen_name" value=""/>
 			 </div>
 
 			 <div class="kodetimen-form__field">
-				 <label for="email">E-post (påkrevd)</label>
+				 <label for="email">E-post</label>
 				 <input type="text" required class="kodetimen-form__input" type="email" id="email" name="kodetimen_email" value=""/>
 			 </div>
 
 	     </fieldset>
-	 ';
+	 <?php
 }
 
 //Valider skolenavn basert på liste over tidligere påmeldte skoler
@@ -95,7 +97,7 @@ function html_form_code() {
 		<fieldset class="kodetimen-form__fieldset">
 			<legend class="kodetimen-form__legend">Elever</legend>
 			<div class="kodetimen-form__field">
-				<label for="number_of_students">Antall elever (påkrevd)</label>
+				<label for="number_of_students">Antall elever</label>
 				<input type="number" required class="kodetimen-form__input" id="number_of_students" name="kodetimen_number_of_students" value=""></input>
 			</div>
 
@@ -111,7 +113,7 @@ function html_form_code() {
 			<legend class="kodetimen-form__legend">Skole / barnehage</legend>
 
 			<div class="kodetimen-form__field">
-				<label for="school">Skolens / barnehagens navn (påkrevd)</label>
+				<label for="school">Skolens / barnehagens navn</label>
 				<input type="text" required class="kodetimen-form__input" id="school" name="kodetimen_school" value="" placeholder=""></input>
 			</div>
 
@@ -124,16 +126,16 @@ function html_form_code() {
 
 			<div class="kodetimen-form__field">
 				<label for="street_address">Gateadresse</label>
-				<input type="text" class="kodetimen-form__input" id="street_address" name="kodetimen_street_address" value="" placeholder=""></input>
+				<input type="text" required class="kodetimen-form__input" id="street_address" name="kodetimen_street_address" value="" placeholder=""></input>
 			</div>
 
 			<div class="kodetimen-form__field">
 				<label for="postal_code">Postnummer</label>
-				<input type="number" class="kodetimen-form__input" id="postal_code" name="kodetimen_postal_code" value=""></input>
+				<input type="number" required class="kodetimen-form__input" id="postal_code" name="kodetimen_postal_code" value=""></input>
 			</div>
 
 			<div class="kodetimen-form__field">
-				<label for="locality">Sted (påkrevd)</label>
+				<label for="locality">Sted</label>
 				<input type="text" required class="kodetimen-form__input" id="locality" name="kodetimen_locality" value=""></input>
 			</div>
 
