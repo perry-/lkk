@@ -3,7 +3,7 @@
 Plugin Name: Kodetimen-skjema
 Plugin URI: http://kidsakoder.no
 Description: Skjema til bruk for kodetimen
-Version: 1.0
+Version: 1.1
 Author: LKK
 */
 
