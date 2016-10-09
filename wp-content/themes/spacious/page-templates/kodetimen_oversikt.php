@@ -102,6 +102,7 @@ class KodetimenPos {
 							$postid = get_the_id();
 					        $kodetimen_school_levels =  get_post_meta($postid, '_kodetimen_school_level_key', true );
 							natsort($kodetimen_school_levels);
+							$school_levels = [];
 
 							foreach ($kodetimen_school_levels as $key => $kodetimen_school_level) {
 								if(empty($school_levels)) {
