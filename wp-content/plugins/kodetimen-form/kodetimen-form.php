@@ -48,7 +48,7 @@ function generate_school_levels($level) {
 }
 
 function school_level() {
-	$levels = array_merge(array_map('generate_school_levels', range(1, 10)), ['VG1', 'VG2', 'VG3', 'Barnehage']);
+	$levels = array_merge(array_map('generate_school_levels', range(1, 10)), ['VG1', 'VG2', 'VG3', 'Barnehage', 'Annet']);
 
 	echo '<div class="kodetimen-form__field">';
     echo  '<label for="level">Klassetrinn</label>';
