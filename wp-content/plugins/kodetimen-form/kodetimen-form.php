@@ -93,6 +93,16 @@ function html_form_code() {
 		<?php echo contact_person(); ?>
 
 		<fieldset class="kodetimen-form__fieldset">
+			<legend class="kodetimen-form__legend">Elever</legend>
+			<div class="kodetimen-form__field">
+				<label for="number_of_students">Antall elever (påkrevd)</label>
+				<input type="number" required class="kodetimen-form__input" id="number_of_students" name="kodetimen_number_of_students" value=""></input>
+			</div>
+
+			<?php echo school_level(); ?>
+		</fieldset>
+
+		<fieldset class="kodetimen-form__fieldset">
 			<p class="kodetimen-form__helptext">
 				Det er mulig å søke opp skoler i kartet ved å bruke navnefeltet.
 				Om du ikke finner skolen, kan du søke på adresse
@@ -129,15 +139,6 @@ function html_form_code() {
 
 			<?php echo counties(); ?>
 		</fieldset>
-
-		<div class="kodetimen-form__fieldset">
-			<div class="kodetimen-form__field">
-			    <label for="number_of_students">Antall elever (påkrevd)</label>
-			    <input type="number" required class="kodetimen-form__input" id="number_of_students" name="kodetimen_number_of_students" value=""></input>
-			</div>
-
-			<?php echo school_level(); ?>
-	    </div>
 
 		<div class="kodetimen-form__field kodetimen-form__field--hidden">
 			<input class="kodetimen-form__input" id="kodetimen_lat" name="kodetimen_lat" value=""></input>
