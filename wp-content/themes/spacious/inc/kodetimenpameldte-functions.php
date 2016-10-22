@@ -3,13 +3,13 @@
 /**
 * Everything that has to do with kodetimen post
 */
-add_action( 'init', 'create_kodetimen' );
+add_action( 'init', 'create_kodetimenpameldte' );
 
-function create_kodetimen() {
+function create_kodetimenpameldte() {
 
 	$labels = array(
 		'name'               => _x( 'Påmeldte kodetimen', 'post type general name' ),
-		'singular_name'      => _x( 'Navn', 'post type singular name' ),
+		'singular_name'      => _x( 'Påmeldt kodetimen', 'post type singular name' ),
 		'add_new'            => _x( 'Meld på ny skole', 'book' ),
 		'add_new_item'       => __( 'Meld på ny skole' ),
 		'edit_item'          => __( 'Endre påmeldt' ),
@@ -29,17 +29,19 @@ function create_kodetimen() {
 			'public'        => true,
 			'menu_position' => 5,
 			'supports'      => array( 'title'),
-			'has_archive'   => false
+			'has_archive'   => false,
+			'show_ui' => true,
+			'show_in_menu' => true
 	);
-	register_post_type( 'kodetimen', $args );
+	register_post_type( 'kodetimenpameldte', $args );
 }
 
-add_filter('manage_kodetimen_posts_columns', 'kodetimen_table_head');
+add_filter('manage_kodetimenpameldte_posts_columns', 'kodetimenpameldte_table_head');
 
 //add_filter('manage_event_posts_columns', 'kodetimen_table_head');
-function kodetimen_table_head( $columns  ) {
+function kodetimenpameldte_table_head( $columns  ) {
 	$query = new WP_Query( array(
-		'post_type' => 'kodetimen' ,
+		'post_type' => 'kodetimenpameldte' ,
 		'orderby' => 'title',
 		'order' => 'ASC',
 		'posts_per_page' => -1
@@ -58,9 +60,9 @@ function kodetimen_table_head( $columns  ) {
 
 	return $columns;
 }
-add_action( 'manage_kodetimen_posts_custom_column', 'kodetimen_table_content', 10, 2 );
+add_action( 'manage_kodetimenpameldte_posts_custom_column', 'kodetimenpameldte_table_content', 10, 2 );
 
-function kodetimen_table_content( $column_name, $post_id ) {
+function kodetimenpameldte_table_content( $column_name, $post_id ) {
 	if( $column_name == 'kodetimen_contact_person' ) {
 		$contact_people = get_post_meta( $post_id, '_kodetimen_contact_people_key', true );
 
@@ -103,9 +105,9 @@ function kodetimen_table_content( $column_name, $post_id ) {
     */
 }
 
-add_filter( 'manage_edit-kodetimen_sortable_columns', 'kodetimen_sortable_columns' );
+add_filter( 'manage_edit-kodetimenpameldte_sortable_columns', 'kodetimenpameldte_sortable_columns' );
 
-function kodetimen_sortable_columns( $columns ) {
+function kodetimenpameldte_sortable_columns( $columns ) {
 
 	$columns['kodetimen_position_column'] = 'kodetimen_position_column';
 

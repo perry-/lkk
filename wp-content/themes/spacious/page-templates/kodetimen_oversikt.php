@@ -56,7 +56,7 @@ class KodetimenPos {
 				<?php
 
 				$query = new WP_Query( array(
-					'post_type' => 'kodetimen' ,
+					'post_type' => 'kodetimenpameldte' ,
 					'orderby' => 'title',
 					'order' => 'ASC',
 					'posts_per_page' => -1

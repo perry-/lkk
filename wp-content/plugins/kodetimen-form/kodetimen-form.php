@@ -182,7 +182,7 @@ add_action( 'wp_enqueue_scripts', 'wp_kodetimen_enqueue_scripts' );
 
 function save_kodetimen_post()
 {
-	$existing_attendee = get_page_by_title($_POST["kodetimen_school"], 'OBJECT', 'kodetimen');
+	$existing_attendee = get_page_by_title($_POST["kodetimen_school"], 'OBJECT', 'kodetimenpameldte');
 	// If school is already attending, append contact, number of students, and school levels
 	if($existing_attendee !== null){
 		$number_of_students = $existing_attendee->_kodetimen_number_of_students_key;
@@ -208,7 +208,7 @@ function save_kodetimen_post()
 	  'post_title'    => $_POST["kodetimen_school"],
 	  'post_content' => '',
 	  'post_status'   => 'publish',
-	  'post_type' => 'kodetimen'
+	  'post_type' => 'kodetimenpameldte'
 	);
 
 	// Insert the post into the database

@@ -43,7 +43,7 @@ add_action( 'admin_enqueue_scripts', 'add_admin_styles' );
 
 
 require_once( SPACIOUS_INCLUDES_DIR . '/kodeklubb-functions.php');
-require_once( SPACIOUS_INCLUDES_DIR . '/kodetimen-functions.php');
+require_once( SPACIOUS_INCLUDES_DIR . '/kodetimenpameldte-functions.php');
 require_once( SPACIOUS_INCLUDES_DIR . '/kodeklubb-updates-functions.php');
 
 ?>
