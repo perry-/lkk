@@ -48,7 +48,7 @@
 .kodetimen-form .kodetimen-form__checkbox {
     display: inline-block;
     margin-top: 6px;
-    margin-right: 12px;
+    margin-right: 18px;
 }
 
 .kodetimen-form .kodetimen-form__checkbox-input {
@@ -100,6 +100,11 @@
     border-width: 0 2px 2px 0;
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
+}
+
+.kodetimen-form .kodetimen-form__checkbox-nativeinput:checked ~ .kodetimen-form__checkbox-label {
+    font-weight: bold;
+    color: black;
 }
 
 select.kodetimen-form__input {
