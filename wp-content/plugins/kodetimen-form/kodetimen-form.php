@@ -90,6 +90,7 @@ function contact_person() {
 //Valider skolenavn basert på liste over tidligere påmeldte skoler
 function html_form_code() {
 	?>
+	<link rel="stylesheet" href="<?php bloginfo('stylesheet_url'); echo '?ver=' . filemtime( get_stylesheet_directory() . '/style.css'); ?>" type="text/css" media="screen, projection" />
 	<form class="kodetimen-form" method="post">
 
 		<?php echo contact_person(); ?>
@@ -171,8 +172,8 @@ function wp_kodetimen_enqueue_scripts()
         wp_enqueue_script( 'google-maps' );
     }
 
-    wp_register_style( 'kodetimen-style', plugins_url( '/css/kodetimen-form.css', __FILE__ ));
-	wp_enqueue_style( 'kodetimen-style', $ver = '1.0.0' );
+    wp_register_style( 'kodetimen-style', plugins_url( '/css/kodetimen-form-v1.css', __FILE__ ));
+	wp_enqueue_style( 'kodetimen-style');
 
     wp_register_script( 'kodetimen-adress', plugins_url( '/js/kodetimen-adress.js', __FILE__ ));
     wp_enqueue_script( 'kodetimen-adress' );
