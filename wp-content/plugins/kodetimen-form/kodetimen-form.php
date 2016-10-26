@@ -172,7 +172,7 @@ function wp_kodetimen_enqueue_scripts()
     }
 
     wp_register_style( 'kodetimen-style', plugins_url( '/css/kodetimen-form.css', __FILE__ ));
-	wp_enqueue_style( 'kodetimen-style' );
+	wp_enqueue_style( 'kodetimen-style', $ver = '1.0.0' );
 
     wp_register_script( 'kodetimen-adress', plugins_url( '/js/kodetimen-adress.js', __FILE__ ));
     wp_enqueue_script( 'kodetimen-adress' );
