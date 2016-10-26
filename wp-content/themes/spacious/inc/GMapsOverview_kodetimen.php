@@ -58,6 +58,16 @@ function initialize() {
 
   var kodetimenList = <?php echo(json_encode($kodetimen_attendees)); ?>;
 
+
+  <?php if(current_user_can('administrator')){ ?>
+      var data = "text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(kodetimenList));
+
+      var exportPositionsLink = document.getElementById("kodetimen-export-positions");
+      exportPositionsLink.href = 'data:' + data;
+      exportPositionsLink.download = 'kodetimen_posisjoner.json';
+  <?php } ?>
+
+
   var map = new google.maps.Map(document.getElementById('map-canvas'), {
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     minZoom: 4
@@ -123,3 +133,7 @@ google.maps.event.addDomListener(window, 'load', initialize);
 
     </script>
     <div id="map-canvas"></div>
+
+    <?php if(current_user_can('administrator')){ ?>
+        <a id="kodetimen-export-positions">Last ned posisjoner</a>
+    <?php } ?>
