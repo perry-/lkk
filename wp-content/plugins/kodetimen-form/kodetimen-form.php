@@ -323,11 +323,10 @@ function submit_form() {
 		$year   = '2016';
 		$number_of_students   = sanitize_text_field( $_POST["kodetimen_number_of_students"] );
 		$school_levels   = $_POST["kodetimen_level"];
-        $subject = "Kodetimen";
-        $locale = "no";
+    $locale = "no";
 
-		$headers = array('Content-Type: text/html; charset=UTF-8', "From: Kodetimen <kodetimen@kidsakoder.no>" . "\r\n");
-		$subject = 'Kodetimen 2016';
+		$headers = array('Content-Type: text/html; charset=UTF-8', "Reply-To: Kodetimen <kodetimen@kidsakoder.no>" . "\r\n", "From: Kodetimen <kodetimen@kidsakoder.no>" . "\r\n");
+		$subject = 'Kodetimen 2016 - ' . $school;
 
 		$message = 	 '<div class="kodetimen-form__success">'
 					.'<h2>Takk for din påmelding!</h2>'
