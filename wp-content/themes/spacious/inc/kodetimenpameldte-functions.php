@@ -47,11 +47,33 @@ function kodetimenpameldte_table_head( $columns  ) {
 		'posts_per_page' => -1
 		) );
 
+	$kodetimenpameldte_contacts = "";
+	$mailto = "";
+
+	while ( $query->have_posts() ) : $query->the_post();
+		$kodetimenpameldte_contacts = get_post_meta( $query->post->ID, '_kodetimen_contact_people_key', true );
+
+		foreach ($kodetimenpameldte_contacts as $kodetimenpameldte_contact) {
+
+			if( !empty($kodetimenpameldte_contact['email'])){
+				$mailto .= $kodetimenpameldte_contact['email'];
+			}
+
+			if (!empty($kodetimenpameldte_contact['email']) &&
+				$kodetimenpameldte_contact !== end($kodetimenpameldte_contact) &&
+				count($kodetimenpameldte_contact) > 1){
+				$mailto .= ',';
+			}
+		}
+
+			$mailto .= ',';
+	endwhile;
+
 
 	$columns = array(
 			'cb' => '<input type="checkbox" />',
 			'title' => __( 'Skole' ),
-            'kodetimen_contact_person' => __('Kontaktperson(er)'),
+            'kodetimen_contact_person' => __( 'Kontaktperson(er) <a target="_blank" href="mailto:' . $mailto . '">Send mail til alle</a>'),
             'kodetimen_year' => __('Deltagerår'),
             'kodetimen_number_of_students' => __('Antall elever'),
             'kodetimen_school_level' => __('Klassetrinn'),
