@@ -99,7 +99,7 @@ function html_form_code() {
 			<legend class="kodetimen-form__legend">Elever</legend>
 			<div class="kodetimen-form__field">
 				<label for="number_of_students">Antall elever</label>
-				<input type="number" required class="kodetimen-form__input" id="number_of_students" name="kodetimen_number_of_students" value=""></input>
+				<input type="number" class="kodetimen-form__input" id="number_of_students" name="kodetimen_number_of_students" value=""></input>
 			</div>
 
 			<?php echo school_level(); ?>
@@ -281,6 +281,13 @@ function submit_form() {
 			echo '</p>';
 			return;
 		}
+
+    if( intval($_POST["kodetimen_number_of_students"]) < 0 ) {
+			echo '<p class="kodetimen-form__errormessage">';
+			echo 'Vi godtar kun positive elever og lærere til Kodetimen (sjekk feltet "antall elever")';
+			echo '</p>';
+      return;
+    }
 
 		if( !isset($_POST["kodetimen_number_of_students"]) || empty($_POST["kodetimen_number_of_students"])  ){
 			echo '<p class="kodetimen-form__errormessage">';
