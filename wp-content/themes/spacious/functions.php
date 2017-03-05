@@ -101,7 +101,6 @@ define( 'SPACIOUS_ADMIN_IMAGES_URL', SPACIOUS_ADMIN_URL . '/images' );
 define( 'SPACIOUS_ADMIN_CSS_URL', SPACIOUS_ADMIN_URL . '/css' );
 
 /** Load functions */
-require_once( SPACIOUS_INCLUDES_DIR . '/lkk-functions.php');
 require_once( SPACIOUS_INCLUDES_DIR . '/custom-header.php' );
 require_once( SPACIOUS_INCLUDES_DIR . '/functions.php' );
 require_once( SPACIOUS_INCLUDES_DIR . '/header-functions.php' );
@@ -118,11 +117,5 @@ if ( !function_exists( 'optionsframework_init' ) ) {
 	define( 'OPTIONS_FRAMEWORK_DIRECTORY', get_template_directory_uri() . '/inc/admin/options/' );
 	require_once( SPACIOUS_ADMIN_DIR . '/options/options-framework.php' );
 	require_once( SPACIOUS_PARENT_DIR . '/options.php' );
-}
-
-function get_the_content_with_formatting ($content) {
-	$content = apply_filters('the_content', $content);
-	$content = str_replace(']]>', ']]&gt;', $content);
-	return $content;
 }
 ?>

@@ -80,7 +80,7 @@ function kodeklubb_position_box_content( $post ) {
 	echo '<label> lat: </label> <input type="text" id="field_lat" name="field_lat" value="' . esc_attr( $value_lat ) . '" size="10" />';
 	echo '<label> long: </label> <input type="text" id="field_long" name="field_long" value="' . esc_attr( $value_long ) . '" size="10" />';
 
-	require_once( SPACIOUS_INCLUDES_DIR . '/GMaps.php');
+	require_once( SPACIOUS_CHILD_INCLUDES_DIR . '/GMaps.php');
 
 }
 
