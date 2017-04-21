@@ -74,7 +74,7 @@ class KlubbPos {
 					$kodePlaces[] = $obj;
 				endwhile;
 
-				require_once( SPACIOUS_INCLUDES_DIR . '/GMapsOverview_kodeklubb.php');
+				require_once( SPACIOUS_CHILD_INCLUDES_DIR . '/GMapsOverview_kodeklubb.php');
 
 				echo "<ul class=\"kodeklubb-list clearfix\">";
 				while ( $query->have_posts() ) : $query->the_post();

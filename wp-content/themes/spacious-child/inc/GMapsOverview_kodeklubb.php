@@ -47,7 +47,7 @@
 
     </style>
 
-    <script src=<?php echo SPACIOUS_JS_URL . '/markerclusterer.js'; ?>></script>
+    <script src=<?php echo SPACIOUS_CHILD_JS_URL . '/markerclusterer.js'; ?>></script>
 
      <script>
 // This example adds a search box to a map, using the Google Place Autocomplete
@@ -114,7 +114,7 @@ function initialize() {
     marker.addListener('click', showInfo);
   }
 
-  var markerCluster = new MarkerClusterer(map, markers, {'imagePath': '../../wp-content/themes/spacious/images/m'});
+  var markerCluster = new MarkerClusterer(map, markers, {'imagePath': '../../wp-content/themes/spacious-child/images/m'});
   markerCluster.setGridSize(35);
 }
 

@@ -89,7 +89,7 @@ class KodetimenPos {
 					<?php
 				}
 
-				require_once( SPACIOUS_INCLUDES_DIR . '/GMapsOverview_kodetimen.php');
+				require_once( SPACIOUS_CHILD_INCLUDES_DIR . '/GMapsOverview_kodetimen.php');
 
 				echo "<ul class=\"kodetimen-list clearfix\">";
 				while ( $query->have_posts() ) : $query->the_post();

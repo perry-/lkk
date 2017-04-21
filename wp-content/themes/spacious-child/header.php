@@ -30,7 +30,7 @@
  */
 wp_head();
 ?>
-	<link rel="stylesheet" id="spacious_style-css" href="/wp-content/themes/spacious-child/style.css?ver=5.18" type="text/css" media="all">
+	<link rel="stylesheet" id="spacious_style-css" href="/wp-content/themes/spacious/style.css?ver=5.18" type="text/css" media="all">
 </head>
 
 <body <?php body_class(); ?>>
